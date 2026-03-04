@@ -56,7 +56,7 @@ const guarantees = [
   },
   {
     icon: RefreshCw,
-    title: "Good Tenant Guarantee",
+    title: "3-Month Tenant Guarantee",
     desc: "If a tenant we placed must be removed within 3 months, we waive the next leasing fee entirely.",
     highlight: false,
   },

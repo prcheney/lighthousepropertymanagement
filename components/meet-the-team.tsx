@@ -3,23 +3,38 @@
 import { useRef } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/image-urls";
-import { MapPin, ShieldCheck, Phone } from "lucide-react";
+import { MapPin, ShieldCheck, Phone, Home, FileCheck, UserCheck } from "lucide-react";
 
 const ownership = [
   {
-    icon: ShieldCheck,
-    title: "We own the tenants.",
-    desc: "Screening, placement, and management. If a tenant doesn't work out, we replace them at no charge.",
+    icon: UserCheck,
+    title: "We own the relationship.",
+    desc: "Every owner gets a dedicated representative with direct access -- not a call center, not a ticket system. You'll know us by name.",
   },
   {
     icon: Phone,
-    title: "We own the communication.",
-    desc: "You'll never get a call center. You get direct access to the people responsible for your property.",
+    title: "We own the response.",
+    desc: "24-hour response guarantee, 24/7 emergency line, and a team that actually picks up the phone. You'll never chase us down.",
   },
   {
-    icon: MapPin,
+    icon: ShieldCheck,
     title: "We own the results.",
-    desc: "If something goes wrong, we fix it. No excuses, no finger-pointing, no corporate layers to hide behind.",
+    desc: "9 written guarantees in your contract. If something goes wrong, we fix it. No excuses, no finger-pointing, no corporate layers.",
+  },
+];
+
+const differentiators = [
+  {
+    icon: Home,
+    label: "Local Owners",
+  },
+  {
+    icon: FileCheck,
+    label: "9 Written Guarantees",
+  },
+  {
+    icon: UserCheck,
+    label: "Dedicated Rep",
   },
 ];
 
@@ -28,7 +43,7 @@ export function MeetTheTeam() {
   const inView = useInView(ref);
 
   return (
-    <section ref={ref} className="overflow-hidden py-20 lg:py-28">
+    <section id="why-us" ref={ref} className="overflow-hidden py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
           className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 transition-all duration-700 ${
@@ -91,6 +106,22 @@ export function MeetTheTeam() {
                       </p>
                     </div>
                   </div>
+                );
+              })}
+            </div>
+
+            {/* Differentiator badges */}
+            <div className="mt-8 flex flex-wrap gap-3">
+              {differentiators.map((d) => {
+                const Icon = d.icon;
+                return (
+                  <span
+                    key={d.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/5 px-4 py-2 text-xs font-semibold text-navy"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
+                    {d.label}
+                  </span>
                 );
               })}
             </div>
