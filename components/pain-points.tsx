@@ -9,6 +9,7 @@ const painPoints = [
   "Hidden fees and surprise mark-ups on every maintenance call",
   "Managers who vanish when problems arise and blame everyone else",
   "No dedicated contact, just a call center in another state",
+  "A manager who doesn't know your name, your property, or your goals",
 ];
 
 export function PainPoints() {

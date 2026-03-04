@@ -8,7 +8,7 @@ import { images } from "@/lib/image-urls";
 const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Guarantees", href: "#guarantees" },
-  { label: "Why Us", href: "#why-us" },
+  { label: "Our Team", href: "#why-us" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];

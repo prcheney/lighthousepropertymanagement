@@ -28,7 +28,7 @@ const faqs = [
   {
     question: "What is your tenant screening process?",
     answer:
-      "We run comprehensive background checks including credit history, criminal records, employment verification, income verification (we require 3x the monthly rent), and landlord references. Our screening is thorough because we back it with our Good Tenant Guarantee. If a tenant we placed must be removed within 3 months, we waive the next leasing fee.",
+      "We run comprehensive background checks including credit history, criminal records, employment verification, income verification (we require 3x the monthly rent), and landlord references. Our screening is thorough because we back it with our 3-Month Tenant Guarantee. If a tenant we placed must be removed within 3 months, we waive the next leasing fee.",
   },
   {
     question: "Can I cancel if I'm not happy with the service?",
