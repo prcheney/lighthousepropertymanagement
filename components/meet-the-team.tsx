@@ -14,7 +14,7 @@ const ownership = [
   {
     icon: Phone,
     title: "We own the response.",
-    desc: "24-hour response guarantee, 24/7 emergency line, and a team that actually picks up the phone. You'll never chase us down.",
+    desc: "24-hour response guarantee during business hours, 24/7 emergency line, and a team that actually picks up the phone. You'll never chase us down.",
   },
   {
     icon: ShieldCheck,
