@@ -11,11 +11,6 @@ const services = [
     image: images.serviceResidential,
   },
   {
-    title: "Vacation Rental Management",
-    desc: "High-end short-term rental management that maximizes occupancy and guest experience.",
-    image: images.serviceVacation,
-  },
-  {
     title: "Investor Services",
     desc: "We help you locate, acquire, stand up, and make cash-flow-positive your first or next rental property.",
     image: images.serviceInvestor,
