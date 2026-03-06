@@ -9,12 +9,12 @@ const ownership = [
   {
     icon: UserCheck,
     title: "We own the relationship.",
-    desc: "Every owner gets a dedicated representative with direct access -- not a call center, not a ticket system. You'll know us by name.",
+    desc: "Every owner gets a dedicated representative with direct access. No call centers, no ticket systems. You'll know us by name.",
   },
   {
     icon: Phone,
     title: "We own the response.",
-    desc: "Every inquiry receives an acknowledgment within 24 hours, with personal follow-up the next business day. 24/7 emergency line for urgent issues. You'll never chase us down.",
+    desc: "You'll get a response the next business day, plus a 24/7 emergency line for urgent issues. You'll never chase us down.",
   },
   {
     icon: ShieldCheck,

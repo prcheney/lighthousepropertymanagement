@@ -41,7 +41,7 @@ export function Hero() {
             {/* Subheadline */}
             <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-white/75 md:text-xl lg:mx-0">
               Enter your address and receive a custom PDF with up-to-the-minute
-              rental pricing data for your Jacksonville property -- free, no
+              rental pricing data for your Jacksonville property. Free, no
               obligation, delivered in seconds.
             </p>
 
