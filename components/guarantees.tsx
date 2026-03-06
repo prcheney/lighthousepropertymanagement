@@ -7,15 +7,15 @@ import { Clock, DollarSign, Ban, Unlock, Scale, RefreshCw, PhoneCall, UserCheck,
 const guarantees = [
   {
     icon: Clock,
-    title: "24-Hour Response Guarantee",
-    desc: "Every inquiry answered within 24 hours. No exceptions, no excuses, no waiting days for a callback.",
+    title: "Next Business Day Response",
+    desc: "You'll get a response the next business day. No exceptions, no excuses, no waiting days for a callback.",
     highlight: true,
     badge: "Our Promise",
   },
   {
     icon: UserCheck,
     title: "Dedicated Representative",
-    desc: "Every owner gets a direct, dedicated point of contact -- not a call center, not a ticket system.",
+    desc: "Every owner gets a direct, dedicated point of contact. No call centers, no ticket systems.",
     highlight: false,
   },
   {
@@ -33,13 +33,13 @@ const guarantees = [
   {
     icon: ShieldCheck,
     title: "No Mark-Up Guarantee",
-    desc: "Maintenance, repairs, vendor work -- we never add a mark-up. You pay exactly what we pay. Period.",
+    desc: "Maintenance, repairs, vendor work: we never add a mark-up. You pay only what the vendor charges. Period.",
     highlight: false,
   },
   {
     icon: Scale,
     title: "Fair Price Guarantee",
-    desc: "Find a lower management fee in writing and we'll match it -- as long as they don't hide fees elsewhere.",
+    desc: "Find a lower management fee in writing and we'll match it, as long as they don't hide fees elsewhere.",
     highlight: false,
   },
   {
@@ -93,7 +93,7 @@ export function Guarantees() {
           </h2>
           <p className="mt-4 text-base leading-relaxed text-white/60">
             Every one of these guarantees is included in your management
-            contract -- no asterisks, no exceptions.
+            contract. No asterisks, no exceptions.
           </p>
         </div>
 
