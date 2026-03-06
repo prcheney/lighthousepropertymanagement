@@ -8,7 +8,7 @@ const guarantees = [
   {
     icon: Clock,
     title: "24-Hour Response Guarantee",
-    desc: "Every inquiry answered within 24 hours. No exceptions, no excuses, no waiting days for a callback.",
+    desc: "Every inquiry receives an automated acknowledgment within 24 hours, with personal follow-up the next business day.",
     highlight: true,
     badge: "Our Promise",
   },
@@ -33,7 +33,7 @@ const guarantees = [
   {
     icon: ShieldCheck,
     title: "No Mark-Up Guarantee",
-    desc: "Maintenance, repairs, vendor work -- we never add a mark-up. You pay exactly what we pay. Period.",
+    desc: "Maintenance, repairs, vendor work -- we never add a mark-up. You pay only what the vendor charges. Period.",
     highlight: false,
   },
   {

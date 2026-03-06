@@ -14,7 +14,7 @@ const ownership = [
   {
     icon: Phone,
     title: "We own the response.",
-    desc: "24-hour response guarantee during business hours, 24/7 emergency line, and a team that actually picks up the phone. You'll never chase us down.",
+    desc: "Every inquiry receives an acknowledgment within 24 hours, with personal follow-up the next business day. 24/7 emergency line for urgent issues. You'll never chase us down.",
   },
   {
     icon: ShieldCheck,

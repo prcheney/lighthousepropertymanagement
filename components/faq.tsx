@@ -38,7 +38,7 @@ const faqs = [
   {
     question: "What makes Lighthouse different from larger property management companies?",
     answer:
-      "Two words: extreme ownership. Every owner gets a dedicated representative instead of a call center or ticket system. We guarantee a 24-hour response time, operate a 24/7 emergency line, and never mark up vendor or maintenance costs. We're small enough to care about your property personally, but experienced enough to handle everything professionally.",
+      "Two words: extreme ownership. Every owner gets a dedicated representative instead of a call center or ticket system. Every inquiry receives an automated acknowledgment within 24 hours, with personal follow-up the next business day. We operate a 24/7 emergency line, and you pay only what the vendor charges -- no mark-ups ever. We're small enough to care about your property personally, but experienced enough to handle everything professionally.",
   },
 ];
 
