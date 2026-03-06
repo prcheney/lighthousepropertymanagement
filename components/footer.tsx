@@ -1,25 +1,12 @@
 import Image from "next/image";
-import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { images } from "@/lib/image-urls";
-
-const quickLinks = [
-  { label: "Free Rental Report", href: "#contact" },
-  { label: "Our Services", href: "#services" },
-  { label: "Our Guarantees", href: "#guarantees" },
-  { label: "FAQ", href: "#faq" },
-];
-
-const portalLinks = [
-  { label: "Owner Portal", href: "https://www.jaxpm.com/owners/resources/owner-portal/" },
-  { label: "Tenant Portal", href: "https://www.jaxpm.com/tenants/tenant-login/" },
-  { label: "Find a Rental", href: "https://www.jaxpm.com/search-for-rentals/" },
-];
 
 export function Footer() {
   return (
     <footer className="bg-navy">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-12 sm:grid-cols-2">
           {/* Col 1: Logo + Tagline */}
           <div>
             <Image
@@ -34,46 +21,7 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Col 2: Quick Links */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-gold">
-              Quick Links
-            </h4>
-            <nav className="mt-4 flex flex-col gap-3" aria-label="Footer navigation">
-              {quickLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm text-white/60 transition-colors hover:text-gold"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          {/* Col 3: Portals */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-gold">
-              Portals
-            </h4>
-            <nav className="mt-4 flex flex-col gap-3" aria-label="Portal links">
-              {portalLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-sm text-white/60 transition-colors hover:text-gold"
-                >
-                  {link.label}
-                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          {/* Col 4: Contact */}
+          {/* Col 2: Contact */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-widest text-gold">
               Contact
