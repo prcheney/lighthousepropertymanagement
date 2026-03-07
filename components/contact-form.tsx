@@ -2,8 +2,10 @@
 
 import { useState, useRef } from "react";
 import { useInView } from "@/hooks/use-in-view";
-import { Shield, Clock, CheckCircle } from "lucide-react";
+import { Shield, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { images } from "@/lib/image-urls";
+
+const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/GxxmZBnjTGnUy9yDC0QW/webhook-trigger/fCyfkCOIcCy9Qq7VNtcs";
 
 const propertyTypes = ["Single Family", "Duplex / Multi-Family", "Condo", "Townhome", "Other"];
 
@@ -19,6 +21,7 @@ export function ContactForm() {
     propertyType: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -26,9 +29,36 @@ export function ContactForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = () => {
-    // Controlled form state - no form submission
-    alert("Your free rental analysis PDF is on its way!");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    try {
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          address: form.address,
+          propertyType: form.propertyType,
+          message: form.message,
+          source: "contact_form",
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", phone: "", address: "", propertyType: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -57,85 +87,117 @@ export function ContactForm() {
               property -- delivered in seconds.
             </p>
 
-            <div className="mt-8 flex flex-col gap-5">
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={form.name}
-                onChange={handleChange}
-                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={form.email}
-                onChange={handleChange}
-                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                value={form.phone}
-                onChange={handleChange}
-                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              />
-              <input
-                type="text"
-                name="address"
-                placeholder="Property Address"
-                value={form.address}
-                onChange={handleChange}
-                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              />
-              <select
-                name="propertyType"
-                value={form.propertyType}
-                onChange={handleChange}
-                className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              >
-                <option value="" disabled className="text-navy">
-                  Property Type
-                </option>
-                {propertyTypes.map((t) => (
-                  <option key={t} value={t} className="text-navy">
-                    {t}
-                  </option>
-                ))}
-              </select>
-              <textarea
-                name="message"
-                placeholder="Anything else we should know?"
-                rows={3}
-                value={form.message}
-                onChange={handleChange}
-                className="resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-              />
-              <button
-                onClick={handleSubmit}
-                className="mt-2 w-full rounded-lg bg-gold py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-lg"
-              >
-                Send My Free Rental Report
-              </button>
-
-              {/* Trust line */}
-              <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-white/50">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                  No commitment required
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                  Instant PDF report
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Shield className="h-3.5 w-3.5" aria-hidden="true" />
-                  Licensed & Insured
-                </span>
+            {status === "success" ? (
+              <div className="mt-8 flex flex-col items-center text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                  <CheckCircle className="h-8 w-8 text-green-600" />
+                </div>
+                <p className="mt-4 font-serif text-xl font-bold text-white">
+                  Your report is on the way!
+                </p>
+                <p className="mt-2 text-sm text-white/60">
+                  Check your email for your free rental analysis PDF. We will be in touch soon.
+                </p>
               </div>
-            </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-5">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number"
+                  value={form.phone}
+                  onChange={handleChange}
+                  required
+                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                />
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="Property Address"
+                  value={form.address}
+                  onChange={handleChange}
+                  required
+                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                />
+                <select
+                  name="propertyType"
+                  value={form.propertyType}
+                  onChange={handleChange}
+                  required
+                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                >
+                  <option value="" disabled className="text-navy">
+                    Property Type
+                  </option>
+                  {propertyTypes.map((t) => (
+                    <option key={t} value={t} className="text-navy">
+                      {t}
+                    </option>
+                  ))}
+                </select>
+                <textarea
+                  name="message"
+                  placeholder="Anything else we should know?"
+                  rows={3}
+                  value={form.message}
+                  onChange={handleChange}
+                  className="resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                />
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="mt-2 w-full rounded-lg bg-gold py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {status === "loading" ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Sending...
+                    </span>
+                  ) : (
+                    "Send My Free Rental Report"
+                  )}
+                </button>
+                {status === "error" && (
+                  <p className="text-center text-xs text-red-400">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
+
+                {/* Trust line */}
+                <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-white/50">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                    No commitment required
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                    Instant PDF report
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Shield className="h-3.5 w-3.5" aria-hidden="true" />
+                    Licensed & Insured
+                  </span>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
