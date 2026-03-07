@@ -35,7 +35,7 @@ export function Hero() {
 
             {/* Headline */}
             <h1 className="mt-8 font-serif text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl text-balance">
-              Get Your Free Rental Analysis Report
+              How Much Can You Rent Your Property For?
             </h1>
 
             {/* Subheadline */}

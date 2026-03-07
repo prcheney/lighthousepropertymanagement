@@ -75,7 +75,7 @@ export function HeroForm() {
           Free PDF Rental Report
         </p>
         <p className="mt-2 text-center font-serif text-lg font-bold text-navy">
-          How Much Can You Rent Your Property For?
+          See what your property could rent for today.
         </p>
         <form
           className="mt-6 flex flex-col gap-3"
