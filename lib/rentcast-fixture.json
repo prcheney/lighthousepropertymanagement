@@ -1,0 +1,90 @@
+{
+  "properties": [
+    {
+      "formattedAddress": "201 County Line Road, Jacksonville, FL 32234",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "squareFootage": 1650,
+      "yearBuilt": 2004,
+      "propertyType": "Single Family",
+      "county": "Duval",
+      "zipCode": "32234",
+      "latitude": 30.2347,
+      "longitude": -81.8123
+    }
+  ],
+  "rent": {
+    "rent": 1850,
+    "rentRangeLow": 1650,
+    "rentRangeHigh": 2050
+  },
+  "comparables": [
+    {
+      "formattedAddress": "215 Pine Meadow Dr, Jacksonville, FL 32234",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "squareFootage": 1580,
+      "price": 1800,
+      "daysOnMarket": 12,
+      "latitude": 30.2361,
+      "longitude": -81.8098
+    },
+    {
+      "formattedAddress": "408 Timber Creek Ln, Jacksonville, FL 32234",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "squareFootage": 1720,
+      "price": 1900,
+      "daysOnMarket": 5,
+      "latitude": 30.2329,
+      "longitude": -81.8155
+    },
+    {
+      "formattedAddress": "102 Live Oak Ct, Jacksonville, FL 32234",
+      "bedrooms": 3,
+      "bathrooms": 2.5,
+      "squareFootage": 1810,
+      "price": 1950,
+      "daysOnMarket": 21,
+      "latitude": 30.2378,
+      "longitude": -81.8067
+    },
+    {
+      "formattedAddress": "330 Magnolia Ridge Blvd, Jacksonville, FL 32234",
+      "bedrooms": 4,
+      "bathrooms": 2,
+      "squareFootage": 1900,
+      "price": 2100,
+      "daysOnMarket": 8,
+      "latitude": 30.2302,
+      "longitude": -81.8189
+    },
+    {
+      "formattedAddress": "519 Cypress Hollow Way, Jacksonville, FL 32234",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "squareFootage": 1540,
+      "price": 1750,
+      "daysOnMarket": 30,
+      "latitude": 30.2395,
+      "longitude": -81.8041
+    }
+  ],
+  "market": {
+    "rentalData": {
+      "medianRent": 1825,
+      "averageDaysOnMarket": 18,
+      "totalListings": 47,
+      "medianRentPerSquareFoot": 1.12,
+      "dataByPropertyType": [
+        {
+          "propertyType": "Single Family",
+          "medianRent": 1850,
+          "averageDaysOnMarket": 16,
+          "totalListings": 31,
+          "medianRentPerSquareFoot": 1.15
+        }
+      ]
+    }
+  }
+}

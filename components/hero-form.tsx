@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { CheckCircle, Loader2 } from "lucide-react";
 
-const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/GxxmZBnjTGnUy9yDC0QW/webhook-trigger/fCyfkCOIcCy9Qq7VNtcs";
+const WEBHOOK_URL = "/api/submit-form";
 
 export function HeroForm() {
   const [form, setForm] = useState({

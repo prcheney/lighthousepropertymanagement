@@ -5,7 +5,7 @@ import { useInView } from "@/hooks/use-in-view";
 import { Shield, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { images } from "@/lib/image-urls";
 
-const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/GxxmZBnjTGnUy9yDC0QW/webhook-trigger/fCyfkCOIcCy9Qq7VNtcs";
+const WEBHOOK_URL = "/api/submit-form";
 
 const propertyTypes = ["Single Family", "Duplex / Multi-Family", "Condo", "Townhome", "Other"];
 
