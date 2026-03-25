@@ -77,23 +77,11 @@ async function generatePDF(html: string): Promise<Buffer> {
   }
 }
 
-function buildRentcastAddress(
-  address: string,
-  ac?: { streetNumber?: string; route?: string; city?: string; state?: string; zip?: string }
-): string {
-  if (ac?.streetNumber && ac?.route && ac?.city && ac?.state && ac?.zip) {
-    return `${ac.streetNumber} ${ac.route}, ${ac.city}, ${ac.state} ${ac.zip}`;
-  }
-  return address;
-}
-
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, email, phone, address, addressComponents, propertyType, message, source } = body;
+  const { name, email, phone, address, propertyType, message, source } = body;
 
-  const rentcastAddress = buildRentcastAddress(address, addressComponents);
-  const encoded = encodeURIComponent(rentcastAddress);
-  console.log("[Rentcast] query address:", rentcastAddress);
+  const encoded = encodeURIComponent(address);
 
   let propertyData: any = null;
   let rentRaw: any = null;

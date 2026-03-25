@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import { Shield, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { images } from "@/lib/image-urls";
-import { AddressAutocomplete, type AddressComponents } from "./address-autocomplete";
+import { AddressAutocomplete } from "./address-autocomplete";
 
 const WEBHOOK_URL = "/api/submit-form";
 
@@ -22,7 +22,6 @@ export function ContactForm() {
     propertyType: "",
     message: "",
   });
-  const [addressComponents, setAddressComponents] = useState<AddressComponents | undefined>();
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleChange = (
@@ -46,7 +45,6 @@ export function ContactForm() {
           email: form.email,
           phone: form.phone,
           address: form.address,
-          addressComponents,
           propertyType: form.propertyType,
           message: form.message,
           source: "contact_form",
@@ -133,10 +131,7 @@ export function ContactForm() {
                 />
                 <AddressAutocomplete
                   value={form.address}
-                  onChange={(address, components) => {
-                    setForm((prev) => ({ ...prev, address }));
-                    setAddressComponents(components);
-                  }}
+                  onChange={(address) => setForm((prev) => ({ ...prev, address }))}
                   placeholder="Property Address"
                   required
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
