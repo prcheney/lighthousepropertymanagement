@@ -157,8 +157,13 @@ export function buildReportHTML(d: ReportData): string {
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 14px 28px 10px;
     min-height: 0;
+  }
+  .body-content {
+    display: flex;
+    flex-direction: column;
   }
 
   .section-label {
@@ -187,7 +192,6 @@ export function buildReportHTML(d: ReportData): string {
   .columns {
     display: flex;
     gap: 14px;
-    flex: 1;
     min-height: 0;
   }
   .col-left { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -217,8 +221,8 @@ export function buildReportHTML(d: ReportData): string {
   .rent-note { font-size: 6px; color: rgba(255,255,255,0.22); margin-top: 6px; }
 
   /* ── Comparables table ───────────────────── */
-  .table-section { flex: 1; display: flex; flex-direction: column; min-height: 0; }
-  .table-wrap { border-radius: 5px; overflow: hidden; border: 1px solid #D9D6D0; flex: 1; }
+  .table-section { display: flex; flex-direction: column; min-height: 0; }
+  .table-wrap { border-radius: 5px; overflow: hidden; border: 1px solid #D9D6D0; }
   table { width: 100%; border-collapse: collapse; }
   thead tr { background: #0D1F2D; }
   thead th {
@@ -266,6 +270,39 @@ export function buildReportHTML(d: ReportData): string {
   }
   .ms-value { font-size: 13px; font-weight: 700; color: #0D1F2D; line-height: 1; }
   .ms-label { font-size: 6px; color: #5A6672; margin-top: 2px; }
+
+  /* ── CTA card ───────────────────────────── */
+  .cta-card {
+    background: #fff;
+    border: 1px solid #D9D6D0;
+    border-radius: 5px;
+    padding: 12px;
+  }
+  .cta-title {
+    font-size: 9px; font-weight: 700; color: #0D1F2D; margin-bottom: 6px;
+  }
+  .cta-step {
+    display: flex; gap: 8px; align-items: flex-start;
+    margin-bottom: 6px;
+  }
+  .cta-step:last-child { margin-bottom: 0; }
+  .cta-num {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #0D1F2D; color: #C9A84C;
+    font-size: 7px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cta-text { font-size: 7px; color: #5A6672; line-height: 1.5; }
+  .cta-text strong { color: #0D1F2D; }
+  .cta-phone {
+    display: block;
+    margin-top: 8px; padding: 6px 0;
+    text-align: center;
+    background: #C9A84C; color: #0D1F2D;
+    font-size: 8px; font-weight: 700;
+    border-radius: 4px; letter-spacing: 0.5px;
+  }
 
   /* ── Disclaimer ──────────────────────────── */
   .disclaimer {
@@ -320,6 +357,7 @@ export function buildReportHTML(d: ReportData): string {
 </div>
 
 <div class="body">
+<div class="body-content">
 
   <div class="section-label">Property Details</div>
   <div class="details-bar">
@@ -415,9 +453,30 @@ export function buildReportHTML(d: ReportData): string {
         </div>
       </div>` : ""}
 
+      <div>
+        <div class="section-label">Next Steps</div>
+        <div class="cta-card">
+          <div class="cta-title">Maximize Your Rental Income</div>
+          <div class="cta-step">
+            <div class="cta-num">1</div>
+            <div class="cta-text"><strong>Review your report</strong> — compare your property to active listings in your area.</div>
+          </div>
+          <div class="cta-step">
+            <div class="cta-num">2</div>
+            <div class="cta-text"><strong>Schedule a consultation</strong> — we'll walk through your property's potential and answer any questions.</div>
+          </div>
+          <div class="cta-step">
+            <div class="cta-num">3</div>
+            <div class="cta-text"><strong>Get listed</strong> — our team handles marketing, tenant screening, and ongoing management.</div>
+          </div>
+          <div class="cta-phone">(904) 374-1289</div>
+        </div>
+      </div>
+
     </div><!-- /col-right -->
 
   </div><!-- /columns -->
+</div><!-- /body-content -->
 
   <div class="disclaimer">
     This report was prepared by Lighthouse Property Management & Realty, LLC exclusively for ${d.name} and is based on publicly available rental market data as of ${d.generatedDate}. Rental estimates are derived from comparable active listings and/or automated valuation models and should not be construed as a guarantee of rental income. Actual rental rates may vary based on property condition, market timing, and negotiation. Map imagery © Google. Lighthouse Property Management & Realty, LLC is a licensed property management company in the State of Florida.
