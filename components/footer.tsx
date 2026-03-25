@@ -28,11 +28,11 @@ export function Footer() {
             </h4>
             <div className="mt-4 flex flex-col gap-3">
               <a
-                href="tel:9043741289"
+                href="tel:9048227661"
                 className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
-                (904) 374-1289
+                (904) 822-7661
               </a>
               <a
                 href="mailto:customerservice@jaxpm.com"

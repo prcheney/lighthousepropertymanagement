@@ -469,7 +469,7 @@ export function buildReportHTML(d: ReportData): string {
             <div class="cta-num">3</div>
             <div class="cta-text"><strong>Get listed</strong> — our team handles marketing, tenant screening, and ongoing management.</div>
           </div>
-          <div class="cta-phone">(904) 374-1289</div>
+          <div class="cta-phone">(904) 822-7661</div>
         </div>
       </div>
 
@@ -487,7 +487,7 @@ export function buildReportHTML(d: ReportData): string {
 <div class="footer">
   <div>
     <div class="footer-company">Lighthouse Property Management & Realty, LLC</div>
-    <div class="footer-contact">customerservice@jaxpm.com &nbsp;·&nbsp; (904) 374-1289 &nbsp;·&nbsp; 3018 Alvarado Ave., Jacksonville, FL 32217</div>
+    <div class="footer-contact">customerservice@jaxpm.com &nbsp;·&nbsp; (904) 822-7661 &nbsp;·&nbsp; 3018 Alvarado Ave., Jacksonville, FL 32217</div>
   </div>
   <div class="footer-right">Confidential &nbsp;·&nbsp; ${d.generatedDate}</div>
 </div>

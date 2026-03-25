@@ -49,10 +49,10 @@ export function Hero() {
             <p className="mt-8 text-sm font-medium text-white/60">
               Prefer to talk? Call{" "}
               <a
-                href="tel:9043741289"
+                href="tel:9048227661"
                 className="text-gold transition-colors hover:text-gold/80"
               >
-                (904) 374-1289
+                (904) 822-7661
               </a>
             </p>
           </div>

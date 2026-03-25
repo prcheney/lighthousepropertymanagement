@@ -49,10 +49,10 @@ export function Services() {
           </h2>
         </div>
 
-        {/* Grid */}
-        <div className={`mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          {services.map((s) => (
-            <div key={s.title} className="group">
+        {/* Grid: 1 col mobile, 2 col tablet, 6-col desktop for centering */}
+        <div className={`mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-6 transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          {services.map((s, i) => (
+            <div key={s.title} className={`group lg:col-span-2 ${i === 3 ? "lg:col-start-2" : ""}`}>
               <div className="overflow-hidden rounded-xl">
                 <img
                   src={s.image}
