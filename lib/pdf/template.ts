@@ -146,7 +146,7 @@ export function buildReportHTML(d: ReportData): string {
   }
   .street-view-overlay {
     position: absolute; bottom: 0; left: 0; right: 0;
-    background: linear-gradient(to top, rgba(13,31,45,0.80) 0%, rgba(13,31,45,0) 100%);
+    background: linear-gradient(to top, rgba(13,31,45,0.80) 0%, rgba(13,31,45,0.40) 50%, rgba(13,31,45,0) 100%);
     padding: 10px 28px 8px;
   }
   .sv-label { color: rgba(255,255,255,0.55); font-size: 6.5px; letter-spacing: 0.8px; text-transform: uppercase; }
