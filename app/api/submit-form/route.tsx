@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
-import { Resend } from "resend";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { buildReportHTML } from "@/lib/pdf/template";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const GHL_WEBHOOK =
-  "https://services.leadconnectorhq.com/hooks/GxxmZBnjTGnUy9yDC0QW/webhook-trigger/fCyfkCOIcCy9Qq7VNtcs";
+const GHL_API_KEY = process.env.GHL_API_KEY!;
+const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID!;
+const GHL_API = "https://services.leadconnectorhq.com";
 
 const RENTCAST_KEY = process.env.RENTCAST_API_KEY!;
 const MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY!;
@@ -247,6 +245,7 @@ export async function POST(req: NextRequest) {
   });
 
   let pdfUrl: string | null = null;
+  let streetAddress = address.split(",")[0];
 
   try {
     const html = buildReportHTML({
@@ -277,65 +276,85 @@ export async function POST(req: NextRequest) {
 
     pdfUrl = blob.url;
 
-    // ── 8. Send PDF via Resend ──────────────────────────────────────────
-    const streetAddress = address.split(",")[0];
-    await resend.emails.send({
-      from: "Lighthouse Property Management <reports@property-reports.conversionpartners.net>",
-      to: email,
-      subject: `Your rental analysis for ${streetAddress}`,
-      html: `
-        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
-          <p>Hi ${name},</p>
-          <p>Thank you for requesting your free rental analysis! I'm Stephanie Meyers with Lighthouse Property Management &amp; Realty, and your custom report is attached.</p>
-          <p>What's inside your report:</p>
-          <ul>
-            <li>Current market rent estimate for your property</li>
-            <li>Comparable rental listings in your area</li>
-            <li>Insights on rental demand in your neighborhood</li>
-          </ul>
-          ${rentData?.rent ? `<p style="font-size: 18px; font-weight: bold; color: #0D1F2D;">Estimated rent: $${fmt(rentData.rent)}/mo</p>` : ""}
-          <p>If you have any questions about the report or want to discuss how we can help maximize your rental income, I'd love to chat. You can reply to this email or call me directly at (904) 374-1289.</p>
-          <p>Talk soon,</p>
-          <p>
-            <strong>Stephanie Meyers</strong><br/>
-            Lighthouse Property Management &amp; Realty, LLC<br/>
-            (904) 374-1289
-          </p>
-        </div>
-      `,
-      attachments: [
-        {
-          filename: `Rental-Analysis-${streetAddress.replace(/\s+/g, "-")}.pdf`,
-          content: pdfBuffer.toString("base64"),
-          contentType: "application/pdf",
-        },
-      ],
-    }).catch((err) => console.error("Resend email failed:", err));
-
   } catch (err) {
     console.error("PDF generation failed:", err);
   }
 
-  // ── 9. Forward to GHL ─────────────────────────────────────────────────
-  await fetch(GHL_WEBHOOK, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name,
-      email,
-      phone,
-      address,
-      propertyType,
-      message,
-      source,
-      pdf_url: pdfUrl ?? "",
-      estimated_rent: rentData?.rent ? `$${fmt(rentData.rent)}/mo` : "",
-      rent_range:
-        rentData?.rentRangeLow && rentData?.rentRangeHigh
-          ? `$${fmt(rentData.rentRangeLow)} – $${fmt(rentData.rentRangeHigh)}`
-          : "",
-    }),
-  }).catch((err) => console.error("GHL webhook failed:", err));
+  // ── 8. Upsert contact in GHL ────────────────────────────────────────
+  let contactId: string | null = null;
+  try {
+    const upsertRes = await fetch(`${GHL_API}/contacts/upsert`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${GHL_API_KEY}`,
+        "Content-Type": "application/json",
+        Version: "2021-07-28",
+      },
+      body: JSON.stringify({
+        locationId: GHL_LOCATION_ID,
+        name,
+        email,
+        phone,
+        address1: address,
+        source: source ?? "Rental Analysis Landing Page",
+        customFields: [
+          pdfUrl ? { key: "pdf_url", field_value: pdfUrl } : null,
+          rentData?.rent ? { key: "estimated_rent", field_value: `$${fmt(rentData.rent)}/mo` } : null,
+          rentData?.rentRangeLow && rentData?.rentRangeHigh
+            ? { key: "rent_range", field_value: `$${fmt(rentData.rentRangeLow)} – $${fmt(rentData.rentRangeHigh)}` }
+            : null,
+        ].filter(Boolean),
+      }),
+    });
+    const upsertData = await upsertRes.json();
+    contactId = upsertData?.contact?.id ?? null;
+    console.log("GHL upsert:", upsertRes.status, contactId);
+  } catch (err) {
+    console.error("GHL upsert failed:", err);
+  }
+
+  // ── 9. Send email via GHL ───────────────────────────────────────────
+  if (contactId) {
+    try {
+      const emailRes = await fetch(`${GHL_API}/conversations/messages/email`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${GHL_API_KEY}`,
+          "Content-Type": "application/json",
+          Version: "2021-07-28",
+        },
+        body: JSON.stringify({
+          type: "Email",
+          contactId,
+          subject: `Your rental analysis for ${streetAddress}`,
+          html: `
+            <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
+              <p>Hi ${name},</p>
+              <p>Thank you for requesting your free rental analysis! I'm Stephanie Meyers with Lighthouse Property Management &amp; Realty, and your custom report is attached.</p>
+              <p>What's inside your report:</p>
+              <ul>
+                <li>Current market rent estimate for your property</li>
+                <li>Comparable rental listings in your area</li>
+                <li>Insights on rental demand in your neighborhood</li>
+              </ul>
+              ${rentData?.rent ? `<p style="font-size: 18px; font-weight: bold; color: #0D1F2D;">Estimated rent: $${fmt(rentData.rent)}/mo</p>` : ""}
+              <p>If you have any questions about the report or want to discuss how we can help maximize your rental income, I'd love to chat. You can reply to this email or call me directly at (904) 374-1289.</p>
+              <p>Talk soon,</p>
+              <p>
+                <strong>Stephanie Meyers</strong><br/>
+                Lighthouse Property Management &amp; Realty, LLC<br/>
+                (904) 374-1289
+              </p>
+            </div>
+          `,
+          attachments: pdfUrl ? [pdfUrl] : [],
+        }),
+      });
+      console.log("GHL email:", emailRes.status);
+    } catch (err) {
+      console.error("GHL email failed:", err);
+    }
+  }
 
   return NextResponse.json({ success: true, pdf_url: pdfUrl });
 }
