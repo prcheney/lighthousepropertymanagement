@@ -280,12 +280,9 @@ export async function POST(req: NextRequest) {
     console.error("PDF generation failed:", err);
   }
 
-  console.log("PDF step done. pdfUrl:", pdfUrl ? "set" : "null");
-
   // ── 8. Upsert contact in GHL ────────────────────────────────────────
   let contactId: string | null = null;
   try {
-    console.log("Starting GHL upsert...");
     const upsertRes = await fetch(`${GHL_API}/contacts/upsert`, {
       method: "POST",
       headers: {
@@ -309,10 +306,9 @@ export async function POST(req: NextRequest) {
         ].filter(Boolean),
       }),
     });
-    const upsertText = await upsertRes.text();
-    console.log("GHL upsert response:", upsertRes.status, upsertText);
-    const upsertData = JSON.parse(upsertText);
+    const upsertData = await upsertRes.json();
     contactId = upsertData?.contact?.id ?? null;
+    console.log("GHL upsert:", upsertRes.status, contactId ?? "no contactId");
   } catch (err) {
     console.error("GHL upsert failed:", err);
   }
@@ -354,8 +350,7 @@ export async function POST(req: NextRequest) {
           attachments: pdfUrl ? [pdfUrl] : [],
         }),
       });
-      const emailText = await emailRes.text();
-      console.log("GHL email response:", emailRes.status, emailText);
+      console.log("GHL email:", emailRes.status);
     } catch (err) {
       console.error("GHL email failed:", err);
     }
