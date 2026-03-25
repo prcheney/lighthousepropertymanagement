@@ -280,7 +280,7 @@ export async function POST(req: NextRequest) {
     // ── 8. Send PDF via Resend ──────────────────────────────────────────
     const streetAddress = address.split(",")[0];
     await resend.emails.send({
-      from: "Lighthouse Property Management <reports@report.jaxpm.com>",
+      from: "Lighthouse Property Management <reports@property-reports.conversionpartners.net>",
       to: email,
       subject: `Your rental analysis for ${streetAddress}`,
       html: `
