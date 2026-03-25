@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  outputFileTracingIncludes: {
+    "/api/submit-form": ["./node_modules/@sparticuz/chromium/bin/**"],
+  },
 }
 
 export default nextConfig
