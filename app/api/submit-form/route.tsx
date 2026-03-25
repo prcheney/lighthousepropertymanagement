@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
+import { Resend } from "resend";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { buildReportHTML } from "@/lib/pdf/template";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const GHL_WEBHOOK =
   "https://services.leadconnectorhq.com/hooks/GxxmZBnjTGnUy9yDC0QW/webhook-trigger/fCyfkCOIcCy9Qq7VNtcs";
@@ -273,11 +276,47 @@ export async function POST(req: NextRequest) {
     );
 
     pdfUrl = blob.url;
+
+    // ── 8. Send PDF via Resend ──────────────────────────────────────────
+    const streetAddress = address.split(",")[0];
+    await resend.emails.send({
+      from: "Lighthouse Property Management <reports@report.jaxpm.com>",
+      to: email,
+      subject: `Your rental analysis for ${streetAddress}`,
+      html: `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
+          <p>Hi ${name},</p>
+          <p>Thank you for requesting your free rental analysis! I'm Stephanie Meyers with Lighthouse Property Management &amp; Realty, and your custom report is attached.</p>
+          <p>What's inside your report:</p>
+          <ul>
+            <li>Current market rent estimate for your property</li>
+            <li>Comparable rental listings in your area</li>
+            <li>Insights on rental demand in your neighborhood</li>
+          </ul>
+          ${rentData?.rent ? `<p style="font-size: 18px; font-weight: bold; color: #0D1F2D;">Estimated rent: $${fmt(rentData.rent)}/mo</p>` : ""}
+          <p>If you have any questions about the report or want to discuss how we can help maximize your rental income, I'd love to chat. You can reply to this email or call me directly at (904) 374-1289.</p>
+          <p>Talk soon,</p>
+          <p>
+            <strong>Stephanie Meyers</strong><br/>
+            Lighthouse Property Management &amp; Realty, LLC<br/>
+            (904) 374-1289
+          </p>
+        </div>
+      `,
+      attachments: [
+        {
+          filename: `Rental-Analysis-${streetAddress.replace(/\s+/g, "-")}.pdf`,
+          content: pdfBuffer.toString("base64"),
+          contentType: "application/pdf",
+        },
+      ],
+    }).catch((err) => console.error("Resend email failed:", err));
+
   } catch (err) {
     console.error("PDF generation failed:", err);
   }
 
-  // ── 8. Forward to GHL ─────────────────────────────────────────────────
+  // ── 9. Forward to GHL ─────────────────────────────────────────────────
   await fetch(GHL_WEBHOOK, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

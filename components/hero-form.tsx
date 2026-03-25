@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle, Loader2 } from "lucide-react";
+import { AddressAutocomplete } from "./address-autocomplete";
 
 const WEBHOOK_URL = "/api/submit-form";
 
@@ -108,14 +109,12 @@ export function HeroForm() {
             required
             className="rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
-          <input
-            type="text"
-            name="address"
-            placeholder="Property Address"
+          <AddressAutocomplete
             value={form.address}
-            onChange={handleChange}
+            onChange={(address) => setForm((prev) => ({ ...prev, address }))}
+            placeholder="Property Address"
             required
-            className="rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+            className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
           <button
             type="submit"
