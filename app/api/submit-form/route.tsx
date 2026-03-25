@@ -320,7 +320,7 @@ export async function POST(req: NextRequest) {
   // ── 9. Send email via GHL ───────────────────────────────────────────
   if (contactId) {
     try {
-      const emailRes = await fetch(`${GHL_API}/conversations/messages/email`, {
+      const emailRes = await fetch(`${GHL_API}/conversations/messages`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${GHL_API_KEY}`,
