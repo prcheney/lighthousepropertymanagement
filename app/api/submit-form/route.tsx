@@ -77,36 +77,11 @@ async function generatePDF(html: string): Promise<Buffer> {
   }
 }
 
-const DIRECTIONALS: Record<string, string> = {
-  North: "N", South: "S", East: "E", West: "W",
-  Northeast: "NE", Northwest: "NW", Southeast: "SE", Southwest: "SW",
-};
-
-const SUFFIXES: Record<string, string> = {
-  Avenue: "Ave", Boulevard: "Blvd", Circle: "Cir", Court: "Ct",
-  Drive: "Dr", Expressway: "Expy", Highway: "Hwy", Lane: "Ln",
-  Parkway: "Pkwy", Place: "Pl", Road: "Rd", Street: "St",
-  Terrace: "Ter", Trail: "Trl", Way: "Way",
-};
-
-function normalizeForRentcast(address: string): string {
-  let normalized = address;
-  for (const [full, abbr] of Object.entries(DIRECTIONALS)) {
-    normalized = normalized.replace(new RegExp(`\\b${full}\\b`, "g"), abbr);
-  }
-  for (const [full, abbr] of Object.entries(SUFFIXES)) {
-    normalized = normalized.replace(new RegExp(`\\b${full}\\b`, "g"), abbr);
-  }
-  return normalized;
-}
-
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { name, email, phone, address, propertyType, message, source } = body;
 
-  const rentcastAddress = normalizeForRentcast(address);
-  const encoded = encodeURIComponent(rentcastAddress);
-  console.log("[Rentcast] query address:", rentcastAddress);
+  const encoded = encodeURIComponent(address);
 
   let propertyData: any = null;
   let rentRaw: any = null;
