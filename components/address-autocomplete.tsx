@@ -30,6 +30,14 @@ function loadGoogleMaps(): Promise<void> {
   return window.__googleMapsLoading;
 }
 
+export interface AddressComponents {
+  streetNumber: string;
+  route: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+
 interface Suggestion {
   text: string;
   placePrediction: any;
@@ -37,7 +45,7 @@ interface Suggestion {
 
 interface AddressAutocompleteProps {
   value: string;
-  onChange: (address: string) => void;
+  onChange: (address: string, components?: AddressComponents) => void;
   placeholder?: string;
   className?: string;
   required?: boolean;
@@ -126,9 +134,27 @@ export function AddressAutocomplete({
   const handleSelect = async (suggestion: Suggestion) => {
     try {
       const place = suggestion.placePrediction.toPlace();
-      await place.fetchFields({ fields: ["formattedAddress"] });
+      await place.fetchFields({ fields: ["formattedAddress", "addressComponents"] });
       const addr = (place.formattedAddress ?? suggestion.text).replace(/, USA$/, "");
-      onChange(addr);
+
+      let components: AddressComponents | undefined;
+      if (place.addressComponents) {
+        const get = (type: string): string => {
+          const c = place.addressComponents.find((ac: any) =>
+            ac.types.includes(type)
+          );
+          return c?.shortText ?? c?.longText ?? "";
+        };
+        components = {
+          streetNumber: get("street_number"),
+          route: get("route"),
+          city: get("locality") || get("sublocality"),
+          state: get("administrative_area_level_1"),
+          zip: get("postal_code"),
+        };
+      }
+
+      onChange(addr, components);
     } catch {
       onChange(suggestion.text);
     }
