@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <head>
+      <body className="font-sans antialiased">
         <Script id="gtm" strategy="afterInteractive">{`
           if(window.location.hostname==='lp.jaxpm.com'){
           (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -50,8 +50,7 @@ export default function RootLayout({
           })(window,document,'script','dataLayer','GTM-NCBGRSLP');
           }
         `}</Script>
-      </head>
-      <body className="font-sans antialiased">{children}
+        {children}
         <Analytics />
       </body>
     </html>
