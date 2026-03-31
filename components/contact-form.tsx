@@ -52,6 +52,7 @@ export function ContactForm() {
       });
 
       if (response.ok) {
+        window.dataLayer?.push({ event: "form_submit", form_name: "contact_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "", propertyType: "", message: "" });
       } else {

@@ -39,6 +39,7 @@ export function HeroForm() {
       });
 
       if (response.ok) {
+        window.dataLayer?.push({ event: "form_submit", form_name: "hero_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "" });
       } else {
