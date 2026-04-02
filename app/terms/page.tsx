@@ -41,7 +41,34 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              3. Text Messaging Terms
+              3. SMS Program Description
+            </h2>
+            <p className="mt-2">
+              Lighthouse Property Management & Realty operates an SMS messaging
+              program to communicate with property owners who request information
+              through our website. The program includes two types of messages:
+            </p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>
+                <strong>Transactional messages:</strong> Rental report delivery
+                notifications, account alerts, appointment reminders, and
+                service updates related to your property management inquiry.
+              </li>
+              <li>
+                <strong>Marketing messages:</strong> Promotional offers, service
+                announcements, and information about property management
+                opportunities in the Jacksonville, FL area.
+              </li>
+            </ul>
+            <p className="mt-2">
+              Each message type requires separate opt-in consent via checkbox on
+              our website forms. You may opt in to one, both, or neither.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-navy">
+              4. Text Messaging Terms
             </h2>
             <p className="mt-2">
               By opting in to receive text messages from Lighthouse Property
@@ -56,11 +83,13 @@ export default function TermsPage() {
               <li>Message frequency varies.</li>
               <li>Message and data rates may apply.</li>
               <li>
-                You may opt out at any time by replying <strong>STOP</strong>.
+                You may opt out at any time by replying <strong>STOP</strong> to
+                any message. You will receive a single confirmation message and
+                no further messages will be sent.
               </li>
               <li>
                 For help, reply <strong>HELP</strong> or contact us at
-                (904) 822-7661.
+                (904) 822-7661 or customerservice@jaxpm.com.
               </li>
               <li>
                 Consent to receive text messages is not required as a condition
@@ -76,7 +105,33 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              4. Use of Website
+              5. Carrier Liability Disclaimer
+            </h2>
+            <p className="mt-2">
+              Wireless carriers (e.g., T-Mobile, AT&T, Verizon) are not liable
+              for delayed or undelivered messages. Message delivery is subject to
+              effective transmission by your wireless carrier and their terms of
+              service. Lighthouse Property Management & Realty is not responsible
+              for messages that are not delivered due to carrier issues, device
+              incompatibility, or changes to your phone number or service plan.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-navy">
+              6. Age Restriction
+            </h2>
+            <p className="mt-2">
+              You must be at least 18 years of age to use this website and to
+              opt in to our SMS messaging program. By submitting a form or
+              opting in to receive text messages, you confirm that you are 18
+              years of age or older.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-navy">
+              7. Use of Website
             </h2>
             <p className="mt-2">
               You agree to use this website only for lawful purposes. You may
@@ -88,7 +143,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              5. Accuracy of Information
+              8. Accuracy of Information
             </h2>
             <p className="mt-2">
               We make reasonable efforts to ensure the information on this
@@ -100,7 +155,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              6. Limitation of Liability
+              9. Limitation of Liability
             </h2>
             <p className="mt-2">
               To the fullest extent permitted by law, Lighthouse Property
@@ -113,7 +168,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              7. Changes to Terms
+              10. Changes to Terms
             </h2>
             <p className="mt-2">
               We may update these Terms of Service at any time. Continued use of
@@ -124,7 +179,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              8. Governing Law
+              11. Governing Law
             </h2>
             <p className="mt-2">
               These Terms are governed by the laws of the State of Florida. Any
@@ -133,7 +188,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-navy">9. Contact Us</h2>
+            <h2 className="text-lg font-semibold text-navy">12. Contact Us</h2>
             <p className="mt-2">
               Lighthouse Property Management & Realty, LLC
               <br />

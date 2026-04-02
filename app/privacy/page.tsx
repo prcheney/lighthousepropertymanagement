@@ -86,7 +86,55 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              5. How We Share Your Information
+              5. Cookies & Tracking Technologies
+            </h2>
+            <p className="mt-2">
+              We use cookies and similar tracking technologies to improve your
+              experience on our website. These include:
+            </p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>
+                <strong>Essential cookies:</strong> Required for the website to
+                function (e.g., form submissions).
+              </li>
+              <li>
+                <strong>Analytics cookies:</strong> Google Analytics and Google
+                Tag Manager collect anonymized usage data such as pages visited,
+                time on site, browser type, and referring URL. This data helps
+                us understand how visitors use our site and improve our services.
+              </li>
+              <li>
+                <strong>Advertising cookies:</strong> Google Ads conversion
+                tracking measures the effectiveness of our advertising campaigns.
+                These cookies do not identify you personally.
+              </li>
+            </ul>
+            <p className="mt-2">
+              You can control cookies through your browser settings. Disabling
+              cookies may affect the functionality of certain features on our
+              website.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-navy">
+              6. Data Security
+            </h2>
+            <p className="mt-2">
+              We implement reasonable administrative, technical, and physical
+              security measures to protect your personal information from
+              unauthorized access, use, alteration, or disclosure. These measures
+              include encrypted data transmission (HTTPS/TLS), secure
+              third-party service providers, and access controls limiting who can
+              view your information. However, no method of transmission over the
+              Internet or electronic storage is 100% secure, and we cannot
+              guarantee absolute security.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold text-navy">
+              7. How We Share Your Information
             </h2>
             <p className="mt-2">
               We do not sell your personal information. We may share your
@@ -103,7 +151,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              6. Data Retention
+              8. Data Retention
             </h2>
             <p className="mt-2">
               We retain your personal information for as long as necessary to
@@ -114,7 +162,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              7. Your Rights
+              9. Your Rights
             </h2>
             <p className="mt-2">
               You may request access to, correction of, or deletion of your
@@ -125,7 +173,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-lg font-semibold text-navy">
-              8. Changes to This Policy
+              10. Changes to This Policy
             </h2>
             <p className="mt-2">
               We may update this Privacy Policy from time to time. Changes will
@@ -134,7 +182,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-navy">9. Contact Us</h2>
+            <h2 className="text-lg font-semibold text-navy">11. Contact Us</h2>
             <p className="mt-2">
               Lighthouse Property Management & Realty, LLC
               <br />
