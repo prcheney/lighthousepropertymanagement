@@ -303,6 +303,7 @@ export async function POST(req: NextRequest) {
           rentData?.rentRangeLow && rentData?.rentRangeHigh
             ? { key: "rent_range", field_value: `$${fmt(rentData.rentRangeLow)} – $${fmt(rentData.rentRangeHigh)}` }
             : null,
+          { key: "contact.sms_consent", field_value: (smsTransactional || smsMarketing) ? true : false },
           { key: "contact.sms_consent_transactional", field_value: smsTransactional ? "Yes" : "No" },
           { key: "contact.sms_consent_marketing", field_value: smsMarketing ? "Yes" : "No" },
         ].filter(Boolean),
