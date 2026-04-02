@@ -60,10 +60,10 @@ export function Footer() {
 {"© 2026 Lighthouse Property Management & Realty, LLC"}
           </span>
           <div className="flex gap-6">
-            <a href="#" className="transition-colors hover:text-white/60">
+            <a href="/privacy" className="transition-colors hover:text-white/60">
               Privacy Policy
             </a>
-            <a href="#" className="transition-colors hover:text-white/60">
+            <a href="/terms" className="transition-colors hover:text-white/60">
               Terms of Service
             </a>
           </div>

@@ -13,6 +13,7 @@ export function HeroForm() {
     phone: "",
     address: "",
   });
+  const [smsConsent, setSmsConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +35,7 @@ export function HeroForm() {
           email: form.email,
           phone: form.phone,
           address: form.address,
+          smsConsent,
           source: "hero_form",
         }),
       });
@@ -117,6 +119,23 @@ export function HeroForm() {
             required
             className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
+          <label className="mt-1 flex items-start gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={smsConsent}
+              onChange={(e) => setSmsConsent(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-navy/20 text-gold accent-gold"
+            />
+            <span className="text-[11px] leading-relaxed text-navy/50">
+              I consent to receive text messages from Lighthouse Property
+              Management & Realty regarding my rental analysis and property
+              management services. Message frequency varies. Msg & data rates
+              may apply. Reply STOP to opt out, HELP for help.{" "}
+              <a href="/privacy" className="underline hover:text-navy/70">Privacy Policy</a>{" "}
+              &{" "}
+              <a href="/terms" className="underline hover:text-navy/70">Terms of Service</a>.
+            </span>
+          </label>
           <button
             type="submit"
             disabled={status === "loading"}

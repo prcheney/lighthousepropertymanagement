@@ -22,6 +22,7 @@ export function ContactForm() {
     propertyType: "",
     message: "",
   });
+  const [smsConsent, setSmsConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleChange = (
@@ -47,6 +48,7 @@ export function ContactForm() {
           address: form.address,
           propertyType: form.propertyType,
           message: form.message,
+          smsConsent,
           source: "contact_form",
         }),
       });
@@ -161,6 +163,23 @@ export function ContactForm() {
                   onChange={handleChange}
                   className="resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                 />
+                <label className="mt-1 flex items-start gap-2.5 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={smsConsent}
+                    onChange={(e) => setSmsConsent(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 text-gold accent-gold"
+                  />
+                  <span className="text-[11px] leading-relaxed text-white/40">
+                    I consent to receive text messages from Lighthouse Property
+                    Management & Realty regarding my rental analysis and property
+                    management services. Message frequency varies. Msg & data rates
+                    may apply. Reply STOP to opt out, HELP for help.{" "}
+                    <a href="/privacy" className="underline hover:text-white/60">Privacy Policy</a>{" "}
+                    &{" "}
+                    <a href="/terms" className="underline hover:text-white/60">Terms of Service</a>.
+                  </span>
+                </label>
                 <button
                   type="submit"
                   disabled={status === "loading"}

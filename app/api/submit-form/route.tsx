@@ -79,7 +79,7 @@ async function generatePDF(html: string): Promise<Buffer> {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, email, phone, address, propertyType, message, source } = body;
+  const { name, email, phone, address, propertyType, message, smsConsent, source } = body;
 
   const encoded = encodeURIComponent(address);
 
@@ -303,6 +303,7 @@ export async function POST(req: NextRequest) {
           rentData?.rentRangeLow && rentData?.rentRangeHigh
             ? { key: "rent_range", field_value: `$${fmt(rentData.rentRangeLow)} – $${fmt(rentData.rentRangeHigh)}` }
             : null,
+          { key: "sms_consent", field_value: smsConsent ? "Yes" : "No" },
         ].filter(Boolean),
       }),
     });
