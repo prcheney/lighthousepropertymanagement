@@ -333,20 +333,20 @@ export async function POST(req: NextRequest) {
           html: `
             <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
               <p>Hi ${name},</p>
-              <p>Thank you for requesting your free rental analysis! I'm Stephanie Myers with Lighthouse Property Management &amp; Realty, and your custom report is attached.</p>
-              <p>What's inside your report:</p>
+              <p>Thanks for requesting a rental analysis! I'm Stephanie with Lighthouse Property Management &amp; Realty. Your custom report is attached.</p>
+              <p>Here's what you'll find inside:</p>
               <ul>
-                <li>Current market rent estimate for your property</li>
-                <li>Comparable rental listings in your area</li>
-                <li>Insights on rental demand in your neighborhood</li>
+                <li>A current market rent estimate for your property</li>
+                <li>Comparable rental listings nearby</li>
+                <li>Demand and vacancy trends in your neighborhood</li>
               </ul>
               ${rentData?.rent ? `<p style="font-size: 18px; font-weight: bold; color: #0D1F2D;">Estimated rent: $${fmt(rentData.rent)}/mo</p>` : ""}
-              <p>If you have any questions about the report or want to discuss how we can help maximize your rental income, I'd love to chat. You can reply to this email or call me directly at (904) 822-7661.</p>
+              <p>Take a look when you get a chance. I'll follow up within a business day to walk through the numbers with you, but if anything catches your eye or you have questions, just reply to this email or give me a call at <a href="tel:9048227661" style="color: #C9A84C;">(904) 822-7661</a>.</p>
               <p>Talk soon,</p>
               <p>
                 <strong>Stephanie Myers</strong><br/>
                 Lighthouse Property Management &amp; Realty, LLC<br/>
-                (904) 822-7661
+                <a href="tel:9048227661" style="color: #C9A84C;">(904) 822-7661</a>
               </p>
             </div>
           `,

@@ -117,17 +117,17 @@ export async function POST(req: NextRequest) {
       ? `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
           <p>Hi ${name},</p>
-          <p>Thanks for reaching out. We know finding the right property manager matters — it's your investment, your income, and your peace of mind on the line.</p>
-          <p>Here's what you can expect from us:</p>
+          <p>Thanks for reaching out. Finding a property manager you can actually trust is hard, and we don't take that lightly.</p>
+          <p>I wanted to personally let you know we got your message. One of us will be calling you within one business day to learn more about your property and what you're looking for.</p>
+          <p>A few things that might be helpful to know up front:</p>
           <ul>
-            <li><strong>A dedicated rep who knows your name</strong> — no call centers, no ticket systems</li>
-            <li><strong>Next business day response</strong> — guaranteed in writing</li>
-            <li><strong>No hidden fees or mark-ups</strong> — you pay what the vendor charges, period</li>
-            <li><strong>No-hassle cancellation</strong> — no lock-in, no penalties</li>
+            <li>You'll have a dedicated rep (me or someone on my team) who you can call or text directly. No call centers, no runaround.</li>
+            <li>We never mark up maintenance or vendor work. You pay what the vendor charges.</li>
+            <li>There are no lock-in contracts. If we're not earning your business, you can cancel anytime.</li>
+            <li>We put 9 guarantees in writing in every management contract. Happy to walk you through them on our call.</li>
           </ul>
-          <p>These are 4 of the 9 written guarantees we include in every management contract. We'll walk you through the rest when we talk.</p>
-          <p>One of our team members will reach out within one business day. If you'd like to talk sooner, call me directly.</p>
-          <p>Talk soon,</p>
+          <p>If you'd rather not wait, feel free to call me directly at <a href="tel:9048227661" style="color: #C9A84C;">(904) 822-7661</a>. I'm usually available during business hours.</p>
+          <p>Looking forward to connecting,</p>
           <p>
             <strong>Stephanie Myers</strong><br/>
             Lighthouse Property Management &amp; Realty, LLC<br/>
@@ -138,15 +138,14 @@ export async function POST(req: NextRequest) {
       : `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
           <p>Hi ${name},</p>
-          <p>Thank you for requesting your free rental analysis! Your personalized PDF report with market data for your property is on its way.</p>
-          <p>The report includes:</p>
+          <p>Thanks for requesting a rental analysis. Your personalized report with market data for your property is on its way.</p>
+          <p>Here's what's in it:</p>
           <ul>
-            <li>Comparable rental rates in your neighborhood</li>
-            <li>Estimated monthly rent range for your property</li>
-            <li>Local market demand data</li>
+            <li>What comparable properties near you are renting for</li>
+            <li>An estimated monthly rent range for your property</li>
+            <li>Current rental demand in your area</li>
           </ul>
-          <p>We'll follow up within one business day to walk you through the numbers and answer any questions about managing your property.</p>
-          <p>In the meantime, here's what sets us apart: 9 written guarantees in every contract, a dedicated representative (no call centers), and zero hidden fees or mark-ups.</p>
+          <p>We'll follow up within one business day to walk you through the numbers and answer any questions. If anything jumps out at you in the report, don't hesitate to call me directly at <a href="tel:9048227661" style="color: #C9A84C;">(904) 822-7661</a>.</p>
           <p>Talk soon,</p>
           <p>
             <strong>Stephanie Myers</strong><br/>
