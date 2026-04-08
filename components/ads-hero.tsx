@@ -34,7 +34,7 @@ export function AdsHero() {
             />
 
             {/* Headline */}
-            <h1 className="mt-8 font-serif text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl text-balance">
+            <h1 className="mt-8 font-serif text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl text-balance">
               Jacksonville Property Management That Picks Up the Phone
             </h1>
 

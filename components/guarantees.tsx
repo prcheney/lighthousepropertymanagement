@@ -62,7 +62,7 @@ const guarantees = [
   },
 ];
 
-export function Guarantees() {
+export function Guarantees({ ctaText = "Get Your Free Rental Report" }: { ctaText?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
 
@@ -102,7 +102,7 @@ export function Guarantees() {
               href="#contact"
               className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
             >
-              Get Your Free Rental Report
+              {ctaText}
             </a>
           </div>
 

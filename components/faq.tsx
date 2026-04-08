@@ -42,16 +42,15 @@ const faqs = [
   },
 ];
 
-const rentalReportCta = (
-  <a
-    href="#contact"
-    className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
-  >
-    Get your free rental report
-  </a>
-);
-
-export function FAQ() {
+export function FAQ({ ctaText = "Get your free rental report", subtitle = "Still have questions? Your free rental analysis PDF includes personalized data that answers most of them. You can also call us directly.", items = faqs }: { ctaText?: string; subtitle?: string; items?: typeof faqs }) {
+  const rentalReportCta = (
+    <a
+      href="#contact"
+      className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
+    >
+      {ctaText}
+    </a>
+  );
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
 
@@ -71,9 +70,7 @@ export function FAQ() {
             Everything you need to know before getting started.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Still have questions? Your free rental analysis PDF includes
-            personalized data that answers most of them. You can also call us
-            directly.
+            {subtitle}
           </p>
         </div>
 
@@ -84,7 +81,7 @@ export function FAQ() {
           }`}
         >
           <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
+            {items.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`item-${i}`}

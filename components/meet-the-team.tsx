@@ -38,7 +38,7 @@ const differentiators = [
   },
 ];
 
-export function MeetTheTeam() {
+export function MeetTheTeam({ ctaText = "Get Your Free Rental Report" }: { ctaText?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
 
@@ -132,7 +132,7 @@ export function MeetTheTeam() {
                 href="#contact"
                 className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
               >
-                Get Your Free Rental Report
+                {ctaText}
               </a>
             </div>
           </div>
