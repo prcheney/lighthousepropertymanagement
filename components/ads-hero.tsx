@@ -20,7 +20,7 @@ export function AdsHero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-24 lg:py-32">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left: Copy */}
           <div className="text-center lg:text-left">
             {/* Logo */}
