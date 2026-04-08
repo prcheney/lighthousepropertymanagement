@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle, Loader2 } from "lucide-react";
+import { useTrackingParams } from "@/hooks/use-tracking-params";
 
 const WEBHOOK_URL = "/api/contact-form";
 
@@ -15,6 +16,7 @@ export function AdsHeroForm() {
   const [smsTransactional, setSmsTransactional] = useState(false);
   const [smsMarketing, setSmsMarketing] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const tracking = useTrackingParams();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,6 +42,7 @@ export function AdsHeroForm() {
           smsTransactional,
           smsMarketing,
           source: "ads_hero_form",
+          ...tracking,
         }),
       });
 

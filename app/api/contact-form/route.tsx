@@ -4,13 +4,58 @@ const GHL_API_KEY = process.env.GHL_API_KEY!;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID!;
 const GHL_API = "https://services.leadconnectorhq.com";
 
+// GHL custom field IDs for Lighthouse PM (Location: GxxmZBnjTGnUy9yDC0QW)
+const FIELD_IDS = {
+  smsConsent: "mszyYFKruvDEjBL9E52A",
+  smsTransactional: "1fujwHIch7ibTnUgyECJ",
+  smsMarketing: "yk9WjPQfqH5GQCp6n36x",
+  leadSource: "7XZ87B6iqjmwkblTrIKT",
+  message: "Wyr9AUXQY5pISYkSr0yh",
+  googleClickId: "xaIO77LRR2Aym8wnFtog",
+  fbClickId: "6rwZ4Zdfwnuc73hgUZCo",
+  utmSource: "1InrYXZw8u32pjAD2bXX",
+  utmMedium: "82lABIoB7gpQrjk5Sd5m",
+  utmCampaign: "yV9KZvKhACPXyKfw0muf",
+  utmTerm: "X7kj5UXYsF2qjjrjVnEg",
+  utmContent: "RcUOaZpfqgjsvPrNPakQ",
+};
+
+const SOURCE_LABELS: Record<string, string> = {
+  ads_hero_form: "Lighthouse Get Started Page",
+  ads_contact_form: "Lighthouse Get Started Page",
+  hero_form: "Lighthouse Landing Page",
+  contact_form: "Lighthouse Landing Page",
+};
+
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, email, phone, message, smsTransactional, smsMarketing, source } = body;
+  const {
+    name, email, phone, message,
+    smsTransactional, smsMarketing, source,
+    gclid, fbclid,
+    utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+  } = body;
+
+  const leadSource = SOURCE_LABELS[source] ?? source ?? "Lighthouse Landing Page";
 
   // ── 1. Upsert contact in GHL ──────────────────────────────────────────
   let contactId: string | null = null;
   try {
+    const customFields = [
+      { id: FIELD_IDS.smsConsent, field_value: (smsTransactional || smsMarketing) ? ["True"] : ["False"] },
+      { id: FIELD_IDS.smsTransactional, field_value: smsTransactional ? ["Yes"] : ["No"] },
+      { id: FIELD_IDS.smsMarketing, field_value: smsMarketing ? ["Yes"] : ["No"] },
+      { id: FIELD_IDS.leadSource, field_value: leadSource },
+      message ? { id: FIELD_IDS.message, field_value: message } : null,
+      gclid ? { id: FIELD_IDS.googleClickId, field_value: gclid } : null,
+      fbclid ? { id: FIELD_IDS.fbClickId, field_value: fbclid } : null,
+      utm_source ? { id: FIELD_IDS.utmSource, field_value: utm_source } : null,
+      utm_medium ? { id: FIELD_IDS.utmMedium, field_value: utm_medium } : null,
+      utm_campaign ? { id: FIELD_IDS.utmCampaign, field_value: utm_campaign } : null,
+      utm_term ? { id: FIELD_IDS.utmTerm, field_value: utm_term } : null,
+      utm_content ? { id: FIELD_IDS.utmContent, field_value: utm_content } : null,
+    ].filter(Boolean);
+
     const upsertRes = await fetch(`${GHL_API}/contacts/upsert`, {
       method: "POST",
       headers: {
@@ -23,13 +68,8 @@ export async function POST(req: NextRequest) {
         name,
         email,
         phone,
-        source: "General Contact Page",
-        customFields: [
-          message ? { key: "notes", field_value: message } : null,
-          { id: "mszyYFKruvDEjBL9E52A", field_value: (smsTransactional || smsMarketing) ? ["True"] : ["False"] },
-          { id: "1fujwHIch7ibTnUgyECJ", field_value: smsTransactional ? ["Yes"] : ["No"] },
-          { id: "yk9WjPQfqH5GQCp6n36x", field_value: smsMarketing ? ["Yes"] : ["No"] },
-        ].filter(Boolean),
+        source: leadSource,
+        customFields,
       }),
     });
     const upsertData = await upsertRes.json();
