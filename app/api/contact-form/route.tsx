@@ -27,6 +27,13 @@ const SOURCE_LABELS: Record<string, string> = {
   contact_form: "Lighthouse Landing Page",
 };
 
+const SOURCE_TAGS: Record<string, string[]> = {
+  ads_hero_form: ["get-started-page", "hero-form"],
+  ads_contact_form: ["get-started-page", "bottom-form"],
+  hero_form: ["landing-page", "hero-form"],
+  contact_form: ["landing-page", "bottom-form"],
+};
+
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const {
@@ -79,8 +86,76 @@ export async function POST(req: NextRequest) {
     console.error("GHL upsert failed:", err);
   }
 
-  // ── 2. Send confirmation email via GHL ────────────────────────────────
+  // ── 2. Tag the contact ─────────────────────────────────────────────────
   if (contactId) {
+    const tags = SOURCE_TAGS[source] ?? ["landing-page"];
+    try {
+      const tagRes = await fetch(`${GHL_API}/contacts/${contactId}/tags`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${GHL_API_KEY}`,
+          "Content-Type": "application/json",
+          Version: "2021-07-28",
+        },
+        body: JSON.stringify({ tags }),
+      });
+      console.log("GHL tags:", tagRes.status, tags);
+    } catch (err) {
+      console.error("GHL tags failed:", err);
+    }
+  }
+
+  // ── 3. Send confirmation email via GHL ────────────────────────────────
+  if (contactId) {
+    const isGetStarted = source === "ads_hero_form" || source === "ads_contact_form";
+
+    const emailSubject = isGetStarted
+      ? "Thanks for reaching out to Lighthouse Property Management"
+      : "Your Free Rental Analysis from Lighthouse Property Management";
+
+    const emailHtml = isGetStarted
+      ? `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
+          <p>Hi ${name},</p>
+          <p>Thanks for reaching out. We know finding the right property manager matters — it's your investment, your income, and your peace of mind on the line.</p>
+          <p>Here's what you can expect from us:</p>
+          <ul>
+            <li><strong>A dedicated rep who knows your name</strong> — no call centers, no ticket systems</li>
+            <li><strong>Next business day response</strong> — guaranteed in writing</li>
+            <li><strong>No hidden fees or mark-ups</strong> — you pay what the vendor charges, period</li>
+            <li><strong>No-hassle cancellation</strong> — no lock-in, no penalties</li>
+          </ul>
+          <p>These are 4 of the 9 written guarantees we include in every management contract. We'll walk you through the rest when we talk.</p>
+          <p>One of our team members will reach out within one business day. If you'd like to talk sooner, call me directly.</p>
+          <p>Talk soon,</p>
+          <p>
+            <strong>Stephanie Myers</strong><br/>
+            Lighthouse Property Management &amp; Realty, LLC<br/>
+            <a href="tel:9048227661" style="color: #C9A84C;">(904) 822-7661</a>
+          </p>
+        </div>
+      `
+      : `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
+          <p>Hi ${name},</p>
+          <p>Thank you for requesting your free rental analysis! Your personalized PDF report with market data for your property is on its way.</p>
+          <p>The report includes:</p>
+          <ul>
+            <li>Comparable rental rates in your neighborhood</li>
+            <li>Estimated monthly rent range for your property</li>
+            <li>Local market demand data</li>
+          </ul>
+          <p>We'll follow up within one business day to walk you through the numbers and answer any questions about managing your property.</p>
+          <p>In the meantime, here's what sets us apart: 9 written guarantees in every contract, a dedicated representative (no call centers), and zero hidden fees or mark-ups.</p>
+          <p>Talk soon,</p>
+          <p>
+            <strong>Stephanie Myers</strong><br/>
+            Lighthouse Property Management &amp; Realty, LLC<br/>
+            <a href="tel:9048227661" style="color: #C9A84C;">(904) 822-7661</a>
+          </p>
+        </div>
+      `;
+
     try {
       const emailRes = await fetch(`${GHL_API}/conversations/messages`, {
         method: "POST",
@@ -92,27 +167,8 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           type: "Email",
           contactId,
-          subject: "Thanks for reaching out to Lighthouse Property Management",
-          html: `
-            <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #1A1A1A; max-width: 560px; margin: 0 auto;">
-              <p>Hi ${name},</p>
-              <p>Thank you for reaching out to Lighthouse Property Management &amp; Realty! We received your inquiry and one of our team members will be in touch within one business day.</p>
-              <p>In the meantime, here's what sets us apart:</p>
-              <ul>
-                <li>9 written guarantees in every management contract</li>
-                <li>A dedicated representative — no call centers</li>
-                <li>No hidden fees or maintenance mark-ups</li>
-                <li>No-hassle cancellation, no lock-in</li>
-              </ul>
-              <p>If you'd like to speak with us sooner, feel free to call me directly at (904) 822-7661.</p>
-              <p>Talk soon,</p>
-              <p>
-                <strong>Stephanie Myers</strong><br/>
-                Lighthouse Property Management &amp; Realty, LLC<br/>
-                (904) 822-7661
-              </p>
-            </div>
-          `,
+          subject: emailSubject,
+          html: emailHtml,
         }),
       });
       console.log("GHL email:", emailRes.status);
