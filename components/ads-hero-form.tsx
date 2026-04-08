@@ -79,7 +79,7 @@ export function AdsHeroForm() {
     <div className="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
       <div className="rounded-2xl bg-offwhite px-6 py-8 shadow-2xl sm:px-8 sm:py-10">
         <p className="text-center font-serif text-lg font-bold text-navy">
-          Everything you need to know to rent your property.
+          Tell us about your property. We'll call you.
         </p>
         <form
           className="mt-6 flex flex-col gap-3"
