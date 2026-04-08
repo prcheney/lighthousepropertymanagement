@@ -79,7 +79,12 @@ async function generatePDF(html: string): Promise<Buffer> {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, email, phone, address, propertyType, message, smsTransactional, smsMarketing, source } = body;
+  const {
+    name, email, phone, address, propertyType, message,
+    smsTransactional, smsMarketing, source,
+    gclid, fbclid,
+    utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+  } = body;
 
   const encoded = encodeURIComponent(address);
 
@@ -281,8 +286,28 @@ export async function POST(req: NextRequest) {
   }
 
   // ── 8. Upsert contact in GHL ────────────────────────────────────────
+  const leadSource = source === "hero_form" ? "Lighthouse Property Report Page" : "Lighthouse Property Report Page";
+  const sourceTags = source === "hero_form"
+    ? ["property-report-page", "hero-form"]
+    : ["property-report-page", "bottom-form"];
+
   let contactId: string | null = null;
   try {
+    const customFields = [
+      { id: "mszyYFKruvDEjBL9E52A", field_value: (smsTransactional || smsMarketing) ? ["True"] : ["False"] },
+      { id: "1fujwHIch7ibTnUgyECJ", field_value: smsTransactional ? ["Yes"] : ["No"] },
+      { id: "yk9WjPQfqH5GQCp6n36x", field_value: smsMarketing ? ["Yes"] : ["No"] },
+      { id: "7XZ87B6iqjmwkblTrIKT", field_value: leadSource },
+      message ? { id: "Wyr9AUXQY5pISYkSr0yh", field_value: message } : null,
+      gclid ? { id: "xaIO77LRR2Aym8wnFtog", field_value: gclid } : null,
+      fbclid ? { id: "6rwZ4Zdfwnuc73hgUZCo", field_value: fbclid } : null,
+      utm_source ? { id: "1InrYXZw8u32pjAD2bXX", field_value: utm_source } : null,
+      utm_medium ? { id: "82lABIoB7gpQrjk5Sd5m", field_value: utm_medium } : null,
+      utm_campaign ? { id: "yV9KZvKhACPXyKfw0muf", field_value: utm_campaign } : null,
+      utm_term ? { id: "X7kj5UXYsF2qjjrjVnEg", field_value: utm_term } : null,
+      utm_content ? { id: "RcUOaZpfqgjsvPrNPakQ", field_value: utm_content } : null,
+    ].filter(Boolean);
+
     const upsertRes = await fetch(`${GHL_API}/contacts/upsert`, {
       method: "POST",
       headers: {
@@ -296,17 +321,8 @@ export async function POST(req: NextRequest) {
         email,
         phone,
         address1: address,
-        source: source ?? "Rental Analysis Landing Page",
-        customFields: [
-          pdfUrl ? { key: "pdf_url", field_value: pdfUrl } : null,
-          rentData?.rent ? { key: "estimated_rent", field_value: `$${fmt(rentData.rent)}/mo` } : null,
-          rentData?.rentRangeLow && rentData?.rentRangeHigh
-            ? { key: "rent_range", field_value: `$${fmt(rentData.rentRangeLow)} – $${fmt(rentData.rentRangeHigh)}` }
-            : null,
-          { id: "mszyYFKruvDEjBL9E52A", field_value: (smsTransactional || smsMarketing) ? ["True"] : ["False"] },
-          { id: "1fujwHIch7ibTnUgyECJ", field_value: smsTransactional ? ["Yes"] : ["No"] },
-          { id: "yk9WjPQfqH5GQCp6n36x", field_value: smsMarketing ? ["Yes"] : ["No"] },
-        ].filter(Boolean),
+        source: leadSource,
+        customFields,
       }),
     });
     const upsertData = await upsertRes.json();
@@ -314,6 +330,24 @@ export async function POST(req: NextRequest) {
     console.log("GHL upsert:", upsertRes.status, contactId ?? "no contactId");
   } catch (err) {
     console.error("GHL upsert failed:", err);
+  }
+
+  // ── 8b. Tag the contact ────────────────────────────────────────────
+  if (contactId) {
+    try {
+      const tagRes = await fetch(`${GHL_API}/contacts/${contactId}/tags`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${GHL_API_KEY}`,
+          "Content-Type": "application/json",
+          Version: "2021-07-28",
+        },
+        body: JSON.stringify({ tags: sourceTags }),
+      });
+      console.log("GHL tags:", tagRes.status, sourceTags);
+    } catch (err) {
+      console.error("GHL tags failed:", err);
+    }
   }
 
   // ── 9. Send email via GHL ───────────────────────────────────────────

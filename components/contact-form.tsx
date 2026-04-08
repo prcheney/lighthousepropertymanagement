@@ -5,6 +5,7 @@ import { useInView } from "@/hooks/use-in-view";
 import { Shield, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { images } from "@/lib/image-urls";
 import { AddressAutocomplete } from "./address-autocomplete";
+import { useTrackingParams } from "@/hooks/use-tracking-params";
 
 const WEBHOOK_URL = "/api/submit-form";
 
@@ -25,6 +26,7 @@ export function ContactForm() {
   const [smsTransactional, setSmsTransactional] = useState(false);
   const [smsMarketing, setSmsMarketing] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const tracking = useTrackingParams();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -52,6 +54,7 @@ export function ContactForm() {
           smsTransactional,
           smsMarketing,
           source: "contact_form",
+          ...tracking,
         }),
       });
 

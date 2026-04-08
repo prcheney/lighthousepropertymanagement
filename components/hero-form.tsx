@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { AddressAutocomplete } from "./address-autocomplete";
+import { useTrackingParams } from "@/hooks/use-tracking-params";
 
 const WEBHOOK_URL = "/api/submit-form";
 
@@ -16,6 +17,7 @@ export function HeroForm() {
   const [smsTransactional, setSmsTransactional] = useState(false);
   const [smsMarketing, setSmsMarketing] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const tracking = useTrackingParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -39,6 +41,7 @@ export function HeroForm() {
           smsTransactional,
           smsMarketing,
           source: "hero_form",
+          ...tracking,
         }),
       });
 
