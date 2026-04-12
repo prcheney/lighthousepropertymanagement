@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { Shield, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { images } from "@/lib/image-urls";
@@ -69,11 +70,12 @@ export function AdsContactForm() {
         <div className={`grid items-stretch gap-0 overflow-hidden rounded-2xl lg:grid-cols-2 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {/* Image Side */}
           <div className="relative min-h-[300px] lg:min-h-[unset]">
-            <img
+            <Image
               src={images.whyUs}
               alt="The Lighthouse Property Management team in Jacksonville, Florida"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="absolute inset-0 bg-navy/40" />
           </div>

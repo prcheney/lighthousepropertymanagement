@@ -7,13 +7,13 @@ export function AdsHero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
-        style={{
-          backgroundImage: `url('${images.heroBg}')`,
-        }}
-        role="img"
-        aria-label="Beautiful Jacksonville Florida home with live oaks and Spanish moss"
+      <Image
+        src={images.heroBg}
+        alt="Beautiful Jacksonville Florida home with live oaks and Spanish moss"
+        fill
+        priority
+        className="object-cover object-center"
+        sizes="100vw"
       />
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-navy/80" />

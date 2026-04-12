@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/image-urls";
 
@@ -53,12 +54,13 @@ export function Services() {
         <div className={`mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-6 transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {services.map((s, i) => (
             <div key={s.title} className={`group lg:col-span-2 ${i === 3 ? "lg:col-start-2" : ""}`}>
-              <div className="overflow-hidden rounded-xl">
-                <img
+              <div className="relative overflow-hidden rounded-xl h-48">
+                <Image
                   src={s.image}
                   alt={s.title}
-                  className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>
               <h3 className="mt-5 text-lg font-bold text-navy">{s.title}</h3>

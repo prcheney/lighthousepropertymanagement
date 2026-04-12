@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/image-urls";
 import { MapPin, ShieldCheck, Phone, Home, FileCheck, UserCheck } from "lucide-react";
@@ -51,12 +52,13 @@ export function MeetTheTeam({ ctaText = "Get Your Free Rental Report" }: { ctaTe
           }`}
         >
           {/* Photo */}
-          <div className="overflow-hidden rounded-2xl bg-navy">
-            <img
+          <div className="relative overflow-hidden rounded-2xl bg-navy h-[400px] lg:h-[560px]">
+            <Image
               src={images.whyUs}
               alt="The Lighthouse Property Management team in Jacksonville, Florida"
-              className="h-[400px] w-full object-cover opacity-90 lg:h-[560px]"
-              loading="lazy"
+              fill
+              className="object-cover opacity-90"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/image-urls";
 
@@ -21,12 +22,13 @@ export function PainPoints({ ctaText = "Get Your Free Rental Report" }: { ctaTex
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {/* Image */}
-          <div className="overflow-hidden rounded-xl">
-            <img
+          <div className="relative overflow-hidden rounded-xl h-[400px] lg:h-[520px]">
+            <Image
               src={images.painPoints}
               alt="Jacksonville, Florida skyline at sunset over the St. Johns River"
-              className="h-[400px] w-full object-cover lg:h-[520px]"
-              loading="lazy"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
 

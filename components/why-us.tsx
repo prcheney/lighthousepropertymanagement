@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { Home, FileCheck, Phone } from "lucide-react";
 import { images } from "@/lib/image-urls";
@@ -32,12 +33,13 @@ export function WhyUs() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {/* Photo */}
-          <div className="overflow-hidden rounded-2xl bg-navy">
-            <img
+          <div className="relative overflow-hidden rounded-2xl bg-navy h-[400px] lg:h-[520px]">
+            <Image
               src={images.whyUs}
               alt="Lighthouse Property Management & Realty team in Jacksonville, Florida"
-              className="h-[400px] w-full object-cover opacity-90 lg:h-[520px]"
-              loading="lazy"
+              fill
+              className="object-cover opacity-90"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
 
