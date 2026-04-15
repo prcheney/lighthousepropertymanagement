@@ -39,14 +39,14 @@ export function AdsHero() {
             </h1>
 
             {/* Subheadline */}
-            <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-white/75 md:text-xl lg:mx-0">
+            <p className="mx-auto mt-5 hidden max-w-lg text-lg leading-relaxed text-white/75 md:text-xl lg:mx-0 lg:block">
               A dedicated rep who knows your name. 9 written guarantees in your
               contract. No hidden fees, no mark-ups, no lock-in. Just honest,
               local property management.
             </p>
 
-            {/* Phone */}
-            <p className="mt-8 text-sm font-medium text-white/60">
+            {/* Phone — desktop only */}
+            <p className="mt-8 hidden text-sm font-medium text-white/60 lg:block">
               Prefer to talk? Call{" "}
               <a
                 href="tel:9048227661"
@@ -59,6 +59,17 @@ export function AdsHero() {
 
           {/* Right: Inline Form */}
           <AdsHeroForm />
+
+          {/* Phone — mobile only, below form */}
+          <p className="text-center text-sm font-medium text-white/60 lg:hidden">
+            Prefer to talk? Call{" "}
+            <a
+              href="tel:9048227661"
+              className="text-gold transition-colors hover:text-gold/80"
+            >
+              (904) 822-7661
+            </a>
+          </p>
         </div>
       </div>
       {/* Scroll indicator */}

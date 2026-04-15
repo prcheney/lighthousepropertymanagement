@@ -55,7 +55,7 @@ const testimonials = [
   },
 ];
 
-export function Testimonials() {
+export function Testimonials({ ctaText = "Talk With Our Team" }: { ctaText?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -183,6 +183,16 @@ export function Testimonials() {
           <span className="text-sm font-medium text-navy">
             Rated 4+ Stars on Google
           </span>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-10 text-center">
+          <a
+            href="#contact"
+            className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
+          >
+            {ctaText}
+          </a>
         </div>
       </div>
     </section>

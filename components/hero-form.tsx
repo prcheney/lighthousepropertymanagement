@@ -14,8 +14,6 @@ export function HeroForm() {
     phone: "",
     address: "",
   });
-  const [smsTransactional, setSmsTransactional] = useState(false);
-  const [smsMarketing, setSmsMarketing] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const tracking = useTrackingParams();
 
@@ -38,8 +36,6 @@ export function HeroForm() {
           email: form.email,
           phone: form.phone,
           address: form.address,
-          smsTransactional,
-          smsMarketing,
           source: "hero_form",
           ...tracking,
         }),
@@ -124,35 +120,6 @@ export function HeroForm() {
             required
             className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
-          <label className="mt-1 flex items-start gap-2.5 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={smsTransactional}
-              onChange={(e) => setSmsTransactional(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-navy/20 text-gold accent-gold"
-            />
-            <span className="text-[11px] leading-relaxed text-navy/50">
-              I consent to receive transactional text messages from Lighthouse
-              Property Management & Realty at the phone number provided, such as
-              rental report delivery, account alerts, and appointment reminders.
-              Message frequency varies. Msg & data rates may apply. Reply STOP
-              to opt out, HELP for help.
-            </span>
-          </label>
-          <label className="flex items-start gap-2.5 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={smsMarketing}
-              onChange={(e) => setSmsMarketing(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-navy/20 text-gold accent-gold"
-            />
-            <span className="text-[11px] leading-relaxed text-navy/50">
-              I consent to receive marketing and promotional text messages from
-              Lighthouse Property Management & Realty at the phone number
-              provided. Message frequency varies. Msg & data rates may apply.
-              Reply STOP to opt out.
-            </span>
-          </label>
           <p className="text-[10px] leading-relaxed text-navy/40">
             <a href="/privacy" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
             &{" "}

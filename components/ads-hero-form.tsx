@@ -13,8 +13,6 @@ export function AdsHeroForm() {
     phone: "",
     message: "",
   });
-  const [smsTransactional, setSmsTransactional] = useState(false);
-  const [smsMarketing, setSmsMarketing] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const tracking = useTrackingParams();
 
@@ -39,8 +37,6 @@ export function AdsHeroForm() {
           email: form.email,
           phone: form.phone,
           message: form.message,
-          smsTransactional,
-          smsMarketing,
           source: "ads_hero_form",
           ...tracking,
         }),
@@ -64,7 +60,7 @@ export function AdsHeroForm() {
         <div className="rounded-2xl bg-offwhite px-6 py-8 shadow-2xl sm:px-8 sm:py-10">
           <div className="flex flex-col items-center text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-gold" />
             </div>
             <p className="mt-4 font-serif text-xl font-bold text-navy">
               We'll be in touch shortly!
@@ -81,9 +77,14 @@ export function AdsHeroForm() {
   return (
     <div className="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
       <div className="rounded-2xl bg-offwhite px-6 py-8 shadow-2xl sm:px-8 sm:py-10">
-        <p className="text-center font-serif text-lg font-bold text-navy">
-          Tell us about your property. We'll call you.
+        <p className="text-center font-serif text-lg font-bold text-navy lg:text-2xl">
+          Learn everything you need to know in one conversation.
         </p>
+        <ul className="mx-auto mt-3 w-fit space-y-2 text-base text-navy/70 lg:mt-5">
+          <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5 shrink-0 text-gold" /> Our tenant screening process</li>
+          <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5 shrink-0 text-gold" /> How we manage your property</li>
+          <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5 shrink-0 text-gold" /> Your bottom-line profitability</li>
+        </ul>
         <form
           className="mt-6 flex flex-col gap-3"
           onSubmit={handleSubmit}
@@ -123,35 +124,6 @@ export function AdsHeroForm() {
             onChange={handleChange}
             className="resize-none rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
-          <label className="mt-1 flex items-start gap-2.5 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={smsTransactional}
-              onChange={(e) => setSmsTransactional(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-navy/20 text-gold accent-gold"
-            />
-            <span className="text-[11px] leading-relaxed text-navy/50">
-              I consent to receive transactional text messages from Lighthouse
-              Property Management & Realty at the phone number provided, such as
-              account alerts and appointment reminders.
-              Message frequency varies. Msg & data rates may apply. Reply STOP
-              to opt out, HELP for help.
-            </span>
-          </label>
-          <label className="flex items-start gap-2.5 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={smsMarketing}
-              onChange={(e) => setSmsMarketing(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-navy/20 text-gold accent-gold"
-            />
-            <span className="text-[11px] leading-relaxed text-navy/50">
-              I consent to receive marketing and promotional text messages from
-              Lighthouse Property Management & Realty at the phone number
-              provided. Message frequency varies. Msg & data rates may apply.
-              Reply STOP to opt out.
-            </span>
-          </label>
           <p className="text-[10px] leading-relaxed text-navy/40">
             <a href="/privacy" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
             &{" "}
@@ -168,7 +140,7 @@ export function AdsHeroForm() {
                 Sending...
               </span>
             ) : (
-              "Talk to a Local Expert"
+              "Talk With Our Team"
             )}
           </button>
           {status === "error" && (

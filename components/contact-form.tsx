@@ -23,8 +23,6 @@ export function ContactForm() {
     propertyType: "",
     message: "",
   });
-  const [smsTransactional, setSmsTransactional] = useState(false);
-  const [smsMarketing, setSmsMarketing] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const tracking = useTrackingParams();
 
@@ -51,8 +49,6 @@ export function ContactForm() {
           address: form.address,
           propertyType: form.propertyType,
           message: form.message,
-          smsTransactional,
-          smsMarketing,
           source: "contact_form",
           ...tracking,
         }),
@@ -168,35 +164,6 @@ export function ContactForm() {
                   onChange={handleChange}
                   className="resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                 />
-                <label className="mt-1 flex items-start gap-2.5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={smsTransactional}
-                    onChange={(e) => setSmsTransactional(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 text-gold accent-gold"
-                  />
-                  <span className="text-[11px] leading-relaxed text-white/40">
-                    I consent to receive transactional text messages from
-                    Lighthouse Property Management & Realty at the phone number
-                    provided, such as rental report delivery, account alerts, and
-                    appointment reminders. Message frequency varies. Msg & data
-                    rates may apply. Reply STOP to opt out, HELP for help.
-                  </span>
-                </label>
-                <label className="flex items-start gap-2.5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={smsMarketing}
-                    onChange={(e) => setSmsMarketing(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 text-gold accent-gold"
-                  />
-                  <span className="text-[11px] leading-relaxed text-white/40">
-                    I consent to receive marketing and promotional text messages
-                    from Lighthouse Property Management & Realty at the phone
-                    number provided. Message frequency varies. Msg & data rates
-                    may apply. Reply STOP to opt out.
-                  </span>
-                </label>
                 <p className="text-[10px] leading-relaxed text-white/30">
                   <a href="/privacy" className="underline hover:text-white/50">Privacy Policy</a>{" "}
                   &{" "}

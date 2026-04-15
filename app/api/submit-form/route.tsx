@@ -288,8 +288,8 @@ export async function POST(req: NextRequest) {
   // ── 8. Upsert contact in GHL ────────────────────────────────────────
   const leadSource = source === "hero_form" ? "Lighthouse Property Report Page" : "Lighthouse Property Report Page";
   const sourceTags = source === "hero_form"
-    ? ["property-report-page", "hero-form"]
-    : ["property-report-page", "bottom-form"];
+    ? ["rental-report", "hero-form"]
+    : ["rental-report", "bottom-form"];
 
   let contactId: string | null = null;
   try {

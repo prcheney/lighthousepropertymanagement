@@ -28,8 +28,8 @@ const SOURCE_LABELS: Record<string, string> = {
 };
 
 const SOURCE_TAGS: Record<string, string[]> = {
-  ads_hero_form: ["get-started-page", "hero-form"],
-  ads_contact_form: ["get-started-page", "bottom-form"],
+  ads_hero_form: ["direct-conversation", "hero-form"],
+  ads_contact_form: ["direct-conversation", "bottom-form"],
   hero_form: ["landing-page", "hero-form"],
   contact_form: ["landing-page", "bottom-form"],
 };

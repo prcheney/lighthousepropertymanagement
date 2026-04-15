@@ -47,12 +47,12 @@ export default function Home() {
     <main>
       <AdsHero />
       <SocialProofBar />
-      <Services />
-      <PainPoints ctaText="Talk to a Local Expert" />
-      <Guarantees ctaText="Talk to a Local Expert" />
-      <MeetTheTeam ctaText="Talk to a Local Expert" />
-      <Testimonials />
-      <FAQ ctaText="Talk to a local expert" subtitle="Still have questions? Call us directly or fill out the form below and we'll reach out within one business day." items={homeFaqs} />
+      <Services ctaText="Talk With Our Team" />
+      <PainPoints ctaText="Talk With Our Team" />
+      <Guarantees ctaText="Talk With Our Team" />
+      <MeetTheTeam ctaText="Talk With Our Team" />
+      <Testimonials ctaText="Talk With Our Team" />
+      <FAQ ctaText="Talk With Our Team" subtitle="Still have questions? Call us directly or fill out the form below and we'll reach out within one business day." items={homeFaqs} />
       <AdsContactForm />
       <Footer />
     </main>
