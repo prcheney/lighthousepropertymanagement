@@ -29,7 +29,7 @@ export function BottomCallCTA() {
           <HeroCallButtons />
         </div>
         <p className="mt-6 text-sm text-white/60">
-          In a 10-minute call, you can learn everything you need to know about renting your property.
+          In a 10-minute call, you can learn everything you need to know about maximizing your rental investment.
         </p>
       </div>
     </section>
