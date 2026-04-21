@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { images } from "@/lib/image-urls";
-import { HeroCallButtons } from "@/components/call-cta";
+import { HeroCallButtons, CallCTA, InlineCallCTA } from "@/components/call-cta";
 import { SocialProofBar } from "@/components/social-proof-bar";
+import { MeetTheTeam } from "@/components/meet-the-team";
+import { Testimonials } from "@/components/testimonials";
+import { FAQ } from "@/components/faq";
 import { BottomCallCTA } from "@/components/bottom-call-cta";
 import { Footer } from "@/components/footer";
 import {
@@ -23,6 +26,39 @@ export const metadata: Metadata = {
   description:
     "Nine written property management guarantees. No upfront fees, no mark-ups, no lock-in, next business day response, and a 30-day satisfaction guarantee. All in your contract.",
 };
+
+const guaranteesFaqs = [
+  {
+    question: "Are these guarantees actually in the contract?",
+    answer:
+      "Yes. Every one of the nine guarantees is written into your management agreement. No asterisks, no hidden exceptions. If we don't deliver, you have recourse in writing.",
+  },
+  {
+    question: "What happens if I'm not satisfied in the first 30 days?",
+    answer:
+      "Our 30-Day Satisfaction Guarantee means the next month of management is on us. You get a full month to course-correct, no questions asked.",
+  },
+  {
+    question: "Do you really not mark up maintenance?",
+    answer:
+      "Correct. You pay exactly what the vendor charges, period. This is one of the most common places other managers quietly pad their income, and we refuse to do it.",
+  },
+  {
+    question: "What if a placed tenant has to be removed early?",
+    answer:
+      "Our 3-Month Tenant Guarantee waives the next leasing fee if a tenant we placed must be removed within the first 90 days. We stand behind our screening.",
+  },
+  {
+    question: "Is there really no long-term lock-in?",
+    answer:
+      "No lock-in and no cancellation penalties. We earn your business every month. If we stop delivering, you're free to leave without a fight.",
+  },
+  {
+    question: "Are there any upfront or setup fees?",
+    answer:
+      "None. Zero out of pocket to start. You pay nothing until we're actively managing your property with a tenant in place.",
+  },
+];
 
 const guarantees = [
   {
@@ -219,6 +255,17 @@ export default function GuaranteesPage() {
       <GuaranteesHero />
       <SocialProofBar />
       <GuaranteesDetail />
+      <MeetTheTeam
+        cta={<CallCTA />}
+        image={images.teamBlakeChris}
+        imageAlt="Blake and Chris from Lighthouse Property Management in Jacksonville, Florida"
+      />
+      <Testimonials cta={<CallCTA />} />
+      <FAQ
+        subtitle="Still have questions? Call us directly or schedule a time and we'll reach out within one business day."
+        items={guaranteesFaqs}
+        inlineCta={<InlineCallCTA />}
+      />
       <BottomCallCTA />
       <Footer />
     </main>

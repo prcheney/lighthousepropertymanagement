@@ -1,11 +1,47 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { images } from "@/lib/image-urls";
-import { HeroCallButtons } from "@/components/call-cta";
+import { HeroCallButtons, CallCTA, InlineCallCTA } from "@/components/call-cta";
 import { SocialProofBar } from "@/components/social-proof-bar";
+import { MeetTheTeam } from "@/components/meet-the-team";
+import { Testimonials } from "@/components/testimonials";
+import { FAQ } from "@/components/faq";
 import { BottomCallCTA } from "@/components/bottom-call-cta";
 import { Footer } from "@/components/footer";
 import { ChevronDown } from "lucide-react";
+
+const servicesFaqs = [
+  {
+    question: "What's included in full-service management?",
+    answer:
+      "Everything from listing and tenant screening to rent collection, maintenance dispatch, renovations, and monthly financial reporting. We run the entire lifecycle so you never have to juggle vendors, tenants, or paperwork yourself.",
+  },
+  {
+    question: "How fast do you respond to owners and tenants?",
+    answer:
+      "Owners and tenants hear back the next business day, every time. Real emergencies hit our 24/7 emergency line and get dispatched immediately.",
+  },
+  {
+    question: "Do you mark up maintenance and repairs?",
+    answer:
+      "Never. You pay exactly what the vendor charges. No hidden mark-ups, no percentage adds, no surprise line items. It's written into your contract.",
+  },
+  {
+    question: "How long does it take to lease a property?",
+    answer:
+      "Most of our listings lease within two to three weeks. Professional photos, syndicated marketing, and a proven showing process keep vacancies short.",
+  },
+  {
+    question: "Can I cancel if I'm not happy?",
+    answer:
+      "Yes. No long-term lock-in and no cancellation penalties. On top of that, if you're not happy in the first 30 days, the next month of management is on us.",
+  },
+  {
+    question: "Do you help investors buy new rentals?",
+    answer:
+      "Yes. Our investor services cover market analysis, acquisition through our real estate brokerage arm, rehab scoping, and day-one management once the property is yours.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "Our Services | Lighthouse Property Management & Realty",
@@ -202,6 +238,17 @@ export default function ServicesPage() {
       <ServicesHero />
       <SocialProofBar />
       <ServicesDetail />
+      <MeetTheTeam
+        cta={<CallCTA />}
+        image={images.teamBlakeChris}
+        imageAlt="Blake and Chris from Lighthouse Property Management in Jacksonville, Florida"
+      />
+      <Testimonials cta={<CallCTA />} />
+      <FAQ
+        subtitle="Still have questions? Call us directly or schedule a time and we'll reach out within one business day."
+        items={servicesFaqs}
+        inlineCta={<InlineCallCTA />}
+      />
       <BottomCallCTA />
       <Footer />
     </main>
