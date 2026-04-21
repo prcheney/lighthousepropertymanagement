@@ -9,8 +9,6 @@ import { useTrackingParams } from "@/hooks/use-tracking-params";
 
 const WEBHOOK_URL = "/api/submit-form";
 
-const propertyTypes = ["Single Family", "Duplex / Multi-Family", "Condo", "Townhome", "Other"];
-
 export function ContactForm() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
@@ -20,14 +18,12 @@ export function ContactForm() {
     email: "",
     phone: "",
     address: "",
-    propertyType: "",
-    message: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const tracking = useTrackingParams();
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -47,8 +43,6 @@ export function ContactForm() {
           email: form.email,
           phone: form.phone,
           address: form.address,
-          propertyType: form.propertyType,
-          message: form.message,
           source: "contact_form",
           ...tracking,
         }),
@@ -57,7 +51,7 @@ export function ContactForm() {
       if (response.ok) {
         window.dataLayer?.push({ event: "form_submit", form_name: "contact_form" });
         setStatus("success");
-        setForm({ name: "", email: "", phone: "", address: "", propertyType: "", message: "" });
+        setForm({ name: "", email: "", phone: "", address: "" });
       } else {
         setStatus("error");
       }
@@ -139,30 +133,6 @@ export function ContactForm() {
                   placeholder="Property Address"
                   required
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <select
-                  name="propertyType"
-                  value={form.propertyType}
-                  onChange={handleChange}
-                  required
-                  className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                >
-                  <option value="" disabled className="text-navy">
-                    Property Type
-                  </option>
-                  {propertyTypes.map((t) => (
-                    <option key={t} value={t} className="text-navy">
-                      {t}
-                    </option>
-                  ))}
-                </select>
-                <textarea
-                  name="message"
-                  placeholder="Anything else we should know?"
-                  rows={3}
-                  value={form.message}
-                  onChange={handleChange}
-                  className="resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                 />
                 <p className="text-[10px] leading-relaxed text-white/30">
                   <a href="/privacy" className="underline hover:text-white/50">Privacy Policy</a>{" "}
