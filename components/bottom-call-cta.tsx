@@ -22,8 +22,8 @@ export function BottomCallCTA() {
           Ready to talk to a property manager who picks up the phone?
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/75">
-          Call us now or schedule a time and we{"'"}ll reach out within one
-          business day.
+          Call us now or schedule a time and we{"'"}ll reach out to you at
+          your preferred time.
         </p>
         <div className="mt-10">
           <HeroCallButtons />
