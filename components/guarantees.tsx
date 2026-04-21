@@ -125,26 +125,26 @@ export function Guarantees({ ctaText = "Get Your Free Rental Report", cta }: { c
                     {g.badge}
                   </span>
                 )}
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col items-center text-center">
                   <Icon
-                    className={`h-6 w-6 shrink-0 ${g.highlight ? "text-navy" : "text-gold"}`}
+                    className={`h-7 w-7 ${g.highlight ? "text-navy" : "text-gold"}`}
                     aria-hidden="true"
                   />
                   <h3
-                    className={`text-lg font-bold leading-tight ${
+                    className={`mt-4 text-lg font-bold leading-tight ${
                       g.highlight ? "text-navy" : "text-white"
                     }`}
                   >
                     {g.title}
                   </h3>
+                  <p
+                    className={`mt-2 text-sm leading-relaxed ${
+                      g.highlight ? "text-navy/80" : "text-white/70"
+                    }`}
+                  >
+                    {g.desc}
+                  </p>
                 </div>
-                <p
-                  className={`mt-2 text-sm leading-relaxed ${
-                    g.highlight ? "text-navy/80" : "text-white/70"
-                  }`}
-                >
-                  {g.desc}
-                </p>
               </div>
             );
           })}
