@@ -9,8 +9,7 @@ const guarantees = [
     icon: Clock,
     title: "Next Business Day Response",
     desc: "You'll get a response the next business day. No exceptions, no excuses, no waiting days for a callback.",
-    highlight: true,
-    badge: "Our Promise",
+    highlight: false,
   },
   {
     icon: UserCheck,
