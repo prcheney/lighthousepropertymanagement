@@ -63,6 +63,22 @@ export function CallCTA({
   );
 }
 
+export function InlineCallCTA() {
+  return (
+    <>
+      <a
+        href={PHONE_TEL}
+        className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
+      >
+        Call {PHONE_DISPLAY}
+      </a>
+      {" or "}
+      <CallModalLink>schedule a call later</CallModalLink>
+      .
+    </>
+  );
+}
+
 export function CallModalLink({
   children = SCHEDULE_LABEL,
   className,

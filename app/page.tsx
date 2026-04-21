@@ -6,7 +6,7 @@ import { Guarantees } from "@/components/guarantees";
 import { Services } from "@/components/services";
 import { Testimonials } from "@/components/testimonials";
 import { FAQ } from "@/components/faq";
-import { CallCTA, CallModalLink } from "@/components/call-cta";
+import { CallCTA, InlineCallCTA } from "@/components/call-cta";
 import { BottomCallCTA } from "@/components/bottom-call-cta";
 import { Footer } from "@/components/footer";
 import { images } from "@/lib/image-urls";
@@ -61,7 +61,7 @@ export default function Home() {
       <FAQ
         subtitle="Still have questions? Call us directly or schedule a time and we'll reach out within one business day."
         items={homeFaqs}
-        inlineCta={<CallModalLink />}
+        inlineCta={<InlineCallCTA />}
       />
       <BottomCallCTA />
       <Footer />
