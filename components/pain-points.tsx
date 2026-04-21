@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/image-urls";
@@ -13,7 +13,7 @@ const painPoints = [
   "A manager who doesn't know your name, your property, or your goals",
 ];
 
-export function PainPoints({ ctaText = "Get Your Free Rental Report" }: { ctaText?: string }) {
+export function PainPoints({ ctaText = "Get Your Free Rental Report", cta }: { ctaText?: string; cta?: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
 
@@ -56,12 +56,14 @@ export function PainPoints({ ctaText = "Get Your Free Rental Report" }: { ctaTex
               ))}
             </ul>
             <div className="mt-8">
-              <a
-                href="#contact"
-                className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
-              >
-                {ctaText}
-              </a>
+              {cta ?? (
+                <a
+                  href="#contact"
+                  className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
+                >
+                  {ctaText}
+                </a>
+              )}
             </div>
           </div>
         </div>

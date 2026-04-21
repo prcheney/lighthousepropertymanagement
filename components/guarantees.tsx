@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import { Clock, DollarSign, Ban, Unlock, Scale, RefreshCw, PhoneCall, UserCheck, ShieldCheck } from "lucide-react";
 
@@ -62,7 +62,7 @@ const guarantees = [
   },
 ];
 
-export function Guarantees({ ctaText = "Get Your Free Rental Report" }: { ctaText?: string }) {
+export function Guarantees({ ctaText = "Get Your Free Rental Report", cta }: { ctaText?: string; cta?: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
 
@@ -97,13 +97,15 @@ export function Guarantees({ ctaText = "Get Your Free Rental Report" }: { ctaTex
           </p>
         </div>
 
-          <div className={`mt-8 text-center transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <a
-              href="#contact"
-              className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
-            >
-              {ctaText}
-            </a>
+          <div className={`mt-8 flex justify-center transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            {cta ?? (
+              <a
+                href="#contact"
+                className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
+              >
+                {ctaText}
+              </a>
+            )}
           </div>
 
           {/* Cards Grid */}

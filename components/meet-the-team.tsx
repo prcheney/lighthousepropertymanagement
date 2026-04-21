@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/image-urls";
@@ -39,9 +39,99 @@ const differentiators = [
   },
 ];
 
-export function MeetTheTeam({ ctaText = "Get Your Free Rental Report" }: { ctaText?: string }) {
+export function MeetTheTeam({
+  ctaText = "Get Your Free Rental Report",
+  cta,
+  variant = "split",
+}: {
+  ctaText?: string;
+  cta?: ReactNode;
+  variant?: "split" | "centered";
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
+
+  const defaultCta = (
+    <a
+      href="#contact"
+      className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
+    >
+      {ctaText}
+    </a>
+  );
+
+  if (variant === "centered") {
+    return (
+      <section id="why-us" ref={ref} className="overflow-hidden py-20 lg:py-28">
+        <div className="mx-auto max-w-3xl px-6 lg:px-8">
+          <div
+            className={`text-center transition-all duration-700 ${
+              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+              Meet the Team
+            </p>
+            <h2 className="mt-4 font-serif text-3xl font-bold leading-tight text-navy lg:text-4xl text-balance">
+              We lead with a simple principle: Extreme Ownership.
+            </h2>
+
+            <div className="mx-auto mt-6 flex max-w-2xl flex-col gap-4 text-base leading-relaxed text-muted-foreground">
+              <p>
+                We{"'"}re a team of real estate professionals with two decades of
+                experience across full-time investing, residential appraising,
+                facilities maintenance, and both short-term vacation rental and
+                long-term property management. We built Lighthouse because we
+                were tired of watching national companies treat Jacksonville
+                properties like unit numbers.
+              </p>
+              <p className="font-medium text-navy">
+                We live and work in Jacksonville. Our kids go to school here, we
+                go to church here, we care about this community. Your
+                property{"'"}s reputation is our reputation.
+              </p>
+            </div>
+
+            <div className="mx-auto mt-10 flex max-w-2xl flex-col gap-6 text-left">
+              {ownership.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
+                      <Icon className="h-5 w-5 text-gold" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-navy">{item.title}</p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              {differentiators.map((d) => {
+                const Icon = d.icon;
+                return (
+                  <span
+                    key={d.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/5 px-4 py-2 text-xs font-semibold text-navy"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
+                    {d.label}
+                  </span>
+                );
+              })}
+            </div>
+
+            <div className="mt-10 flex justify-center">{cta ?? defaultCta}</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="why-us" ref={ref} className="overflow-hidden py-20 lg:py-28">
@@ -129,14 +219,7 @@ export function MeetTheTeam({ ctaText = "Get Your Free Rental Report" }: { ctaTe
             </div>
 
             {/* CTA */}
-            <div className="mt-10">
-              <a
-                href="#contact"
-                className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
-              >
-                {ctaText}
-              </a>
-            </div>
+            <div className="mt-10">{cta ?? defaultCta}</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/image-urls";
@@ -33,7 +33,7 @@ const services = [
   },
 ];
 
-export function Services({ ctaText = "Talk With Our Team" }: { ctaText?: string }) {
+export function Services({ ctaText = "Talk With Our Team", cta }: { ctaText?: string; cta?: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
 
@@ -72,13 +72,15 @@ export function Services({ ctaText = "Talk With Our Team" }: { ctaText?: string 
         </div>
 
         {/* CTA */}
-        <div className={`mt-12 text-center transition-all duration-700 delay-300 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <a
-            href="#contact"
-            className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
-          >
-            {ctaText}
-          </a>
+        <div className={`mt-12 flex justify-center transition-all duration-700 delay-300 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          {cta ?? (
+            <a
+              href="#contact"
+              className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
+            >
+              {ctaText}
+            </a>
+          )}
         </div>
       </div>
     </section>

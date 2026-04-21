@@ -6,7 +6,8 @@ import { Guarantees } from "@/components/guarantees";
 import { Services } from "@/components/services";
 import { Testimonials } from "@/components/testimonials";
 import { FAQ } from "@/components/faq";
-import { AdsContactForm } from "@/components/ads-contact-form";
+import { CallCTA, CallModalLink } from "@/components/call-cta";
+import { BottomCallCTA } from "@/components/bottom-call-cta";
 import { Footer } from "@/components/footer";
 
 const homeFaqs = [
@@ -47,13 +48,17 @@ export default function Home() {
     <main>
       <AdsHero />
       <SocialProofBar />
-      <Services ctaText="Talk With Our Team" />
-      <PainPoints ctaText="Talk With Our Team" />
-      <Guarantees ctaText="Talk With Our Team" />
-      <MeetTheTeam ctaText="Talk With Our Team" />
-      <Testimonials ctaText="Talk With Our Team" />
-      <FAQ ctaText="Talk With Our Team" subtitle="Still have questions? Call us directly or fill out the form below and we'll reach out within one business day." items={homeFaqs} />
-      <AdsContactForm />
+      <Services cta={<CallCTA />} />
+      <PainPoints cta={<CallCTA tone="onDark" align="start" />} />
+      <Guarantees cta={<CallCTA />} />
+      <MeetTheTeam variant="centered" cta={<CallCTA />} />
+      <Testimonials cta={<CallCTA />} />
+      <FAQ
+        subtitle="Still have questions? Call us directly or schedule a time and we'll reach out within one business day."
+        items={homeFaqs}
+        inlineCta={<CallModalLink />}
+      />
+      <BottomCallCTA />
       <Footer />
     </main>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback, useEffect, type ReactNode } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -55,7 +55,7 @@ const testimonials = [
   },
 ];
 
-export function Testimonials({ ctaText = "Talk With Our Team" }: { ctaText?: string }) {
+export function Testimonials({ ctaText = "Talk With Our Team", cta }: { ctaText?: string; cta?: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -186,13 +186,15 @@ export function Testimonials({ ctaText = "Talk With Our Team" }: { ctaText?: str
         </div>
 
         {/* CTA */}
-        <div className="mt-10 text-center">
-          <a
-            href="#contact"
-            className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
-          >
-            {ctaText}
-          </a>
+        <div className="mt-10 flex justify-center">
+          {cta ?? (
+            <a
+              href="#contact"
+              className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
+            >
+              {ctaText}
+            </a>
+          )}
         </div>
       </div>
     </section>

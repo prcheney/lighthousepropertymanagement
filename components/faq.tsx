@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import {
   Accordion,
@@ -42,8 +42,18 @@ const faqs = [
   },
 ];
 
-export function FAQ({ ctaText = "Get your free rental report", subtitle = "Still have questions? Your free rental analysis PDF includes personalized data that answers most of them. You can also call us directly.", items = faqs }: { ctaText?: string; subtitle?: string; items?: typeof faqs }) {
-  const rentalReportCta = (
+export function FAQ({
+  ctaText = "Get your free rental report",
+  subtitle = "Still have questions? Your free rental analysis PDF includes personalized data that answers most of them. You can also call us directly.",
+  items = faqs,
+  inlineCta,
+}: {
+  ctaText?: string;
+  subtitle?: string;
+  items?: typeof faqs;
+  inlineCta?: ReactNode;
+}) {
+  const rentalReportCta = inlineCta ?? (
     <a
       href="#contact"
       className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"

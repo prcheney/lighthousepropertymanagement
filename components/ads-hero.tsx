@@ -1,18 +1,9 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
 import { images } from "@/lib/image-urls";
-import { AdsHeroForm } from "@/components/ads-hero-form";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ChevronDown, Phone } from "lucide-react";
-
-const PHONE_DISPLAY = "(904) 822-7661";
-const PHONE_TEL = "tel:9048227661";
+import { HeroCallButtons } from "@/components/call-cta";
+import { ChevronDown } from "lucide-react";
 
 export function AdsHero() {
-  const [open, setOpen] = useState(false);
-
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <Image
@@ -45,34 +36,14 @@ export function AdsHero() {
           local property management.
         </p>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href={PHONE_TEL}
-            className="flex w-full items-center justify-center gap-3 rounded-lg bg-gold px-8 py-4 text-base font-semibold text-navy shadow-lg transition-all duration-300 hover:bg-gold/90 hover:shadow-xl sm:w-auto"
-          >
-            <Phone className="h-5 w-5" />
-            Call {PHONE_DISPLAY}
-          </a>
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="w-full rounded-lg border border-white/40 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur transition-all duration-300 hover:border-white/70 hover:bg-white/10 sm:w-auto"
-          >
-            Prefer to have us call you?
-          </button>
+        <div className="mt-10">
+          <HeroCallButtons />
         </div>
 
         <p className="mt-6 text-sm text-white/60">
           Available now. We answer every call personally.
         </p>
       </div>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-md overflow-hidden border-0 bg-transparent p-0 shadow-none sm:max-w-md">
-          <DialogTitle className="sr-only">Request a call from our team</DialogTitle>
-          <AdsHeroForm />
-        </DialogContent>
-      </Dialog>
 
       <a
         href="#services"
