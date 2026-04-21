@@ -112,17 +112,6 @@ function ServicesHero() {
           the entire lifecycle so nothing falls through the cracks.
         </p>
 
-        <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2">
-          {services.map((s) => (
-            <li
-              key={s.title}
-              className="rounded-full border border-gold/30 bg-white/5 px-4 py-1.5 text-xs font-semibold text-white/85 backdrop-blur"
-            >
-              {s.title}
-            </li>
-          ))}
-        </ul>
-
         <div className="mt-10">
           <HeroCallButtons />
         </div>
