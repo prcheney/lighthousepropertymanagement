@@ -89,7 +89,7 @@ function ServicesHero() {
       />
       <div className="absolute inset-0 bg-navy/80" />
 
-      <div className="relative z-10 mx-auto w-full max-w-3xl px-6 py-24 text-center lg:py-28">
+      <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-24 text-center lg:py-28">
         <Image
           src={images.logo}
           alt="Lighthouse Property Management and Realty, LLC"
@@ -103,21 +103,29 @@ function ServicesHero() {
           Our Services
         </p>
         <h1 className="mt-4 font-serif text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl text-balance">
-          Full-service Jacksonville property management. Nothing falls through the cracks.
+          Leasing, screening, maintenance, renovations, and reporting. Under one roof.
         </h1>
 
-        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/75">
-          From first listing to final disbursement, we run the entire operation
-          so you can own rental property without running it.
+        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
+          Full-service Jacksonville property management built for owners who
+          want the returns of a rental property without running one. We handle
+          the entire lifecycle so nothing falls through the cracks.
         </p>
+
+        <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2">
+          {services.map((s) => (
+            <li
+              key={s.title}
+              className="rounded-full border border-gold/30 bg-white/5 px-4 py-1.5 text-xs font-semibold text-white/85 backdrop-blur"
+            >
+              {s.title}
+            </li>
+          ))}
+        </ul>
 
         <div className="mt-10">
           <HeroCallButtons />
         </div>
-
-        <p className="mt-6 text-sm text-white/60">
-          In a 10-minute call, you can learn everything you need to know about maximizing your rental investment.
-        </p>
       </div>
 
       <a

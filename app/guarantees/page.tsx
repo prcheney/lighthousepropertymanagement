@@ -112,7 +112,7 @@ function GuaranteesHero() {
       />
       <div className="absolute inset-0 bg-navy/80" />
 
-      <div className="relative z-10 mx-auto w-full max-w-3xl px-6 py-24 text-center lg:py-28">
+      <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-24 text-center lg:py-28">
         <Image
           src={images.logo}
           alt="Lighthouse Property Management and Realty, LLC"
@@ -129,18 +129,27 @@ function GuaranteesHero() {
           {"We don't just promise it. We put it in writing."}
         </h1>
 
-        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/75">
-          Every guarantee below is included in your management agreement. No
-          asterisks, no exceptions, no fine print.
+        <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
+          Nine enforceable commitments written into every management agreement:
+          no upfront fees, no mark-ups, no lock-in, a dedicated rep, a 24/7
+          emergency line, and a 30-day satisfaction guarantee. No asterisks, no
+          fine print.
         </p>
+
+        <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2">
+          {guarantees.map((g) => (
+            <li
+              key={g.title}
+              className="rounded-full border border-gold/30 bg-white/5 px-4 py-1.5 text-xs font-semibold text-white/85 backdrop-blur"
+            >
+              {g.title}
+            </li>
+          ))}
+        </ul>
 
         <div className="mt-10">
           <HeroCallButtons />
         </div>
-
-        <p className="mt-6 text-sm text-white/60">
-          In a 10-minute call, you can learn everything you need to know about maximizing your rental investment.
-        </p>
       </div>
 
       <a
