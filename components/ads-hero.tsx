@@ -1,12 +1,20 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import { images } from "@/lib/image-urls";
 import { AdsHeroForm } from "@/components/ads-hero-form";
-import { ChevronDown } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { ChevronDown, Phone } from "lucide-react";
+
+const PHONE_DISPLAY = "(904) 822-7661";
+const PHONE_TEL = "tel:9048227661";
 
 export function AdsHero() {
+  const [open, setOpen] = useState(false);
+
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Background Image */}
       <Image
         src={images.heroBg}
         alt="Beautiful Jacksonville Florida home with live oaks and Spanish moss"
@@ -15,64 +23,57 @@ export function AdsHero() {
         className="object-cover object-center"
         sizes="100vw"
       />
-      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-navy/80" />
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-24 lg:py-32">
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Left: Copy */}
-          <div className="text-center lg:text-left">
-            {/* Logo */}
-            <Image
-              src={images.logo}
-              alt="Lighthouse Property Management and Realty, LLC"
-              width={200}
-              height={66}
-              priority
-              className="mx-auto h-14 w-auto brightness-0 invert lg:mx-0"
-            />
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-6 py-24 text-center lg:py-32">
+        <Image
+          src={images.logo}
+          alt="Lighthouse Property Management and Realty, LLC"
+          width={200}
+          height={66}
+          priority
+          className="mx-auto h-14 w-auto brightness-0 invert"
+        />
 
-            {/* Headline */}
-            <h1 className="mt-8 font-serif text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl text-balance">
-              Jacksonville Property Management That Picks Up the Phone
-            </h1>
+        <h1 className="mt-8 font-serif text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl text-balance">
+          Jacksonville Property Management That Picks Up the Phone
+        </h1>
 
-            {/* Subheadline */}
-            <p className="mx-auto mt-5 hidden max-w-lg text-lg leading-relaxed text-white/75 md:text-xl lg:mx-0 lg:block">
-              A dedicated rep who knows your name. 9 written guarantees in your
-              contract. No hidden fees, no mark-ups, no lock-in. Just honest,
-              local property management.
-            </p>
+        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/75 md:text-xl">
+          A dedicated rep who knows your name. 9 written guarantees in your
+          contract. No hidden fees, no mark-ups, no lock-in. Just honest,
+          local property management.
+        </p>
 
-            {/* Phone — desktop only */}
-            <p className="mt-8 hidden text-sm font-medium text-white/60 lg:block">
-              Prefer to talk? Call{" "}
-              <a
-                href="tel:9048227661"
-                className="text-gold transition-colors hover:text-gold/80"
-              >
-                (904) 822-7661
-              </a>
-            </p>
-          </div>
-
-          {/* Right: Inline Form */}
-          <AdsHeroForm />
-
-          {/* Phone — mobile only, below form */}
-          <p className="text-center text-sm font-medium text-white/60 lg:hidden">
-            Prefer to talk? Call{" "}
-            <a
-              href="tel:9048227661"
-              className="text-gold transition-colors hover:text-gold/80"
-            >
-              (904) 822-7661
-            </a>
-          </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a
+            href={PHONE_TEL}
+            className="flex w-full items-center justify-center gap-3 rounded-lg bg-gold px-8 py-4 text-base font-semibold text-navy shadow-lg transition-all duration-300 hover:bg-gold/90 hover:shadow-xl sm:w-auto"
+          >
+            <Phone className="h-5 w-5" />
+            Call {PHONE_DISPLAY}
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="w-full rounded-lg border border-white/40 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur transition-all duration-300 hover:border-white/70 hover:bg-white/10 sm:w-auto"
+          >
+            Prefer to have us call you?
+          </button>
         </div>
+
+        <p className="mt-6 text-sm text-white/60">
+          Available now — we answer every call personally.
+        </p>
       </div>
-      {/* Scroll indicator */}
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-md overflow-hidden border-0 bg-transparent p-0 shadow-none sm:max-w-md">
+          <DialogTitle className="sr-only">Request a call from our team</DialogTitle>
+          <AdsHeroForm />
+        </DialogContent>
+      </Dialog>
+
       <a
         href="#services"
         aria-label="Scroll to next section"
