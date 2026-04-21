@@ -136,17 +136,6 @@ function GuaranteesHero() {
           fine print.
         </p>
 
-        <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2">
-          {guarantees.map((g) => (
-            <li
-              key={g.title}
-              className="rounded-full border border-gold/30 bg-white/5 px-4 py-1.5 text-xs font-semibold text-white/85 backdrop-blur"
-            >
-              {g.title}
-            </li>
-          ))}
-        </ul>
-
         <div className="mt-10">
           <HeroCallButtons />
         </div>
