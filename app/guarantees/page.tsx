@@ -229,7 +229,10 @@ function GuaranteesDetail() {
                 className="group relative rounded-xl border border-gold/20 bg-navy px-6 py-8 text-white transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-xl"
               >
                 <div className="flex flex-col items-start">
-                  <Icon className="h-7 w-7 text-gold" aria-hidden="true" />
+                  <Icon
+                    className="mx-auto h-7 w-7 self-center text-gold"
+                    aria-hidden="true"
+                  />
                   <h3 className="mt-4 text-lg font-bold leading-tight text-white">
                     {g.title}
                   </h3>
