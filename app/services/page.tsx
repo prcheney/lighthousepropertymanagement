@@ -151,7 +151,7 @@ function ServicesHero() {
           Our Services
         </p>
         <h1 className="mt-4 font-serif text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl text-balance">
-          Leasing, screening, maintenance, renovations, and reporting. Under one roof.
+          Jacksonville Property Management Services
         </h1>
 
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
