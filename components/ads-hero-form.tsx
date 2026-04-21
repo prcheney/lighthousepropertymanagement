@@ -11,6 +11,7 @@ export function AdsHeroForm() {
     name: "",
     email: "",
     phone: "",
+    availability: "",
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -36,6 +37,7 @@ export function AdsHeroForm() {
           name: form.name,
           email: form.email,
           phone: form.phone,
+          availability: form.availability,
           message: form.message,
           source: "ads_hero_form",
           ...tracking,
@@ -45,7 +47,7 @@ export function AdsHeroForm() {
       if (response.ok) {
         window.dataLayer?.push({ event: "form_submit", form_name: "ads_hero_form" });
         setStatus("success");
-        setForm({ name: "", email: "", phone: "", message: "" });
+        setForm({ name: "", email: "", phone: "", availability: "", message: "" });
       } else {
         setStatus("error");
       }
@@ -115,6 +117,14 @@ export function AdsHeroForm() {
             onChange={handleChange}
             required
             className="rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+          />
+          <textarea
+            name="availability"
+            placeholder="When are you usually available for a call? (e.g. weekday mornings, after 5pm, etc.)"
+            rows={3}
+            value={form.availability}
+            onChange={handleChange}
+            className="resize-none rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
           <textarea
             name="message"

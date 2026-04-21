@@ -43,11 +43,16 @@ export function MeetTheTeam({
   ctaText = "Get Your Free Rental Report",
   cta,
   variant = "split",
+  image,
+  imageAlt = "The Lighthouse Property Management team in Jacksonville, Florida",
 }: {
   ctaText?: string;
   cta?: ReactNode;
   variant?: "split" | "centered";
+  image?: string;
+  imageAlt?: string;
 }) {
+  const photoSrc = image ?? images.whyUs;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
 
@@ -144,8 +149,8 @@ export function MeetTheTeam({
           {/* Photo */}
           <div className="relative overflow-hidden rounded-2xl bg-navy h-[400px] lg:h-[560px]">
             <Image
-              src={images.whyUs}
-              alt="The Lighthouse Property Management team in Jacksonville, Florida"
+              src={photoSrc}
+              alt={imageAlt}
               fill
               className="object-cover opacity-90"
               sizes="(max-width: 1024px) 100vw, 50vw"

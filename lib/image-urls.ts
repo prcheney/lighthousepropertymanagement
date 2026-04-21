@@ -8,6 +8,7 @@ export const images = {
   serviceMaintenance: `/images/service-maintenance.jpg`,
   serviceFinancial: `/images/service-financial.jpg`,
   whyUs: `/images/why-us.jpg`,
+  teamBlakeChris: `/images/team-blake-chris.jpg`,
   painPoints: `/images/pain-points.jpg`,
   contact: `/images/rental-analysis-report.jpg`,
 } as const;

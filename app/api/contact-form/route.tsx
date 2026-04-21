@@ -37,13 +37,18 @@ const SOURCE_TAGS: Record<string, string[]> = {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const {
-    name, email, phone, message,
+    name, email, phone, availability, message,
     smsTransactional, smsMarketing, source,
     gclid, fbclid,
     utm_source, utm_medium, utm_campaign, utm_term, utm_content,
   } = body;
 
   const leadSource = SOURCE_LABELS[source] ?? source ?? "Lighthouse Landing Page";
+
+  const combinedMessage = [
+    availability ? `Availability: ${availability}` : null,
+    message || null,
+  ].filter(Boolean).join("\n\n");
 
   // ── 1. Upsert contact in GHL ──────────────────────────────────────────
   let contactId: string | null = null;
@@ -53,7 +58,7 @@ export async function POST(req: NextRequest) {
       { id: FIELD_IDS.smsTransactional, field_value: smsTransactional ? ["Yes"] : ["No"] },
       { id: FIELD_IDS.smsMarketing, field_value: smsMarketing ? ["Yes"] : ["No"] },
       { id: FIELD_IDS.leadSource, field_value: leadSource },
-      message ? { id: FIELD_IDS.message, field_value: message } : null,
+      combinedMessage ? { id: FIELD_IDS.message, field_value: combinedMessage } : null,
       gclid ? { id: FIELD_IDS.googleClickId, field_value: gclid } : null,
       fbclid ? { id: FIELD_IDS.fbClickId, field_value: fbclid } : null,
       utm_source ? { id: FIELD_IDS.utmSource, field_value: utm_source } : null,

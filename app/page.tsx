@@ -9,6 +9,7 @@ import { FAQ } from "@/components/faq";
 import { CallCTA, CallModalLink } from "@/components/call-cta";
 import { BottomCallCTA } from "@/components/bottom-call-cta";
 import { Footer } from "@/components/footer";
+import { images } from "@/lib/image-urls";
 
 const homeFaqs = [
   {
@@ -51,7 +52,11 @@ export default function Home() {
       <Services cta={<CallCTA />} />
       <PainPoints cta={<CallCTA tone="onDark" align="start" />} />
       <Guarantees cta={<CallCTA />} />
-      <MeetTheTeam variant="centered" cta={<CallCTA />} />
+      <MeetTheTeam
+        cta={<CallCTA />}
+        image={images.teamBlakeChris}
+        imageAlt="Blake and Chris from Lighthouse Property Management in Jacksonville, Florida"
+      />
       <Testimonials cta={<CallCTA />} />
       <FAQ
         subtitle="Still have questions? Call us directly or schedule a time and we'll reach out within one business day."
