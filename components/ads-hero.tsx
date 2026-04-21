@@ -63,7 +63,7 @@ export function AdsHero() {
         </div>
 
         <p className="mt-6 text-sm text-white/60">
-          Available now — we answer every call personally.
+          Available now. We answer every call personally.
         </p>
       </div>
 
