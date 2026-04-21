@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { images } from "@/lib/image-urls";
-import { HeroCallButtons, CallCTA, InlineCallCTA } from "@/components/call-cta";
+import {
+  HeroCallButtons,
+  CallCTA,
+  InlineCallCTA,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+} from "@/components/call-cta";
+import { Phone } from "lucide-react";
 import { SocialProofBar } from "@/components/social-proof-bar";
 import { MeetTheTeam } from "@/components/meet-the-team";
 import { Testimonials } from "@/components/testimonials";
@@ -61,6 +68,7 @@ const services = [
       "Annual property evaluations so small issues never turn into expensive surprises.",
       "Dedicated representative who answers the phone. No ticket queues, no call centers.",
     ],
+    callLabel: "Call to hand off your rental",
   },
   {
     title: "Investor Services",
@@ -73,6 +81,7 @@ const services = [
       "Rehab scoping and contractor coordination to get the property rent-ready quickly.",
       "Day-one leasing, screening, and management once the property is yours.",
     ],
+    callLabel: "Call to scope your next acquisition",
   },
   {
     title: "Tenant Placement & Screening",
@@ -85,6 +94,7 @@ const services = [
       "Most properties leased within 2 to 3 weeks of listing.",
       "Backed by our 3-Month Tenant Guarantee: if a placed tenant must be removed in 3 months, the next leasing fee is waived.",
     ],
+    callLabel: "Call to get your property leased",
   },
   {
     title: "Maintenance & Renovations",
@@ -97,6 +107,7 @@ const services = [
       "No mark-up, ever. You pay exactly what the vendor charges. Period.",
       "Full turnover renovations: paint, flooring, punch list, and rent-ready prep.",
     ],
+    callLabel: "Call to get a repair or turn handled",
   },
   {
     title: "Financial Reporting",
@@ -109,6 +120,7 @@ const services = [
       "Live Owner Portal access on desktop and mobile, 24/7.",
       "Direct deposit owner disbursements on a predictable schedule.",
     ],
+    callLabel: "Call to see a sample owner statement",
   },
 ];
 
@@ -223,6 +235,13 @@ function ServicesDetail() {
                     </li>
                   ))}
                 </ul>
+                <a
+                  href={PHONE_TEL}
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4 decoration-gold decoration-2 transition-colors hover:text-gold"
+                >
+                  <Phone className="h-4 w-4 text-gold" aria-hidden="true" />
+                  {s.callLabel}: {PHONE_DISPLAY}
+                </a>
               </div>
             </div>
           ))}
