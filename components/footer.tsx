@@ -4,7 +4,7 @@ import { images } from "@/lib/image-urls";
 
 export function Footer() {
   return (
-    <footer className="bg-navy">
+    <footer data-track-section="footer" className="bg-navy">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid gap-12 sm:grid-cols-2">
           {/* Col 1: Logo + Tagline */}
@@ -29,6 +29,7 @@ export function Footer() {
             <div className="mt-4 flex flex-col gap-3">
               <a
                 href="tel:9048227661"
+                data-track="call_footer"
                 className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" />
@@ -36,6 +37,7 @@ export function Footer() {
               </a>
               <a
                 href="mailto:customerservice@jaxpm.com"
+                data-track="email_footer"
                 className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
@@ -60,10 +62,10 @@ export function Footer() {
 {"© 2026 Lighthouse Property Management & Realty, LLC"}
           </span>
           <div className="flex gap-6">
-            <a href="/privacy" className="transition-colors hover:text-white/60">
+            <a href="/privacy" data-track="privacy_link" className="transition-colors hover:text-white/60">
               Privacy Policy
             </a>
-            <a href="/terms" className="transition-colors hover:text-white/60">
+            <a href="/terms" data-track="terms_link" className="transition-colors hover:text-white/60">
               Terms of Service
             </a>
           </div>

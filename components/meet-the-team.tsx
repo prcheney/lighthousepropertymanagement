@@ -59,6 +59,7 @@ export function MeetTheTeam({
   const defaultCta = (
     <a
       href="#contact"
+      data-track="anchor_contact"
       className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
     >
       {ctaText}
@@ -67,7 +68,7 @@ export function MeetTheTeam({
 
   if (variant === "centered") {
     return (
-      <section id="why-us" ref={ref} className="overflow-hidden py-20 lg:py-28">
+      <section id="why-us" ref={ref} data-track-section="team" className="overflow-hidden py-20 lg:py-28">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div
             className={`text-center transition-all duration-700 ${
@@ -139,7 +140,7 @@ export function MeetTheTeam({
   }
 
   return (
-    <section id="why-us" ref={ref} className="overflow-hidden py-20 lg:py-28">
+    <section id="why-us" ref={ref} data-track-section="team" className="overflow-hidden py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
           className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 transition-all duration-700 ${

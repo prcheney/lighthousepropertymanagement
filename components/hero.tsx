@@ -5,7 +5,10 @@ import { ChevronDown } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <section
+      data-track-section="hero"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+    >
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed"
@@ -50,6 +53,7 @@ export function Hero() {
               Prefer to talk? Call{" "}
               <a
                 href="tel:9048227661"
+                data-track="call_inline"
                 className="text-gold transition-colors hover:text-gold/80"
               >
                 (904) 822-7661
@@ -75,6 +79,7 @@ export function Hero() {
       {/* Scroll indicator */}
       <a
         href="#services"
+        data-track="scroll_explore"
         aria-label="Scroll to next section"
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 transition-colors hover:text-white/80"
       >

@@ -6,6 +6,7 @@ import { Shield, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { images } from "@/lib/image-urls";
 import { AddressAutocomplete } from "./address-autocomplete";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
+import { trackEvent } from "@/lib/track";
 
 const WEBHOOK_URL = "/api/submit-form";
 
@@ -50,6 +51,7 @@ export function ContactForm() {
 
       if (response.ok) {
         window.dataLayer?.push({ event: "form_submit", form_name: "contact_form" });
+        trackEvent("form_submit", { form_name: "contact_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "" });
       } else {
@@ -61,7 +63,7 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" ref={ref} className="overflow-hidden py-20 lg:py-28">
+    <section id="contact" ref={ref} data-track-section="contact_form" className="overflow-hidden py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className={`grid items-stretch gap-0 overflow-hidden rounded-2xl lg:grid-cols-2 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {/* Image Side */}
@@ -135,13 +137,15 @@ export function ContactForm() {
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                 />
                 <p className="text-[10px] leading-relaxed text-white/30">
-                  <a href="/privacy" className="underline hover:text-white/50">Privacy Policy</a>{" "}
+                  <a href="/privacy" data-track="privacy_link" className="underline hover:text-white/50">Privacy Policy</a>{" "}
                   &{" "}
-                  <a href="/terms" className="underline hover:text-white/50">Terms of Service</a>
+                  <a href="/terms" data-track="terms_link" className="underline hover:text-white/50">Terms of Service</a>
                 </p>
                 <button
                   type="submit"
                   disabled={status === "loading"}
+                  data-track="form_submit_click"
+                  data-track-form="contact_form"
                   className="mt-2 w-full rounded-lg bg-gold py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {status === "loading" ? (

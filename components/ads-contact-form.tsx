@@ -6,6 +6,7 @@ import { useInView } from "@/hooks/use-in-view";
 import { Shield, Clock, CheckCircle, Loader2 } from "lucide-react";
 import { images } from "@/lib/image-urls";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
+import { trackEvent } from "@/lib/track";
 
 const WEBHOOK_URL = "/api/contact-form";
 
@@ -50,6 +51,7 @@ export function AdsContactForm() {
 
       if (response.ok) {
         window.dataLayer?.push({ event: "form_submit", form_name: "ads_contact_form" });
+        trackEvent("form_submit", { form_name: "ads_contact_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", message: "" });
       } else {
@@ -136,13 +138,15 @@ export function AdsContactForm() {
                   className="resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                 />
                 <p className="text-[10px] leading-relaxed text-white/30">
-                  <a href="/privacy" className="underline hover:text-white/50">Privacy Policy</a>{" "}
+                  <a href="/privacy" data-track="privacy_link" className="underline hover:text-white/50">Privacy Policy</a>{" "}
                   &{" "}
-                  <a href="/terms" className="underline hover:text-white/50">Terms of Service</a>
+                  <a href="/terms" data-track="terms_link" className="underline hover:text-white/50">Terms of Service</a>
                 </p>
                 <button
                   type="submit"
                   disabled={status === "loading"}
+                  data-track="form_submit_click"
+                  data-track-form="ads_contact_form"
                   className="mt-2 w-full rounded-lg bg-gold py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {status === "loading" ? (

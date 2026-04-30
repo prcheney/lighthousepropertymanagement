@@ -56,6 +56,8 @@ export function FAQ({
   const rentalReportCta = inlineCta ?? (
     <a
       href="#contact"
+      data-track="inline_anchor_contact"
+      data-track-variant="inline"
       className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
     >
       {ctaText}
@@ -65,7 +67,7 @@ export function FAQ({
   const inView = useInView(ref);
 
   return (
-    <section id="faq" ref={ref} className="py-20 lg:py-28">
+    <section id="faq" ref={ref} data-track-section="faq" className="py-20 lg:py-28">
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         {/* Header */}
         <div
@@ -97,7 +99,11 @@ export function FAQ({
                 value={`item-${i}`}
                 className="border-navy/10"
               >
-                <AccordionTrigger className="text-left text-base font-semibold text-navy hover:text-gold hover:no-underline [&[data-state=open]]:text-gold">
+                <AccordionTrigger
+                  data-track="faq_toggle"
+                  data-track-index={i}
+                  className="text-left text-base font-semibold text-navy hover:text-gold hover:no-underline [&[data-state=open]]:text-gold"
+                >
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm leading-relaxed text-muted-foreground">

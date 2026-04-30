@@ -18,7 +18,7 @@ export function PainPoints({ ctaText = "Get Your Free Rental Report", cta }: { c
   const inView = useInView(ref);
 
   return (
-    <section ref={ref} className="overflow-hidden py-20 lg:py-28">
+    <section ref={ref} data-track-section="painpoints" className="overflow-hidden py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {/* Image */}
@@ -59,6 +59,7 @@ export function PainPoints({ ctaText = "Get Your Free Rental Report", cta }: { c
               {cta ?? (
                 <a
                   href="#contact"
+                  data-track="anchor_contact"
                   className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
                 >
                   {ctaText}

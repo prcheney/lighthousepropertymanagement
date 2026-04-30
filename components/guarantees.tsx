@@ -69,6 +69,7 @@ export function Guarantees({ ctaText = "Get Your Free Rental Report", cta }: { c
     <section
       id="guarantees"
       ref={ref}
+      data-track-section="guarantees"
       className="relative overflow-hidden bg-navy py-20 lg:py-28"
     >
       {/* Subtle diagonal pattern overlay */}
@@ -100,6 +101,7 @@ export function Guarantees({ ctaText = "Get Your Free Rental Report", cta }: { c
             {cta ?? (
               <a
                 href="#contact"
+                data-track="anchor_contact"
                 className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
               >
                 {ctaText}

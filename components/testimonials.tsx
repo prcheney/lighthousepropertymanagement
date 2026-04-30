@@ -85,7 +85,7 @@ export function Testimonials({ ctaText = "Talk With Our Team", cta }: { ctaText?
   }, [next]);
 
   return (
-    <section ref={ref} className="bg-offwhite py-20 lg:py-28">
+    <section ref={ref} data-track-section="testimonials" className="bg-offwhite py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div
@@ -140,6 +140,7 @@ export function Testimonials({ ctaText = "Talk With Our Team", cta }: { ctaText?
           <button
             onClick={prev}
             aria-label="Previous testimonials"
+            data-track="carousel_prev"
             className="absolute -left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-md transition-all hover:bg-navy hover:text-white"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -147,6 +148,7 @@ export function Testimonials({ ctaText = "Talk With Our Team", cta }: { ctaText?
           <button
             onClick={next}
             aria-label="Next testimonials"
+            data-track="carousel_next"
             className="absolute -right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-md transition-all hover:bg-navy hover:text-white"
           >
             <ChevronRight className="h-5 w-5" />
@@ -159,6 +161,8 @@ export function Testimonials({ ctaText = "Talk With Our Team", cta }: { ctaText?
                 key={i}
                 onClick={() => setCurrentIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
+                data-track="carousel_dot"
+                data-track-index={i}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   i === currentIndex
                     ? "w-6 bg-gold"
@@ -190,6 +194,7 @@ export function Testimonials({ ctaText = "Talk With Our Team", cta }: { ctaText?
           {cta ?? (
             <a
               href="#contact"
+              data-track="anchor_contact"
               className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
             >
               {ctaText}

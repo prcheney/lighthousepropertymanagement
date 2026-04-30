@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { AddressAutocomplete } from "./address-autocomplete";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
+import { trackEvent } from "@/lib/track";
 
 const WEBHOOK_URL = "/api/submit-form";
 
@@ -43,6 +44,7 @@ export function HeroForm() {
 
       if (response.ok) {
         window.dataLayer?.push({ event: "form_submit", form_name: "hero_form" });
+        trackEvent("form_submit", { form_name: "hero_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "" });
       } else {
@@ -121,13 +123,15 @@ export function HeroForm() {
             className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
           <p className="text-[10px] leading-relaxed text-navy/40">
-            <a href="/privacy" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
+            <a href="/privacy" data-track="privacy_link" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
             &{" "}
-            <a href="/terms" className="underline hover:text-navy/60">Terms of Service</a>
+            <a href="/terms" data-track="terms_link" className="underline hover:text-navy/60">Terms of Service</a>
           </p>
           <button
             type="submit"
             disabled={status === "loading"}
+            data-track="form_submit_click"
+            data-track-form="hero_form"
             className="mt-2 w-full rounded-lg bg-gold py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
           >
             {status === "loading" ? (

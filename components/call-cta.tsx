@@ -18,7 +18,10 @@ function CallFormDialog({
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md overflow-hidden border-0 bg-transparent p-0 shadow-none sm:max-w-md">
+      <DialogContent
+        data-track-modal="schedule_call"
+        className="max-w-md overflow-hidden border-0 bg-transparent p-0 shadow-none sm:max-w-md"
+      >
         <DialogTitle className="sr-only">Schedule a call from our team</DialogTitle>
         <AdsHeroForm />
       </DialogContent>
@@ -46,6 +49,7 @@ export function CallCTA({
     <div className={`flex flex-col ${alignClass} gap-3`}>
       <a
         href={PHONE_TEL}
+        data-track="call_primary"
         className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy shadow-lg transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
       >
         <Phone className="h-4 w-4" />
@@ -54,6 +58,8 @@ export function CallCTA({
       <button
         type="button"
         onClick={() => setOpen(true)}
+        data-track="schedule_modal_open"
+        data-track-variant="block"
         className={`text-sm font-medium ${linkClass}`}
       >
         {SCHEDULE_LABEL}
@@ -68,6 +74,7 @@ export function InlineCallCTA() {
     <>
       <a
         href={PHONE_TEL}
+        data-track="call_inline"
         className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
       >
         Call {PHONE_DISPLAY}
@@ -92,6 +99,8 @@ export function CallModalLink({
       <button
         type="button"
         onClick={() => setOpen(true)}
+        data-track="schedule_modal_open"
+        data-track-variant="inline"
         className={
           className ??
           "font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
@@ -115,6 +124,7 @@ export function HeroCallButtons() {
       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
         <a
           href={PHONE_TEL}
+          data-track="call_primary"
           className="flex w-full items-center justify-center gap-3 rounded-lg bg-gold px-8 py-4 text-base font-semibold text-navy shadow-lg transition-all duration-300 hover:bg-gold/90 hover:shadow-xl sm:w-auto"
         >
           <Phone className="h-5 w-5" />
@@ -123,6 +133,8 @@ export function HeroCallButtons() {
         <button
           type="button"
           onClick={() => setOpen(true)}
+          data-track="schedule_modal_open"
+          data-track-variant="block"
           className="w-full rounded-lg border border-white/40 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur transition-all duration-300 hover:border-white/70 hover:bg-white/10 sm:w-auto"
         >
           {SCHEDULE_LABEL}

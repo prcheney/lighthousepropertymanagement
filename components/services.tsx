@@ -38,7 +38,7 @@ export function Services({ ctaText = "Talk With Our Team", cta }: { ctaText?: st
   const inView = useInView(ref);
 
   return (
-    <section id="services" ref={ref} className="bg-offwhite py-20 lg:py-28">
+    <section id="services" ref={ref} data-track-section="services" className="bg-offwhite py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className={`mx-auto max-w-2xl text-center transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -76,6 +76,7 @@ export function Services({ ctaText = "Talk With Our Team", cta }: { ctaText?: st
           {cta ?? (
             <a
               href="#contact"
+              data-track="anchor_contact"
               className="inline-block rounded-full bg-gold px-8 py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-xl"
             >
               {ctaText}

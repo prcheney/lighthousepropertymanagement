@@ -6,6 +6,7 @@ export function BottomCallCTA() {
   return (
     <section
       id="contact"
+      data-track-section="bottom_cta"
       className="relative overflow-hidden py-24 lg:py-32"
     >
       <Image
