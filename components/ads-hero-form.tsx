@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
+import { trackEvent } from "@/lib/track";
 
 const WEBHOOK_URL = "/api/contact-form";
 
@@ -46,6 +47,7 @@ export function AdsHeroForm() {
 
       if (response.ok) {
         window.dataLayer?.push({ event: "form_submit", form_name: "ads_hero_form" });
+        trackEvent("form_submit", { form_name: "ads_hero_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", availability: "", message: "" });
       } else {
@@ -135,13 +137,15 @@ export function AdsHeroForm() {
             className="resize-none rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
           <p className="text-[10px] leading-relaxed text-navy/40">
-            <a href="/privacy" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
+            <a href="/privacy" data-track="privacy_link" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
             &{" "}
-            <a href="/terms" className="underline hover:text-navy/60">Terms of Service</a>
+            <a href="/terms" data-track="terms_link" className="underline hover:text-navy/60">Terms of Service</a>
           </p>
           <button
             type="submit"
             disabled={status === "loading"}
+            data-track="form_submit_click"
+            data-track-form="ads_hero_form"
             className="mt-2 w-full rounded-lg bg-gold py-4 text-sm font-semibold text-navy transition-all duration-300 hover:bg-gold/90 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70"
           >
             {status === "loading" ? (
@@ -161,6 +165,18 @@ export function AdsHeroForm() {
         </form>
         <p className="mt-4 text-center text-xs text-navy/40">
           No obligation. We'll call you within one business day.
+        </p>
+        <p className="mt-3 text-center text-xs text-navy/60">
+          Looking for a home to rent?{" "}
+          <a
+            href="https://www.jaxpm.com/jacksonville-homes-for-rent"
+            data-track="renter_redirect"
+            data-track-variant="form"
+            className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
+          >
+            See available rentals
+          </a>
+          .
         </p>
       </div>
     </div>

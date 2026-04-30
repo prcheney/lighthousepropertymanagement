@@ -5,7 +5,10 @@ import { ChevronDown } from "lucide-react";
 
 export function AdsHero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <section
+      data-track-section="hero"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+    >
       <Image
         src={images.heroBg}
         alt="Beautiful Jacksonville Florida home with live oaks and Spanish moss"
@@ -27,26 +30,33 @@ export function AdsHero() {
         />
 
         <h1 className="mt-8 font-serif text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl text-balance">
-          Jacksonville Property Management That Picks Up the Phone
+          Are you a Jacksonville Homeowner or Landlord?
         </h1>
 
         <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/75 md:text-xl">
-          A dedicated rep who knows your name. 9 written guarantees in your
-          contract. No hidden fees, no mark-ups, no lock-in. Just honest,
-          local property management.
+          Get the only <strong className="font-semibold text-white">property management</strong> company in Jacksonville with a dedicated rep who knows your name, 9 written guarantees in your contract, and no hidden fees, no mark-ups, and no lock-in.
         </p>
 
         <div className="mt-10">
           <HeroCallButtons />
         </div>
 
-        <p className="mt-6 text-sm text-white/60">
-          In a 10-minute call, you can learn everything you need to know about maximizing your rental investment.
+        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/75 md:text-xl">
+          Looking for a home to rent?{" "}
+          <a
+            href="https://www.jaxpm.com/jacksonville-homes-for-rent"
+            data-track="renter_redirect"
+            className="font-semibold text-gold underline underline-offset-4 hover:text-gold/80 transition-colors"
+          >
+            See available rentals
+          </a>
+          .
         </p>
       </div>
 
       <a
         href="#services"
+        data-track="scroll_explore"
         aria-label="Scroll to next section"
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 transition-colors hover:text-white/80"
       >
