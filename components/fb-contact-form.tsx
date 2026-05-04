@@ -162,7 +162,7 @@ export function FBContactForm() {
 
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-medium text-white/70">
-                    When are you looking to rent it out?
+                    When are you looking to rent your property out?
                   </label>
                   <select
                     name="rentalTimeline"

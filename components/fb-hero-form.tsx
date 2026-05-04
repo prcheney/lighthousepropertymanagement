@@ -140,7 +140,7 @@ export function FBHeroForm() {
           />
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-medium text-navy/60">
-              When are you looking to rent it out?
+              When are you looking to rent your property out?
             </label>
             <select
               name="rentalTimeline"
