@@ -27,7 +27,6 @@ export function FBContactForm() {
     email: "",
     phone: "",
     address: "",
-    ownsThisProperty: false,
     rentalTimeline: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -36,12 +35,7 @@ export function FBContactForm() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, type } = e.target;
-    const value =
-      type === "checkbox"
-        ? (e.target as HTMLInputElement).checked
-        : e.target.value;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +43,7 @@ export function FBContactForm() {
     setStatus("loading");
 
     const qualified =
-      form.ownsThisProperty && form.rentalTimeline !== "exploring" && form.rentalTimeline !== "";
+      form.rentalTimeline !== "exploring" && form.rentalTimeline !== "";
 
     try {
       const response = await fetch(WEBHOOK_URL, {
@@ -60,7 +54,6 @@ export function FBContactForm() {
           email: form.email,
           phone: form.phone,
           address: form.address,
-          ownsThisProperty: form.ownsThisProperty,
           rentalTimeline: form.rentalTimeline,
           qualified,
           source: "fb_contact_form",
@@ -82,7 +75,6 @@ export function FBContactForm() {
           email: "",
           phone: "",
           address: "",
-          ownsThisProperty: false,
           rentalTimeline: "",
         });
       } else {
@@ -167,18 +159,6 @@ export function FBContactForm() {
                   required
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                 />
-
-                <label className="flex items-start gap-3 text-sm text-white/80">
-                  <input
-                    type="checkbox"
-                    name="ownsThisProperty"
-                    checked={form.ownsThisProperty}
-                    onChange={handleChange}
-                    required
-                    className="mt-0.5 h-4 w-4 rounded border-white/20 bg-white/5 text-gold focus:ring-gold focus:ring-offset-0"
-                  />
-                  <span>I own this property.</span>
-                </label>
 
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-medium text-white/70">

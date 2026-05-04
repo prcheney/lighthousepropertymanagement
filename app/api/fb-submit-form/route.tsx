@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const {
     name, email, phone, address,
-    ownsThisProperty, rentalTimeline, qualified,
+    rentalTimeline, qualified,
     gclid, fbclid,
     utm_source, utm_medium, utm_campaign, utm_term, utm_content,
   } = body;
@@ -283,7 +283,6 @@ export async function POST(req: NextRequest) {
   // ── GHL: write dedicated fields, tag qualified/unqualified ────────────
   const leadSource = "Lighthouse FB Property Report";
   const timelineLabel = TIMELINE_LABELS[rentalTimeline] ?? "";
-  const ownsLabel = ownsThisProperty ? "Yes" : "No";
 
   const tags: string[] = [qualified ? "fb-qualified" : "fb-unqualified"];
 
@@ -291,7 +290,6 @@ export async function POST(req: NextRequest) {
   try {
     const customFields = [
       { id: "7XZ87B6iqjmwkblTrIKT", field_value: leadSource },
-      { id: "Y49YoW4Jvr2wqGsdDRMA", field_value: ownsLabel },
       timelineLabel ? { id: "c1YfPC4gmUuxOTw2zA7b", field_value: timelineLabel } : null,
       gclid ? { id: "xaIO77LRR2Aym8wnFtog", field_value: gclid } : null,
       fbclid ? { id: "6rwZ4Zdfwnuc73hgUZCo", field_value: fbclid } : null,
