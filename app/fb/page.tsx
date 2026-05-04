@@ -1,4 +1,4 @@
-import { Hero } from "@/components/hero";
+import { FBHero } from "@/components/fb-hero";
 import { SocialProofBar } from "@/components/social-proof-bar";
 import { PainPoints } from "@/components/pain-points";
 import { MeetTheTeam } from "@/components/meet-the-team";
@@ -17,7 +17,7 @@ export const metadata = {
 export default function FBPropertyReport() {
   return (
     <main>
-      <Hero />
+      <FBHero />
       <SocialProofBar />
       <Services ctaText="Get Your Free Rental Report" />
       <PainPoints />

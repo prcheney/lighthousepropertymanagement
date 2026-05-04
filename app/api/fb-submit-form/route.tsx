@@ -90,6 +90,7 @@ export async function POST(req: NextRequest) {
   const {
     name, email, phone, address,
     rentalTimeline, qualified,
+    source,
     gclid, fbclid,
     utm_source, utm_medium, utm_campaign, utm_term, utm_content,
   } = body;
@@ -284,7 +285,11 @@ export async function POST(req: NextRequest) {
   const leadSource = "Lighthouse FB Property Report";
   const timelineLabel = TIMELINE_LABELS[rentalTimeline] ?? "";
 
-  const tags: string[] = [qualified ? "fb-qualified" : "fb-unqualified"];
+  const formTag = source === "fb_hero_form" ? "fb-hero-form" : "fb-bottom-form";
+  const tags: string[] = [
+    qualified ? "fb-qualified" : "fb-unqualified",
+    formTag,
+  ];
 
   let contactId: string | null = null;
   try {
