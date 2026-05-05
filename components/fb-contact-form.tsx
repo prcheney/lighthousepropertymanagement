@@ -68,7 +68,14 @@ export function FBContactForm() {
           qualified,
         });
         trackEvent("form_submit", { form_name: "fb_contact_form", qualified });
-        if (qualified) trackEvent("qualified_lead", { form_name: "fb_contact_form" });
+        if (qualified) {
+          trackEvent("qualified_lead", { form_name: "fb_contact_form" });
+          if (typeof window !== "undefined" && (window as any).fbq) {
+            (window as any).fbq("track", "Lead", {
+              content_name: "fb_contact_form",
+            });
+          }
+        }
         setStatus("success");
         setForm({
           name: "",
