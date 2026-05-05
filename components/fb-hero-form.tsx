@@ -63,7 +63,14 @@ export function FBHeroForm() {
           qualified,
         });
         trackEvent("form_submit", { form_name: "fb_hero_form", qualified });
-        if (qualified) trackEvent("qualified_lead", { form_name: "fb_hero_form" });
+        if (qualified) {
+          trackEvent("qualified_lead", { form_name: "fb_hero_form" });
+          if (typeof window !== "undefined" && (window as any).fbq) {
+            (window as any).fbq("track", "Lead", {
+              content_name: "fb_hero_form",
+            });
+          }
+        }
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "", rentalTimeline: "" });
       } else {
