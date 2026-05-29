@@ -20,7 +20,7 @@ function CallFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         data-track-modal="schedule_call"
-        className="max-w-md overflow-hidden border-0 bg-transparent p-0 shadow-none sm:max-w-md"
+        className="max-h-[90vh] max-w-md overflow-y-auto border-0 bg-transparent p-0 shadow-none sm:max-w-lg lg:max-w-xl"
       >
         <DialogTitle className="sr-only">Schedule a call from our team</DialogTitle>
         <AdsHeroForm />

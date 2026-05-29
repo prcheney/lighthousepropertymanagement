@@ -15,6 +15,7 @@ export function AdsHeroForm() {
     availability: "",
     message: "",
   });
+  const [smsConsent, setSmsConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const tracking = useTrackingParams();
 
@@ -40,6 +41,8 @@ export function AdsHeroForm() {
           phone: form.phone,
           availability: form.availability,
           message: form.message,
+          smsTransactional: smsConsent,
+          smsMarketing: false,
           source: "ads_hero_form",
           ...tracking,
         }),
@@ -50,6 +53,7 @@ export function AdsHeroForm() {
         trackEvent("form_submit", { form_name: "ads_hero_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", availability: "", message: "" });
+        setSmsConsent(false);
       } else {
         setStatus("error");
       }
@@ -79,7 +83,7 @@ export function AdsHeroForm() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
+    <div className="mx-auto w-full max-w-md lg:mx-0 lg:max-w-xl">
       <div className="rounded-2xl bg-offwhite px-6 py-8 shadow-2xl sm:px-8 sm:py-10">
         <p className="text-center font-serif text-lg font-bold text-navy lg:text-2xl">
           Learn everything you need to know in one conversation.
@@ -136,6 +140,18 @@ export function AdsHeroForm() {
             onChange={handleChange}
             className="resize-none rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
+          <label className="flex items-start gap-2 text-[10px] leading-relaxed text-navy/50">
+            <input
+              type="checkbox"
+              name="smsConsent"
+              checked={smsConsent}
+              onChange={(e) => setSmsConsent(e.target.checked)}
+              className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-gold"
+            />
+            <span>
+              I agree to receive text messages from Lighthouse Property Management &amp; Realty, LLC at the phone number provided, including customer service messages, responses to my inquiry, appointment reminders, and account updates. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
+            </span>
+          </label>
           <p className="text-[10px] leading-relaxed text-navy/40">
             <a href="/privacy" data-track="privacy_link" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
             &{" "}

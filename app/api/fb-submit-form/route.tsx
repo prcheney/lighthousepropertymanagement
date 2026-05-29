@@ -90,6 +90,7 @@ export async function POST(req: NextRequest) {
   const {
     name, email, phone, address,
     rentalTimeline, qualified,
+    smsTransactional, smsMarketing,
     source,
     gclid, fbclid,
     utm_source, utm_medium, utm_campaign, utm_term, utm_content,
@@ -294,6 +295,9 @@ export async function POST(req: NextRequest) {
   let contactId: string | null = null;
   try {
     const customFields = [
+      { id: "mszyYFKruvDEjBL9E52A", field_value: (smsTransactional || smsMarketing) ? ["True"] : ["False"] },
+      { id: "1fujwHIch7ibTnUgyECJ", field_value: smsTransactional ? ["Yes"] : ["No"] },
+      { id: "yk9WjPQfqH5GQCp6n36x", field_value: smsMarketing ? ["Yes"] : ["No"] },
       { id: "7XZ87B6iqjmwkblTrIKT", field_value: leadSource },
       timelineLabel ? { id: "c1YfPC4gmUuxOTw2zA7b", field_value: timelineLabel } : null,
       gclid ? { id: "xaIO77LRR2Aym8wnFtog", field_value: gclid } : null,

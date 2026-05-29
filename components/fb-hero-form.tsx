@@ -24,6 +24,7 @@ export function FBHeroForm() {
     address: "",
     rentalTimeline: "",
   });
+  const [smsConsent, setSmsConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const tracking = useTrackingParams();
 
@@ -51,6 +52,8 @@ export function FBHeroForm() {
           address: form.address,
           rentalTimeline: form.rentalTimeline,
           qualified,
+          smsTransactional: smsConsent,
+          smsMarketing: false,
           source: "fb_hero_form",
           ...tracking,
         }),
@@ -73,6 +76,7 @@ export function FBHeroForm() {
         }
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "", rentalTimeline: "" });
+        setSmsConsent(false);
       } else {
         setStatus("error");
       }
@@ -162,6 +166,18 @@ export function FBHeroForm() {
               ))}
             </select>
           </div>
+          <label className="flex items-start gap-2 text-[10px] leading-relaxed text-navy/50">
+            <input
+              type="checkbox"
+              name="smsConsent"
+              checked={smsConsent}
+              onChange={(e) => setSmsConsent(e.target.checked)}
+              className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-gold"
+            />
+            <span>
+              I agree to receive text messages from Lighthouse Property Management &amp; Realty, LLC at the phone number provided, including customer service messages, responses to my inquiry, appointment reminders, and account updates. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
+            </span>
+          </label>
           <p className="text-[10px] leading-relaxed text-navy/40">
             <a href="/privacy" data-track="privacy_link" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
             &{" "}
