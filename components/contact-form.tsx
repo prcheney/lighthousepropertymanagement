@@ -140,7 +140,7 @@ export function ContactForm() {
                   required
                   className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                 />
-                <label className="flex items-start gap-2 text-[10px] leading-relaxed text-white/40">
+                <label className="flex items-start gap-2 text-xs leading-relaxed text-white/85">
                   <input
                     type="checkbox"
                     name="smsConsent"
@@ -152,7 +152,7 @@ export function ContactForm() {
                     I agree to receive text messages from Lighthouse Property Management &amp; Realty, LLC at the phone number provided, including customer service messages, responses to my inquiry, appointment reminders, and account updates. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
                   </span>
                 </label>
-                <p className="text-[10px] leading-relaxed text-white/30">
+                <p className="text-xs leading-relaxed text-white/75">
                   <a href="/privacy" data-track="privacy_link" className="underline hover:text-white/50">Privacy Policy</a>{" "}
                   &{" "}
                   <a href="/terms" data-track="terms_link" className="underline hover:text-white/50">Terms of Service</a>

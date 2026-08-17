@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 import { AdsHeroForm } from "@/components/ads-hero-form";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -64,6 +64,21 @@ export function CallCTA({
       >
         {SCHEDULE_LABEL}
       </button>
+      <p
+        className={`max-w-xs text-center text-xs leading-relaxed ${
+          tone === "onDark" ? "text-white/60" : "text-navy/55"
+        }`}
+      >
+        By calling, you agree to our{" "}
+        <a href="/privacy" data-track="privacy_link" className={linkClass}>
+          Privacy Policy
+        </a>{" "}
+        and{" "}
+        <a href="/terms" data-track="terms_link" className={linkClass}>
+          Terms
+        </a>
+        .
+      </p>
       <CallFormDialog open={open} onOpenChange={setOpen} />
     </div>
   );
@@ -119,6 +134,10 @@ export function CallModalLink({
  */
 export function HeroCallButtons() {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("schedule") === "open") setOpen(true);
+  }, []);
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -140,6 +159,25 @@ export function HeroCallButtons() {
           {SCHEDULE_LABEL}
         </button>
       </div>
+      <p className="mt-3 text-center text-xs leading-relaxed text-white/60">
+        By calling, you agree to our{" "}
+        <a
+          href="/privacy"
+          data-track="privacy_link"
+          className="underline underline-offset-4 hover:text-white"
+        >
+          Privacy Policy
+        </a>{" "}
+        and{" "}
+        <a
+          href="/terms"
+          data-track="terms_link"
+          className="underline underline-offset-4 hover:text-white"
+        >
+          Terms
+        </a>
+        .
+      </p>
       <CallFormDialog open={open} onOpenChange={setOpen} />
     </>
   );

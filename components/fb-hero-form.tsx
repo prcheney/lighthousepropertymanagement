@@ -16,6 +16,8 @@ const TIMELINE_OPTIONS = [
   { value: "exploring", label: "Just exploring" },
 ];
 
+const QUALIFIED_TIMELINES = ["now", "3-months"];
+
 export function FBHeroForm() {
   const [form, setForm] = useState({
     name: "",
@@ -38,8 +40,7 @@ export function FBHeroForm() {
     e.preventDefault();
     setStatus("loading");
 
-    const qualified =
-      form.rentalTimeline !== "exploring" && form.rentalTimeline !== "";
+    const qualified = QUALIFIED_TIMELINES.includes(form.rentalTimeline);
 
     try {
       const response = await fetch(WEBHOOK_URL, {
@@ -166,7 +167,7 @@ export function FBHeroForm() {
               ))}
             </select>
           </div>
-          <label className="flex items-start gap-2 text-[10px] leading-relaxed text-navy/50">
+          <label className="flex items-start gap-2 text-xs leading-relaxed text-navy/80">
             <input
               type="checkbox"
               name="smsConsent"
@@ -178,7 +179,7 @@ export function FBHeroForm() {
               I agree to receive text messages from Lighthouse Property Management &amp; Realty, LLC at the phone number provided, including customer service messages, responses to my inquiry, appointment reminders, and account updates. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
             </span>
           </label>
-          <p className="text-[10px] leading-relaxed text-navy/40">
+          <p className="text-xs leading-relaxed text-navy/70">
             <a href="/privacy" data-track="privacy_link" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
             &{" "}
             <a href="/terms" data-track="terms_link" className="underline hover:text-navy/60">Terms of Service</a>

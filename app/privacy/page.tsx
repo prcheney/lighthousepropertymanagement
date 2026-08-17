@@ -78,9 +78,15 @@ export default function PrivacyPage() {
             </p>
             <p className="mt-2">
               Your consent to receive text messages is not a condition of
-              purchasing any property management services from us. We do not
-              sell, rent, or share your phone number or opt-in information with
-              third parties for their marketing purposes.
+              purchasing any property management services from us.
+            </p>
+            <p className="mt-2">
+              No mobile information will be shared with third parties or
+              affiliates for marketing or promotional purposes. Information
+              sharing to subcontractors in support services, such as customer
+              service, is permitted. All other use case categories exclude text
+              messaging originator opt-in data and consent; this information
+              will not be shared with any third parties.
             </p>
           </section>
 
@@ -147,6 +153,10 @@ export default function PrivacyPage() {
               </li>
               <li>As required by law or legal process</li>
             </ul>
+            <p className="mt-2">
+              Text messaging originator opt-in data and consent are never shared
+              with any third parties or affiliates for any purpose.
+            </p>
           </section>
 
           <section>
