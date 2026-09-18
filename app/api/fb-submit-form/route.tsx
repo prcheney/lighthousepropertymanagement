@@ -3,6 +3,7 @@ import { put } from "@vercel/blob";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { buildReportHTML } from "@/lib/pdf/template";
+import { resolveServiceArea } from "@/lib/service-area";
 
 const GHL_API_KEY = process.env.GHL_API_KEY!;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID!;
@@ -163,6 +164,25 @@ export async function POST(req: NextRequest) {
     marketRaw = marketRawLive;
   }
 
+  // ── Service area: Duval + Clay + St Johns (Paul, 2026-09-18) ──────────
+  // Resolved server-side so it still works when the visitor types an address
+  // instead of picking a Google suggestion, and so a lead cannot spoof it.
+  const serviceArea = resolveServiceArea({
+    county: propertyData?.county ?? null,
+    state: propertyData?.state ?? null,
+    zipCode: propertyData?.zipCode ?? null,
+    address,
+  });
+  const inServiceArea = serviceArea.inServiceArea;
+  console.log(
+    "Service area:",
+    inServiceArea ? "IN" : "OUT",
+    `(${serviceArea.basis}`,
+    serviceArea.county ?? "no county",
+    serviceArea.zip ?? "no zip",
+    ")"
+  );
+
   const lat: number | null = propertyData?.latitude ?? null;
   const lng: number | null = propertyData?.longitude ?? null;
   const propTypeRentcast: string = propertyData?.propertyType ?? "Single Family";
@@ -291,6 +311,10 @@ export async function POST(req: NextRequest) {
     qualified ? "fb-qualified" : "fb-unqualified",
     formTag,
   ];
+  // Drives the Facebook Campaign Qualification workflow straight to
+  // "Disqualified - Out of Area". Same determination that gates the pixel, so
+  // the board and Meta can never disagree about a lead.
+  if (!inServiceArea) tags.push("fb-out-of-area");
 
   let contactId: string | null = null;
   try {
@@ -392,5 +416,12 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  return NextResponse.json({ success: true, pdf_url: pdfUrl, qualified });
+  return NextResponse.json({
+    success: true,
+    pdf_url: pdfUrl,
+    qualified,
+    inServiceArea,
+    serviceAreaZip: serviceArea.zip,
+    serviceAreaBasis: serviceArea.basis,
+  });
 }

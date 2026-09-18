@@ -66,15 +66,30 @@ export function FBContactForm() {
       });
 
       if (response.ok) {
+        // The route resolves the property's county server-side; an address it
+        // cannot place comes back false.
+        const result = await response.json().catch(() => ({} as any));
+        const inServiceArea = result?.inServiceArea === true;
+
         window.dataLayer?.push({
           event: "form_submit",
           form_name: "fb_contact_form",
           qualified,
+          in_service_area: inServiceArea,
         });
-        trackEvent("form_submit", { form_name: "fb_contact_form", qualified });
+        trackEvent("form_submit", {
+          form_name: "fb_contact_form",
+          qualified,
+          in_service_area: inServiceArea,
+        });
         if (qualified) {
-          trackEvent("qualified_lead", { form_name: "fb_contact_form" });
-          if (typeof window !== "undefined" && (window as any).fbq) {
+          trackEvent("qualified_lead", {
+            form_name: "fb_contact_form",
+            in_service_area: inServiceArea,
+          });
+          // Meta only hears about properties inside the service area. GA4 and
+          // the GHL tags still see every qualified lead.
+          if (inServiceArea && typeof window !== "undefined" && (window as any).fbq) {
             (window as any).fbq("track", "Lead", {
               content_name: "fb_contact_form",
             });
