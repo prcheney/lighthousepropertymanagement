@@ -3,6 +3,7 @@ import { put } from "@vercel/blob";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { buildReportHTML } from "@/lib/pdf/template";
+import { smsDndFields } from "@/lib/sms-consent";
 
 const GHL_API_KEY = process.env.GHL_API_KEY!;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID!;
@@ -323,6 +324,7 @@ export async function POST(req: NextRequest) {
         address1: address,
         source: leadSource,
         customFields,
+        ...smsDndFields(Boolean(smsTransactional || smsMarketing)),
       }),
     });
     const upsertData = await upsertRes.json();

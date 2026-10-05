@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { smsDndFields } from "@/lib/sms-consent";
 
 const GHL_API_KEY = process.env.GHL_API_KEY!;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID!;
@@ -82,6 +83,7 @@ export async function POST(req: NextRequest) {
         phone,
         source: leadSource,
         customFields,
+        ...smsDndFields(Boolean(smsTransactional || smsMarketing)),
       }),
     });
     const upsertData = await upsertRes.json();
