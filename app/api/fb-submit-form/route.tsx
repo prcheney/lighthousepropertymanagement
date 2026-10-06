@@ -4,7 +4,6 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { buildReportHTML } from "@/lib/pdf/template";
 import { resolveServiceArea } from "@/lib/service-area";
-import { smsDndFields } from "@/lib/sms-consent";
 
 const GHL_API_KEY = process.env.GHL_API_KEY!;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID!;
@@ -92,7 +91,7 @@ export async function POST(req: NextRequest) {
   const {
     name, email, phone, address,
     rentalTimeline, qualified,
-    smsTransactional, smsMarketing,
+    smsMarketing,
     source,
     gclid, fbclid,
     utm_source, utm_medium, utm_campaign, utm_term, utm_content,
@@ -311,6 +310,7 @@ export async function POST(req: NextRequest) {
   const tags: string[] = [
     qualified ? "fb-qualified" : "fb-unqualified",
     formTag,
+    "sms-consent-by-submission-v1",
   ];
   // Drives the Facebook Campaign Qualification workflow straight to
   // "Disqualified - Out of Area". Same determination that gates the pixel, so
@@ -320,8 +320,9 @@ export async function POST(req: NextRequest) {
   let contactId: string | null = null;
   try {
     const customFields = [
-      { id: "mszyYFKruvDEjBL9E52A", field_value: (smsTransactional || smsMarketing) ? ["True"] : ["False"] },
-      { id: "1fujwHIch7ibTnUgyECJ", field_value: smsTransactional ? ["Yes"] : ["No"] },
+      // Consent is by form submission: the disclosure sits directly above the submit button.
+      { id: "mszyYFKruvDEjBL9E52A", field_value: ["True"] },
+      { id: "1fujwHIch7ibTnUgyECJ", field_value: ["Yes"] },
       { id: "yk9WjPQfqH5GQCp6n36x", field_value: smsMarketing ? ["Yes"] : ["No"] },
       { id: "7XZ87B6iqjmwkblTrIKT", field_value: leadSource },
       timelineLabel ? { id: "c1YfPC4gmUuxOTw2zA7b", field_value: timelineLabel } : null,
@@ -349,7 +350,6 @@ export async function POST(req: NextRequest) {
         address1: address,
         source: leadSource,
         customFields,
-        ...smsDndFields(Boolean(smsTransactional || smsMarketing)),
       }),
     });
     const upsertData = await upsertRes.json();

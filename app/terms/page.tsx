@@ -61,8 +61,11 @@ export default function TermsPage() {
               </li>
             </ul>
             <p className="mt-2">
-              Each message type requires separate opt-in consent via checkbox on
-              our website forms. You may opt in to one, both, or neither.
+              Consent to transactional messages is given by submitting a form on
+              our website, where the text-message disclosure appears directly
+              above the submit button, or by calling or texting us first.
+              Marketing messages require your separate written consent and are
+              not part of web form submission.
             </p>
           </section>
 

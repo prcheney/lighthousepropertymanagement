@@ -15,7 +15,6 @@ export function HeroForm() {
     phone: "",
     address: "",
   });
-  const [smsConsent, setSmsConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const tracking = useTrackingParams();
 
@@ -38,7 +37,7 @@ export function HeroForm() {
           email: form.email,
           phone: form.phone,
           address: form.address,
-          smsTransactional: smsConsent,
+          smsTransactional: true,
           smsMarketing: false,
           source: "hero_form",
           ...tracking,
@@ -50,7 +49,6 @@ export function HeroForm() {
         trackEvent("form_submit", { form_name: "hero_form" });
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "" });
-        setSmsConsent(false);
       } else {
         setStatus("error");
       }
@@ -126,22 +124,11 @@ export function HeroForm() {
             required
             className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-navy/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
-          <label className="flex items-start gap-2 text-xs leading-relaxed text-navy/80">
-            <input
-              type="checkbox"
-              name="smsConsent"
-              checked={smsConsent}
-              onChange={(e) => setSmsConsent(e.target.checked)}
-              className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-gold"
-            />
-            <span>
-              I agree to receive text messages from Lighthouse Property Management &amp; Realty, LLC at the phone number provided, including customer service messages, responses to my inquiry, appointment reminders, and account updates. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.
-            </span>
-          </label>
-          <p className="text-xs leading-relaxed text-navy/70">
+          <p className="text-xs leading-relaxed text-navy/80">
+            By submitting this form you agree that Lighthouse Property Management &amp; Realty, LLC may text you at the number you provide about your request, including replies, scheduling, and reminders. We do not send marketing texts. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. See our{" "}
             <a href="/privacy" data-track="privacy_link" className="underline hover:text-navy/60">Privacy Policy</a>{" "}
-            &{" "}
-            <a href="/terms" data-track="terms_link" className="underline hover:text-navy/60">Terms of Service</a>
+            and{" "}
+            <a href="/terms" data-track="terms_link" className="underline hover:text-navy/60">Terms of Service</a>.
           </p>
           <button
             type="submit"

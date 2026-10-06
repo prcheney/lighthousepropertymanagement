@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { smsDndFields } from "@/lib/sms-consent";
 
 const GHL_API_KEY = process.env.GHL_API_KEY!;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID!;
@@ -39,7 +38,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const {
     name, email, phone, availability, message,
-    smsTransactional, smsMarketing, source,
+    smsMarketing, source,
     gclid, fbclid,
     utm_source, utm_medium, utm_campaign, utm_term, utm_content,
   } = body;
@@ -55,8 +54,9 @@ export async function POST(req: NextRequest) {
   let contactId: string | null = null;
   try {
     const customFields = [
-      { id: FIELD_IDS.smsConsent, field_value: (smsTransactional || smsMarketing) ? ["True"] : ["False"] },
-      { id: FIELD_IDS.smsTransactional, field_value: smsTransactional ? ["Yes"] : ["No"] },
+      // Consent is by form submission: the disclosure sits directly above the submit button.
+      { id: FIELD_IDS.smsConsent, field_value: ["True"] },
+      { id: FIELD_IDS.smsTransactional, field_value: ["Yes"] },
       { id: FIELD_IDS.smsMarketing, field_value: smsMarketing ? ["Yes"] : ["No"] },
       { id: FIELD_IDS.leadSource, field_value: leadSource },
       combinedMessage ? { id: FIELD_IDS.message, field_value: combinedMessage } : null,
@@ -83,7 +83,6 @@ export async function POST(req: NextRequest) {
         phone,
         source: leadSource,
         customFields,
-        ...smsDndFields(Boolean(smsTransactional || smsMarketing)),
       }),
     });
     const upsertData = await upsertRes.json();
@@ -95,7 +94,7 @@ export async function POST(req: NextRequest) {
 
   // ── 2. Tag the contact ─────────────────────────────────────────────────
   if (contactId) {
-    const tags = SOURCE_TAGS[source] ?? ["landing-page"];
+    const tags = [...(SOURCE_TAGS[source] ?? ["landing-page"]), "sms-consent-by-submission-v1"];
     try {
       const tagRes = await fetch(`${GHL_API}/contacts/${contactId}/tags`, {
         method: "POST",

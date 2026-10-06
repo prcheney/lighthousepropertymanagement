@@ -66,10 +66,14 @@ export default function PrivacyPage() {
               4. Text Messaging (SMS)
             </h2>
             <p className="mt-2">
-              If you opt in to receive text messages, you consent to receive SMS
-              messages from Lighthouse Property Management & Realty regarding
-              your rental analysis and property management services. Message
-              frequency varies. Message and data rates may apply.
+              By submitting a form on our website, where the text-message
+              disclosure appears directly above the submit button, or by calling
+              or texting us first, you consent to receive SMS messages from
+              Lighthouse Property Management & Realty about your request,
+              including replies, scheduling, and reminders. Marketing text
+              messages require your separate written consent and are not part
+              of web form submission. Message frequency varies. Message and
+              data rates may apply.
             </p>
             <p className="mt-2">
               You may opt out at any time by replying <strong>STOP</strong> to
