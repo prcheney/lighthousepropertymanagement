@@ -40,18 +40,6 @@ export function AdsHero() {
         <div className="mt-10">
           <HeroCallButtons />
         </div>
-
-        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/75 md:text-xl">
-          Looking for a home to rent?{" "}
-          <a
-            href="https://www.jaxpm.com/jacksonville-homes-for-rent"
-            data-track="renter_redirect"
-            className="font-semibold text-gold underline underline-offset-4 hover:text-gold/80 transition-colors"
-          >
-            See available rentals
-          </a>
-          .
-        </p>
       </div>
 
       <a

@@ -169,18 +169,6 @@ export function AdsHeroForm() {
         <p className="mt-4 text-center text-xs text-navy/40">
           No obligation. We'll call you within one business day.
         </p>
-        <p className="mt-3 text-center text-xs text-navy/60">
-          Looking for a home to rent?{" "}
-          <a
-            href="https://www.jaxpm.com/jacksonville-homes-for-rent"
-            data-track="renter_redirect"
-            data-track-variant="form"
-            className="font-semibold text-gold underline underline-offset-2 hover:text-gold/80 transition-colors"
-          >
-            See available rentals
-          </a>
-          .
-        </p>
       </div>
     </div>
   );
