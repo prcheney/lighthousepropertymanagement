@@ -307,15 +307,12 @@ export async function POST(req: NextRequest) {
   const timelineLabel = TIMELINE_LABELS[rentalTimeline] ?? "";
 
   const formTag = source === "fb_hero_form" ? "fb-hero-form" : "fb-bottom-form";
-  const tags: string[] = [
-    qualified ? "fb-qualified" : "fb-unqualified",
-    formTag,
-    "sms-consent-by-submission-v1",
-  ];
+  const qualificationTag = qualified ? "fb-qualified" : "fb-unqualified";
+  const contextTags: string[] = [formTag, "sms-consent-by-submission-v1"];
   // Drives the Facebook Campaign Qualification workflow straight to
   // "Disqualified - Out of Area". Same determination that gates the pixel, so
   // the board and Meta can never disagree about a lead.
-  if (!inServiceArea) tags.push("fb-out-of-area");
+  if (!inServiceArea) contextTags.push("fb-out-of-area");
 
   let contactId: string | null = null;
   try {
@@ -359,22 +356,32 @@ export async function POST(req: NextRequest) {
     console.error("GHL upsert failed:", err);
   }
 
-  if (contactId) {
+  // The qualification tag goes on LAST, in its own call, after the rest are
+  // awaited. The Facebook Campaign Qualification workflow triggers off it, its
+  // trigger filter requires sms-consent-by-submission-v1, and it reads
+  // fb-out-of-area to pick a stage. Sending all of them in one array leaves a
+  // race the workflow can lose: no consent tag yet means no texts, no geo tag
+  // yet puts an out-of-area lead in New Lead (Hot).
+  async function addTags(list: string[], label: string) {
+    if (!contactId || list.length === 0) return;
     try {
-      const tagRes = await fetch(`${GHL_API}/contacts/${contactId}/tags`, {
+      const res = await fetch(`${GHL_API}/contacts/${contactId}/tags`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${GHL_API_KEY}`,
           "Content-Type": "application/json",
           Version: "2021-07-28",
         },
-        body: JSON.stringify({ tags }),
+        body: JSON.stringify({ tags: list }),
       });
-      console.log("GHL tags:", tagRes.status, tags);
+      console.log(`GHL tags (${label}):`, res.status, list);
     } catch (err) {
-      console.error("GHL tags failed:", err);
+      console.error(`GHL tags (${label}) failed:`, err);
     }
   }
+
+  await addTags(contextTags, "context");
+  await addTags([qualificationTag], "qualification");
 
   if (contactId) {
     try {
