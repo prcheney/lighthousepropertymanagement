@@ -430,6 +430,8 @@ export async function POST(req: NextRequest) {
     pdf_url: pdfUrl,
     qualified,
     inServiceArea,
+    // The thank-you screen books Stephanie's call against this contact.
+    contactId: qualified && inServiceArea ? contactId : null,
     serviceAreaZip: serviceArea.zip,
     serviceAreaBasis: serviceArea.basis,
   });

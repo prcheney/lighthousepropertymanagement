@@ -1,0 +1,37 @@
+[
+  {
+    "id": "01",
+    "label": "Homepage",
+    "path": "/"
+  },
+  {
+    "id": "02",
+    "label": "Facebook landing page",
+    "path": "/fb"
+  },
+  {
+    "id": "03",
+    "label": "Guarantees",
+    "path": "/guarantees"
+  },
+  {
+    "id": "04",
+    "label": "Privacy",
+    "path": "/privacy"
+  },
+  {
+    "id": "05",
+    "label": "Property report",
+    "path": "/property-report"
+  },
+  {
+    "id": "06",
+    "label": "Services",
+    "path": "/services"
+  },
+  {
+    "id": "07",
+    "label": "Terms",
+    "path": "/terms"
+  }
+]

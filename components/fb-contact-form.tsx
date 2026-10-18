@@ -7,6 +7,7 @@ import { images } from "@/lib/image-urls";
 import { AddressAutocomplete } from "./address-autocomplete";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
 import { trackEvent } from "@/lib/track";
+import { BookACall } from "./book-a-call";
 
 const WEBHOOK_URL = "/api/fb-submit-form";
 
@@ -32,6 +33,8 @@ export function FBContactForm() {
     rentalTimeline: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  // Set only for qualified leads inside the service area; they get the booking step.
+  const [bookingLead, setBookingLead] = useState<{ contactId: string; name: string; email: string; phone: string } | null>(null);
   const tracking = useTrackingParams();
 
   const handleChange = (
@@ -94,6 +97,9 @@ export function FBContactForm() {
             });
           }
         }
+        if (qualified && inServiceArea && typeof result?.contactId === "string") {
+          setBookingLead({ contactId: result.contactId, name: form.name, email: form.email, phone: form.phone });
+        }
         setStatus("success");
         setForm({
           name: "",
@@ -136,7 +142,11 @@ export function FBContactForm() {
               property -- delivered in seconds.
             </p>
 
-            {status === "success" ? (
+            {status === "success" && bookingLead ? (
+              <div className="mt-8">
+                <BookACall lead={bookingLead} formName="fb_contact_form" tone="dark" />
+              </div>
+            ) : status === "success" ? (
               <div className="mt-8 flex flex-col items-center text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <CheckCircle className="h-8 w-8 text-green-600" />
