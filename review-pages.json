@@ -10,6 +10,11 @@
     "path": "/fb"
   },
   {
+    "id": "02b",
+    "label": "Thank you + book a call (after the Facebook form)",
+    "path": "/fb/thank-you?preview=1"
+  },
+  {
     "id": "03",
     "label": "Guarantees",
     "path": "/guarantees"

@@ -40,10 +40,10 @@ const TONES = {
   },
 };
 
-// Thank-you step for qualified leads inside the service area: the report is
-// confirmed, then they can put a call with Stephanie on her GHL calendar
-// without leaving the page.
-export function BookACall({ lead, formName, tone = "light" }: { lead: Lead; formName: string; tone?: "light" | "dark" }) {
+// The calendar card on /fb/thank-you: a qualified, in-area lead puts a 30-minute
+// call with Stephanie on her GHL calendar. `preview` (review screenshots) books
+// nothing and just shows the booked state.
+export function BookACall({ lead, formName, tone = "light", preview = false }: { lead: Lead; formName: string; tone?: "light" | "dark"; preview?: boolean }) {
   const t = TONES[tone];
   const [days, setDays] = useState<SlotDay[] | null>(null);
   const [loadFailed, setLoadFailed] = useState(false);
@@ -72,6 +72,10 @@ export function BookACall({ lead, formName, tone = "light" }: { lead: Lead; form
     if (!slot) return;
     setState("booking");
     setNotice(null);
+    if (preview) {
+      setState("booked");
+      return;
+    }
     try {
       const res = await fetch("/api/booking/book", {
         method: "POST",
@@ -108,7 +112,7 @@ export function BookACall({ lead, formName, tone = "light" }: { lead: Lead; form
           You are booked for {fmtWhen(slot)} Eastern.
         </p>
         <p className={`mt-3 text-sm leading-relaxed ${t.muted}`}>
-          Stephanie will call you at {lead.phone}. Your rental report is on its way to {lead.email}, so have it open when she calls.
+          Stephanie will call you at {lead.phone}. Have your rental report open when she calls.
         </p>
       </div>
     );
@@ -118,17 +122,12 @@ export function BookACall({ lead, formName, tone = "light" }: { lead: Lead; form
 
   return (
     <div className="w-full text-left" data-track-section="book_a_call">
-      <p className={`flex items-start gap-2 text-sm ${t.muted}`}>
-        <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
-        <span>Your rental report is on its way to {lead.email}.</span>
-      </p>
-
-      <div className={`mt-5 border-t pt-5 ${t.rule}`}>
+      <div>
         <p className={`font-serif text-2xl font-bold leading-snug ${t.text}`}>
-          Talk through your number with Stephanie
+          Pick a time for your call
         </p>
         <p className={`mt-2 text-sm leading-relaxed ${t.muted}`}>
-          Pick a time and she will call you for 30 minutes to go over what your property can rent for and how she would manage it.
+          30 minutes by phone with Stephanie. She calls you.
         </p>
       </div>
 

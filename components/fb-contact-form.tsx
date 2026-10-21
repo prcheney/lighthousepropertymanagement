@@ -7,7 +7,8 @@ import { images } from "@/lib/image-urls";
 import { AddressAutocomplete } from "./address-autocomplete";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
 import { trackEvent } from "@/lib/track";
-import { BookACall } from "./book-a-call";
+import { useRouter } from "next/navigation";
+import { saveBookingLead } from "@/lib/booking-lead";
 
 const WEBHOOK_URL = "/api/fb-submit-form";
 
@@ -33,9 +34,8 @@ export function FBContactForm() {
     rentalTimeline: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  // Set only for qualified leads inside the service area; they get the booking step.
-  const [bookingLead, setBookingLead] = useState<{ contactId: string; name: string; email: string; phone: string } | null>(null);
   const tracking = useTrackingParams();
+  const router = useRouter();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -97,8 +97,13 @@ export function FBContactForm() {
             });
           }
         }
+        // Qualified leads inside the service area go on to book a call with
+        // Stephanie. The events above have already fired; a client-side
+        // navigation keeps them in flight.
         if (qualified && inServiceArea && typeof result?.contactId === "string") {
-          setBookingLead({ contactId: result.contactId, name: form.name, email: form.email, phone: form.phone });
+          saveBookingLead({ contactId: result.contactId, name: form.name, email: form.email, phone: form.phone, formName: "fb_contact_form" });
+          router.push("/fb/thank-you");
+          return;
         }
         setStatus("success");
         setForm({
@@ -142,11 +147,7 @@ export function FBContactForm() {
               property -- delivered in seconds.
             </p>
 
-            {status === "success" && bookingLead ? (
-              <div className="mt-8">
-                <BookACall lead={bookingLead} formName="fb_contact_form" tone="dark" />
-              </div>
-            ) : status === "success" ? (
+            {status === "success" ? (
               <div className="mt-8 flex flex-col items-center text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <CheckCircle className="h-8 w-8 text-green-600" />

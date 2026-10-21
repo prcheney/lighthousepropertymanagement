@@ -5,7 +5,8 @@ import { CheckCircle, Loader2 } from "lucide-react";
 import { AddressAutocomplete } from "./address-autocomplete";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
 import { trackEvent } from "@/lib/track";
-import { BookACall } from "./book-a-call";
+import { useRouter } from "next/navigation";
+import { saveBookingLead } from "@/lib/booking-lead";
 
 const WEBHOOK_URL = "/api/fb-submit-form";
 
@@ -28,9 +29,8 @@ export function FBHeroForm() {
     rentalTimeline: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  // Set only for qualified leads inside the service area; they get the booking step.
-  const [bookingLead, setBookingLead] = useState<{ contactId: string; name: string; email: string; phone: string } | null>(null);
   const tracking = useTrackingParams();
+  const router = useRouter();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -92,8 +92,13 @@ export function FBHeroForm() {
             });
           }
         }
+        // Qualified leads inside the service area go on to book a call with
+        // Stephanie. The events above have already fired; a client-side
+        // navigation keeps them in flight.
         if (qualified && inServiceArea && typeof result?.contactId === "string") {
-          setBookingLead({ contactId: result.contactId, name: form.name, email: form.email, phone: form.phone });
+          saveBookingLead({ contactId: result.contactId, name: form.name, email: form.email, phone: form.phone, formName: "fb_hero_form" });
+          router.push("/fb/thank-you");
+          return;
         }
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "", rentalTimeline: "" });
@@ -109,21 +114,17 @@ export function FBHeroForm() {
     return (
       <div className="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
         <div className="rounded-2xl bg-offwhite px-6 py-8 shadow-2xl sm:px-8 sm:py-10">
-          {bookingLead ? (
-            <BookACall lead={bookingLead} formName="fb_hero_form" tone="light" />
-          ) : (
-            <div className="flex flex-col items-center text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <CheckCircle className="h-8 w-8 text-green-600" />
-              </div>
-              <p className="mt-4 font-serif text-xl font-bold text-navy">
-                Your report is on the way!
-              </p>
-              <p className="mt-2 text-sm text-navy/60">
-                Check your email for your free rental analysis PDF. We will be in touch soon.
-              </p>
+          <div className="flex flex-col items-center text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+              <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-          )}
+            <p className="mt-4 font-serif text-xl font-bold text-navy">
+              Your report is on the way!
+            </p>
+            <p className="mt-2 text-sm text-navy/60">
+              Check your email for your free rental analysis PDF. We will be in touch soon.
+            </p>
+          </div>
         </div>
       </div>
     );
