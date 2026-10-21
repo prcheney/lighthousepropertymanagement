@@ -19,6 +19,19 @@ const fmtWhen = (slot: string) =>
     weekday: "long", month: "long", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: BOOKING_TZ,
   });
 
+// Five upcoming weekdays, 1:00 to 3:00 PM Eastern, for `?preview=1`.
+function sampleDays(): SlotDay[] {
+  const days: SlotDay[] = [];
+  const d = new Date();
+  while (days.length < 5) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() === 0 || d.getDay() === 6) continue;
+    const date = d.toLocaleDateString("en-CA", { timeZone: BOOKING_TZ });
+    days.push({ date, slots: ["13:00", "13:30", "14:00", "14:30", "15:00"].map((t) => `${date}T${t}:00-04:00`) });
+  }
+  return days;
+}
+
 const TONES = {
   light: {
     text: "text-navy",
@@ -53,6 +66,11 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
   const [notice, setNotice] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    // Review preview: the branch deploy has no GHL key, so show sample times.
+    if (preview) {
+      setDays(sampleDays());
+      return;
+    }
     try {
       const res = await fetch("/api/booking/slots", { cache: "no-store" });
       const data = await res.json();
@@ -62,7 +80,7 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
       setDays([]);
       setLoadFailed(true);
     }
-  }, []);
+  }, [preview]);
 
   useEffect(() => {
     load();
