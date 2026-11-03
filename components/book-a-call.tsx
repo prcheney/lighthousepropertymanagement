@@ -142,10 +142,10 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
     <div className="w-full text-left" data-track-section="book_a_call">
       <div>
         <p className={`font-serif text-2xl font-bold leading-snug ${t.text}`}>
-          Pick a time for your visit
+          Pick a day for Stephanie to come out
         </p>
         <p className={`mt-2 text-sm leading-relaxed ${t.muted}`}>
-          About an hour at your property with Stephanie.
+          Stephanie spends about an hour at your property working out a more accurate rent price.
         </p>
       </div>
 
