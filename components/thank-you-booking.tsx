@@ -66,10 +66,10 @@ export function ThankYouBooking() {
 
             <div className="mt-6 space-y-4 text-lg leading-relaxed text-white/75">
               <p>
-                The report in your inbox comes from market data, and market data cannot see a heated pool, a remodeled kitchen, or how well a home has been kept. That is why some estimates come in low.
+                Your rental report is built from market data on similar homes nearby. When I see your property in person, I can account for what that data misses, like a heated pool, a remodeled kitchen, or how well the home has been kept, and give you a more accurate rent price.
               </p>
               <p>
-                Pick a time on my calendar and I will come out to your property for about an hour. I will see what it can really rent for, walk you through how we manage it, and go over what it costs.
+                Pick a time on my calendar and I will come out to your property for about an hour. I will see what it can rent for, walk you through how we manage it, and go over what it costs.
               </p>
               <p>I look forward to meeting you.</p>
             </div>
