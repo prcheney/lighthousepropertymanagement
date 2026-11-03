@@ -64,7 +64,7 @@ export function ThankYouBooking() {
               Hi, I&apos;m Stephanie. Let&apos;s pin down your rent price in person.
             </h1>
 
-            <div className="mt-6 space-y-4 text-lg leading-relaxed text-white/75">
+            <div className="mt-6 space-y-4 text-lg leading-relaxed text-white/75 text-pretty">
               <p>
                 Your rental report is built from market data on similar homes nearby. When I see your property in person, I can account for what that data misses, like a heated pool, a remodeled kitchen, or how well the home has been kept, and give you a more accurate rent price.
               </p>
