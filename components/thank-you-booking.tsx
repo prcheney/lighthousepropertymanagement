@@ -69,7 +69,7 @@ export function ThankYouBooking() {
                 The report in your inbox comes from market data, and market data cannot see a heated pool, a remodeled kitchen, or how well a home has been kept. That is why some estimates come in low.
               </p>
               <p>
-                Pick a time on my calendar and I will call you for 30 minutes. We will go over what your property can really rent for, and I will walk you through how we manage it and what it costs. If it helps, I can come out and see the property in person.
+                Pick a time on my calendar and I will come out to your property for about an hour. I will see what it can really rent for, walk you through how we manage it, and go over what it costs.
               </p>
               <p>I look forward to meeting you.</p>
             </div>
@@ -85,7 +85,7 @@ export function ThankYouBooking() {
                 <BookACall lead={lead} formName={lead.formName} tone="light" preview={preview} />
               ) : lead === null ? (
                 <div className="text-left">
-                  <p className="font-serif text-2xl font-bold leading-snug text-navy">Set up your call with Stephanie</p>
+                  <p className="font-serif text-2xl font-bold leading-snug text-navy">Set up your visit with Stephanie</p>
                   <p className="mt-3 text-sm leading-relaxed text-navy/65">
                     Call{" "}
                     <a href={OFFICE_TEL} data-track="book_call_phone" className="text-navy underline decoration-gold decoration-2 underline-offset-4">

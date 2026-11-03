@@ -1,8 +1,8 @@
-// Stephanie's 30-minute call calendar in GHL ("30-Minute Call with Stephanie",
-// created 2026-10-18). It shares her user and hours with her onsite-visit
-// calendar, so GHL will not double-book her across the two.
-export const CALL_CALENDAR_ID = "rzgDEkPtqC48h6umcVXm";
-export const CALL_MINUTES = 30;
+// Stephanie's onsite-visit calendar in GHL ("Stephanie Onsite Visits"): 60-minute
+// visits with a 30-minute buffer set on the calendar itself. The Facebook thank-you
+// page and the AI booking bot both book here, so GHL never double-books her.
+export const VISIT_CALENDAR_ID = "X2mCpkLtcsc8DtD1hs8O";
+export const VISIT_MINUTES = 60;
 export const BOOKING_TZ = "America/New_York";
 
 export const GHL_API = "https://services.leadconnectorhq.com";

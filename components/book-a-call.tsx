@@ -53,8 +53,8 @@ const TONES = {
   },
 };
 
-// The calendar card on /fb/thank-you: a qualified, in-area lead puts a 30-minute
-// call with Stephanie on her GHL calendar. `preview` (review screenshots) books
+// The calendar card on /fb/thank-you: a qualified, in-area lead puts a site visit
+// with Stephanie on her GHL calendar. `preview` (review screenshots) books
 // nothing and just shows the booked state.
 export function BookACall({ lead, formName, tone = "light", preview = false }: { lead: Lead; formName: string; tone?: "light" | "dark"; preview?: boolean }) {
   const t = TONES[tone];
@@ -130,7 +130,7 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
           You are booked for {fmtWhen(slot)} Eastern.
         </p>
         <p className={`mt-3 text-sm leading-relaxed ${t.muted}`}>
-          Stephanie will call you at {lead.phone}. Have your rental report open when she calls.
+          Stephanie will meet you at your property. Have your rental report handy.
         </p>
       </div>
     );
@@ -142,10 +142,10 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
     <div className="w-full text-left" data-track-section="book_a_call">
       <div>
         <p className={`font-serif text-2xl font-bold leading-snug ${t.text}`}>
-          Pick a time for your call
+          Pick a time for your visit
         </p>
         <p className={`mt-2 text-sm leading-relaxed ${t.muted}`}>
-          30 minutes by phone with Stephanie. She calls you.
+          About an hour at your property with Stephanie.
         </p>
       </div>
 
@@ -218,7 +218,7 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
             {state === "booking" ? (
               <span className="flex items-center justify-center gap-2">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Booking your call...
+                Booking your visit...
               </span>
             ) : slot ? (
               `Book ${fmtDay(current!.date, { weekday: "short" })} at ${fmtTime(slot)}`

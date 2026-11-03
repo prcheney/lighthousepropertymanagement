@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { BOOKING_TZ, CALL_CALENDAR_ID, GHL_API, ghlHeaders, type SlotDay } from "@/lib/booking";
+import { BOOKING_TZ, VISIT_CALENDAR_ID, GHL_API, ghlHeaders, type SlotDay } from "@/lib/booking";
 
-// Open times on Stephanie's call calendar for the next week, at least two hours out.
+// Open times on Stephanie's onsite-visit calendar for the next week, at least two hours out.
 export async function GET() {
   const now = Date.now();
   const start = now + 2 * 60 * 60 * 1000;
   const end = now + 8 * 24 * 60 * 60 * 1000;
-  const url = `${GHL_API}/calendars/${CALL_CALENDAR_ID}/free-slots?startDate=${start}&endDate=${end}&timezone=${encodeURIComponent(BOOKING_TZ)}`;
+  const url = `${GHL_API}/calendars/${VISIT_CALENDAR_ID}/free-slots?startDate=${start}&endDate=${end}&timezone=${encodeURIComponent(BOOKING_TZ)}`;
 
   try {
     const res = await fetch(url, { headers: ghlHeaders(), cache: "no-store" });

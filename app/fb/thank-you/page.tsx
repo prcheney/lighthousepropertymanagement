@@ -2,7 +2,7 @@ import { ThankYouBooking } from "@/components/thank-you-booking";
 import { Footer } from "@/components/footer";
 
 export const metadata = {
-  title: "Book a call with Stephanie | Lighthouse Property Management & Realty",
+  title: "Book a visit with Stephanie | Lighthouse Property Management & Realty",
   robots: { index: false, follow: false },
 };
 

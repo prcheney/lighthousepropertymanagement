@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { CALL_CALENDAR_ID, CALL_MINUTES, GHL_API, ghlHeaders } from "@/lib/booking";
+import { VISIT_CALENDAR_ID, VISIT_MINUTES, GHL_API, ghlHeaders } from "@/lib/booking";
 
 // Only a contact the report form created in the last two hours can be booked,
-// so this endpoint cannot be used to put calls on Stephanie's calendar for
+// so this endpoint cannot be used to put visits on Stephanie's calendar for
 // arbitrary contacts.
 const MAX_CONTACT_AGE_MS = 2 * 60 * 60 * 1000;
 
@@ -35,12 +35,12 @@ export async function POST(req: NextRequest) {
     method: "POST",
     headers: ghlHeaders(),
     body: JSON.stringify({
-      calendarId: CALL_CALENDAR_ID,
+      calendarId: VISIT_CALENDAR_ID,
       locationId: process.env.GHL_LOCATION_ID,
       contactId,
       startTime: new Date(start).toISOString(),
-      endTime: new Date(start + CALL_MINUTES * 60 * 1000).toISOString(),
-      title: `Call: ${contact?.firstName ?? ""} ${contact?.lastName ?? ""}`.trim(),
+      endTime: new Date(start + VISIT_MINUTES * 60 * 1000).toISOString(),
+      title: `Site visit: ${contact?.firstName ?? ""} ${contact?.lastName ?? ""}`.trim(),
       appointmentStatus: "confirmed",
       toNotify: true,
     }),

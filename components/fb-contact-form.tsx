@@ -15,8 +15,8 @@ const WEBHOOK_URL = "/api/fb-submit-form";
 const TIMELINE_OPTIONS = [
   { value: "now", label: "Now (within 30 days)" },
   { value: "3-months", label: "Within 3 months" },
-  { value: "3-6-months", label: "3 to 6 months" },
-  { value: "6-plus-months", label: "6+ months" },
+  { value: "3-12-months", label: "3 to 12 months" },
+  { value: "12-plus-months", label: "Over 12 months" },
   { value: "exploring", label: "Just exploring" },
 ];
 
@@ -97,7 +97,7 @@ export function FBContactForm() {
             });
           }
         }
-        // Qualified leads inside the service area go on to book a call with
+        // Qualified leads inside the service area go on to book a site visit with
         // Stephanie. The events above have already fired; a client-side
         // navigation keeps them in flight.
         if (qualified && inServiceArea && typeof result?.contactId === "string") {
