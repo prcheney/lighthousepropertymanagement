@@ -61,7 +61,7 @@ export function ThankYouBooking() {
             ) : null}
 
             <h1 className="mt-6 font-serif text-4xl font-bold leading-tight text-white md:text-5xl text-balance">
-              Hi, I&apos;m Stephanie. Let&apos;s make that estimate accurate.
+              Hi, I&apos;m Stephanie. Let&apos;s pin down your rent price in person.
             </h1>
 
             <div className="mt-6 space-y-4 text-lg leading-relaxed text-white/75">
