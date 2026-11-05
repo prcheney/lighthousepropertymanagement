@@ -33,7 +33,7 @@ export function FBContactForm() {
     address: "",
     rentalTimeline: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "address">("idle");
   const tracking = useTrackingParams();
   const router = useRouter();
 
@@ -45,6 +45,11 @@ export function FBContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Stephanie drives to this address, so it has to start with a house number.
+    if (!/^\s*\d+[A-Za-z]?\s+\S/.test(form.address)) {
+      setStatus("address");
+      return;
+    }
     setStatus("loading");
 
     const qualified = QUALIFIED_TIMELINES.includes(form.rentalTimeline);
@@ -236,6 +241,11 @@ export function FBContactForm() {
                     "Send My Free Rental Report"
                   )}
                 </button>
+                {status === "address" && (
+                  <p className="text-center text-xs text-red-400">
+                    Please enter the full street address, including the house number.
+                  </p>
+                )}
                 {status === "error" && (
                   <p className="text-center text-xs text-red-400">
                     Something went wrong. Please try again.
