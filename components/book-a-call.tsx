@@ -130,7 +130,7 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
           You are booked for {fmtWhen(slot)} Eastern.
         </p>
         <p className={`mt-3 text-sm leading-relaxed ${t.muted}`}>
-          Stephanie will meet you at your property. Have your rental report handy.
+          Stephanie will meet you at the property for your walkthrough. Have your rental report handy.
         </p>
       </div>
     );
@@ -145,7 +145,7 @@ export function BookACall({ lead, formName, tone = "light", preview = false }: {
           Pick a day for your property walkthrough
         </p>
         <p className={`mt-2 text-sm leading-relaxed text-pretty ${t.muted}`}>
-          Stephanie spends about an hour at your property working out a more accurate rent price.
+          Stephanie walks through the property with you for about an hour, then puts together the plan.
         </p>
       </div>
 
