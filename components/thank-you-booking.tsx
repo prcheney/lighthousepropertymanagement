@@ -61,15 +61,15 @@ export function ThankYouBooking() {
             ) : null}
 
             <h1 className="mt-6 font-serif text-4xl font-bold leading-tight text-white md:text-5xl text-balance">
-              Hi, I&apos;m Stephanie. Let&apos;s pin down your rent price in person.
+              Hi, I&apos;m Stephanie. Book a property walkthrough, and I&apos;ll put together a plan showing your costs and your profit for the year.
             </h1>
 
             <div className="mt-6 space-y-4 text-lg leading-relaxed text-white/75 text-pretty">
               <p>
-                Your rental report is built from market data on similar homes nearby. When I see your property in person, I can account for what that data misses, like a heated pool, a remodeled kitchen, or how well the home has been kept, and give you a more accurate rent price.
+                Your rental report shows what similar properties nearby rent for, and that rent is where the plan starts. The plan adds the costs, like management fees, repairs, and the months between tenants, and shows what you&apos;d keep at the end of the year.
               </p>
               <p>
-                Pick a time on my calendar and I will come out to your property for about an hour. I will see what it can rent for, walk you through how we manage it, and go over what it costs.
+                Repair and upkeep costs depend on your property&apos;s condition, so I&apos;ll walk through the property with you for about an hour before I write the plan. During the walkthrough, I&apos;ll also show you how Lighthouse would manage your property, from finding a tenant to handling repairs. Pick a time on the calendar, and I&apos;ll meet you at the property.
               </p>
               <p>I look forward to meeting you.</p>
             </div>
