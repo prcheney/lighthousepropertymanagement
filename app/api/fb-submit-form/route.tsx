@@ -16,12 +16,11 @@ const USE_MOCK = process.env.MOCK_RENTCAST === "true";
 const TIMELINE_LABELS: Record<string, string> = {
   "now": "Now (within 30 days)",
   "3-months": "Within 3 months",
-  // These four labels must match the "FB Rental Timeline" options in GHL exactly.
+  "3-12-months": "3 to 12 months",
+  "12-plus-months": "Over 12 months",
+  // Retired options, kept so a cached page still posts a valid label.
   "3-6-months": "3 to 6 months",
   "6-plus-months": "6+ months",
-  // Short-lived options (never live), kept so a cached branch page still posts.
-  "3-12-months": "3 to 6 months",
-  "12-plus-months": "6+ months",
   "exploring": "Just exploring",
 };
 
@@ -311,10 +310,9 @@ export async function POST(req: NextRequest) {
   const timelineLabel = TIMELINE_LABELS[rentalTimeline] ?? "";
 
   const formTag = source === "fb_hero_form" ? "fb-hero-form" : "fb-bottom-form";
-  // Hot (3 months or less) = fb-qualified. 3 to 6 months and 6+ months = fb-warm
-  // (plain New Lead, friendly check-in text; Austin's 10-26 ask from Stephanie).
-  // Just exploring = fb-unqualified.
-  const WARM_TIMELINES = ["3-6-months", "6-plus-months", "3-12-months", "12-plus-months"];
+  // Hot (3 months or less) = fb-qualified, 3 to 12 months = fb-warm (plain New
+  // Lead, friendly check-in text), everything else = fb-unqualified.
+  const WARM_TIMELINES = ["3-12-months", "3-6-months"];
   const qualificationTag = qualified
     ? "fb-qualified"
     : WARM_TIMELINES.includes(rentalTimeline)
