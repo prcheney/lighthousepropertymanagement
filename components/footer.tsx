@@ -47,7 +47,7 @@ export function Footer() {
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                 <span>3018 Alvarado Ave.<br />Jacksonville, FL 32217</span>
               </div>
-              <p className="mt-1 text-xs text-white/40">
+              <p className="mt-1 text-xs text-white/55">
                 Mon - Fri: 9:00am - 5:00pm
               </p>
             </div>
@@ -57,7 +57,7 @@ export function Footer() {
 
       {/* Bottom Strip */}
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-white/40 sm:flex-row lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-white/55 sm:flex-row lg:px-8">
           <span>
 {"© 2026 Lighthouse Property Management & Realty, LLC"}
           </span>

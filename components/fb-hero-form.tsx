@@ -5,14 +5,16 @@ import { CheckCircle, Loader2 } from "lucide-react";
 import { AddressAutocomplete } from "./address-autocomplete";
 import { useTrackingParams } from "@/hooks/use-tracking-params";
 import { trackEvent } from "@/lib/track";
+import { useRouter } from "next/navigation";
+import { saveBookingLead } from "@/lib/booking-lead";
 
 const WEBHOOK_URL = "/api/fb-submit-form";
 
 const TIMELINE_OPTIONS = [
   { value: "now", label: "Now (within 30 days)" },
   { value: "3-months", label: "Within 3 months" },
-  { value: "3-6-months", label: "3 to 6 months" },
-  { value: "6-plus-months", label: "6+ months" },
+  { value: "3-12-months", label: "3 to 12 months" },
+  { value: "12-plus-months", label: "Over 12 months" },
   { value: "exploring", label: "Just exploring" },
 ];
 
@@ -26,8 +28,9 @@ export function FBHeroForm() {
     address: "",
     rentalTimeline: "",
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "address">("idle");
   const tracking = useTrackingParams();
+  const router = useRouter();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -37,6 +40,11 @@ export function FBHeroForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Stephanie drives to this address, so it has to start with a house number.
+    if (!/^\s*\d+[A-Za-z]?\s+\S/.test(form.address)) {
+      setStatus("address");
+      return;
+    }
     setStatus("loading");
 
     const qualified = QUALIFIED_TIMELINES.includes(form.rentalTimeline);
@@ -88,6 +96,14 @@ export function FBHeroForm() {
               content_name: "fb_hero_form",
             });
           }
+        }
+        // Qualified leads inside the service area go on to book a site visit with
+        // Stephanie. The events above have already fired; a client-side
+        // navigation keeps them in flight.
+        if (qualified && inServiceArea && typeof result?.contactId === "string") {
+          saveBookingLead({ contactId: result.contactId, name: form.name, email: form.email, phone: form.phone, formName: "fb_hero_form" });
+          router.push("/fb/thank-you");
+          return;
         }
         setStatus("success");
         setForm({ name: "", email: "", phone: "", address: "", rentalTimeline: "" });
@@ -202,6 +218,11 @@ export function FBHeroForm() {
               "Send My Free Rental Report"
             )}
           </button>
+          {status === "address" && (
+            <p className="text-center text-xs text-red-600">
+              Please enter the full street address, including the house number.
+            </p>
+          )}
           {status === "error" && (
             <p className="text-center text-xs text-red-600">
               Something went wrong. Please try again.

@@ -16,6 +16,9 @@ const USE_MOCK = process.env.MOCK_RENTCAST === "true";
 const TIMELINE_LABELS: Record<string, string> = {
   "now": "Now (within 30 days)",
   "3-months": "Within 3 months",
+  "3-12-months": "3 to 12 months",
+  "12-plus-months": "Over 12 months",
+  // Retired options, kept so a cached page still posts a valid label.
   "3-6-months": "3 to 6 months",
   "6-plus-months": "6+ months",
   "exploring": "Just exploring",
@@ -307,7 +310,14 @@ export async function POST(req: NextRequest) {
   const timelineLabel = TIMELINE_LABELS[rentalTimeline] ?? "";
 
   const formTag = source === "fb_hero_form" ? "fb-hero-form" : "fb-bottom-form";
-  const qualificationTag = qualified ? "fb-qualified" : "fb-unqualified";
+  // Hot (3 months or less) = fb-qualified, 3 to 12 months = fb-warm (plain New
+  // Lead, friendly check-in text), everything else = fb-unqualified.
+  const WARM_TIMELINES = ["3-12-months", "3-6-months"];
+  const qualificationTag = qualified
+    ? "fb-qualified"
+    : WARM_TIMELINES.includes(rentalTimeline)
+      ? "fb-warm"
+      : "fb-unqualified";
   const contextTags: string[] = [formTag, "sms-consent-by-submission-v1"];
   // Drives the Facebook Campaign Qualification workflow straight to
   // "Disqualified - Out of Area". Same determination that gates the pixel, so
@@ -430,6 +440,8 @@ export async function POST(req: NextRequest) {
     pdf_url: pdfUrl,
     qualified,
     inServiceArea,
+    // The thank-you screen books Stephanie's call against this contact.
+    contactId: qualified && inServiceArea ? contactId : null,
     serviceAreaZip: serviceArea.zip,
     serviceAreaBasis: serviceArea.basis,
   });
